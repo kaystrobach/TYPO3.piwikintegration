@@ -1,0 +1,10 @@
+# cat=basic/settings; type=user[EXT:piwikintegration/Classes/Lib/Extmgm.php:tx_piwikintegration_extmgm->emMakeHeader]; label = LLL:EXT:piwikintegration/locallang.xml:extmgm.assistent
+emMakeHeader = 
+# cat=basic/settings; type=user[EXT:piwikintegration/Classes/Lib/Extmgm.php:tx_piwikintegration_extmgm->emMakeDBList]; label=  LLL:EXT:piwikintegration/locallang.xml:extmgm.databaseTablePrefix
+databaseTablePrefix = 
+# cat=basic/enable; type=boolean; label= LLL:EXT:piwikintegration/locallang.xml:extmgm.enableIndependentMode 
+enableIndependentMode = 0
+# cat=basic/enable; type=boolean; label= LLL:EXT:piwikintegration/locallang.xml:extmgm.enableSchedulerTask
+enableSchedulerTask = 0
+# cat=basic/enable; type=boolean; label= LLL:EXT:piwikintegration/locallang.xml:extmgm.enableSchedulerLoging
+enableSchedulerLoging = 0

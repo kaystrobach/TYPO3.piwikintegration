@@ -1,0 +1,20 @@
+config.tx_piwik {
+  	############################################################################
+	# location of piwik
+	  	piwik_host       = {$config.tx_piwik.piwik_host}
+  	############################################################################
+	# idsite inside piwik
+		piwik_idsite     = {$config.tx_piwik.piwik_idsite}
+	############################################################################
+  	# automatic customer name handling
+	# - use any %fieldname% of pages in customername to make your own nametype  	
+	# - if customerRootPid is empty and customerPidLevel is set, the root pid is
+	#   determined based on the rootline level.
+	# - if customerRootPid is set, it's seen as static value  
+		customerName     = {$config.tx_piwik.customerName}
+ 	  	customerRefresh  = {$config.tx_piwik.customerRefresh}
+		customerPidLevel = {$config.tx_piwik.customerPidLevel}
+  		customerRootPid  = {$config.tx_piwik.customerRootPid}
+
+  
+}

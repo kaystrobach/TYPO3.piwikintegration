@@ -1,0 +1,21 @@
+############################################################################
+# automatic customer name handling
+# - use any %fieldname% of pages in customername to make your own nametype  	
+# - if customerRootPid is empty and customerPidLevel is set, the root pid is
+#   determined based on the rootline level.
+# - if customerRootPid is set, it's seen as static value  
+
+config.tx_piwik {
+	# cat=plugin.tx_piwik; type=input; label= path to piwik
+		piwik_host      = typo3conf/piwik/piwik/
+	# cat=plugin.tx_piwik; type=input; label= idsite inside piwik
+		piwik_idsite    = 1	
+	# cat=plugin.tx_piwik; type=input; label= customername regex
+		customerName    = customer %pid% %uid% %siteid% %title%
+ 	# cat=plugin.tx_piwik; type=boolean; label= make automatic customerrenaming possible
+	   	customerRefresh = 0
+	# cat=plugin.tx_piwik; type=input; label= fixed pid level, to make customerRootPid more flexible
+		customerPidLevel = 2
+	# cat=plugin.tx_piwik/; type=input; label= fixed root pid for renaming (pid will be used to replace params)
+  		customerRootPid = 0 
+}
