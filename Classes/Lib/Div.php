@@ -66,7 +66,7 @@ class tx_piwikintegration_div {
         return $database.'`'.$tablePrefix.$table.'`';
     }
     /**
-     * @param  $table piwik tablename without prefix
+     * @param  $table string piwik tablename without prefix
      * @return string name of the table prefixed with database
      *
      */
@@ -215,7 +215,7 @@ class tx_piwikintegration_div {
 		} else {
 			$GLOBALS['TYPO3_DB']->exec_Updatequery(
 					$this->tblNm('user'),
-					'login = "'.mysql_escape_string($beUserName).'"',
+					'login = '.$GLOBALS['TYPO3_DB']->fullQuoteStr($beUserName, $this->tblNm('user')).'',
 					array(
 						'alias'           => $GLOBALS['BE_USER']->user['realName'] ? $GLOBALS['BE_USER']->user['realName'] : $beUserName,
 						'email'           => $GLOBALS['BE_USER']->user['email'],
