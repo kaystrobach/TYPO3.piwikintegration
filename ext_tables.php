@@ -64,7 +64,10 @@ $tempColumns = array (
 );
 
 
-t3lib_div::loadTCA('be_users');
+if (version_compare(TYPO3_branch, '6.1', '<')) {
+	t3lib_div::loadTCA('be_users');
+}
+
 t3lib_extMgm::addTCAcolumns('be_users',$tempColumns,1);
 t3lib_extMgm::addToAllTCAtypes('be_users','tx_piwikintegration_api_code;;;;1-1-1');
 
