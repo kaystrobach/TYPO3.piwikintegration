@@ -1,25 +1,21 @@
-﻿
-
-.. ==================================================
+﻿.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. include:: ../../../Includes.txt
 
+
+
+.. _3-ways-to-add-the-trackingcode:
 
 3 ways to add the trackingcode
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Basically there 3 ways to install the trackingcode to your site
 
+
+.. _the-recommend-way-ext-piwik:
 
 The recommend way: EXT:piwik
 """"""""""""""""""""""""""""
@@ -55,6 +51,8 @@ which is still waiting to get published:
 http://forge.typo3.org/repositories/show/extension-piwik
 
 
+.. _the-manual-way:
+
 The manual way
 """"""""""""""
 
@@ -62,6 +60,8 @@ Use EXT:piwikintegration to obtain the JS Code. Add it to your TS
 pagetemplate. Configure config.tx\_piwik.piwik\_idsite, because
 Ext:piwikintegration needs that value for setting up the users.
 
+
+.. _the-debug-way:
 
 The debug way
 """""""""""""

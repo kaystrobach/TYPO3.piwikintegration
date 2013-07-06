@@ -1,7 +1,7 @@
 ﻿.. |img-7|      image:: ../../Images/manual_html_m28af73aa.png
-   :height: 254
-   :width: 400
 .. :align: bottom
 .. :border: 0
+.. :height: 254
 .. :name: Grafik5
+.. :width: 400
 

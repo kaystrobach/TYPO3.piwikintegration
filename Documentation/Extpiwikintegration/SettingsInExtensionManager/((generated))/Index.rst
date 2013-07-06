@@ -1,22 +1,18 @@
-﻿.. include:: Images.txt
-
-.. ==================================================
+﻿.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. include:: ../../../Includes.txt
+.. include:: Images.txt
 
+
+.. _generated:
 
 ((generated))
 ^^^^^^^^^^^^^
+
+.. _experimental-independent-mode-enableindependentmode:
 
 EXPERIMENTAL independent mode [enableIndependentMode]
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -26,6 +22,8 @@ this mode in EM if you have installed EXT:piwik, it will result in
 doubled Trackingcode in the Frontend.
 
 
+.. _experimental-scheduler-task-enableschedulertask:
+
 EXPERIMENTAL scheduler task [enableSchedulerTask]
 """""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -34,6 +32,8 @@ Piwik, as the statistics are build before viewing them in the browser.
 See related chapter of this document to get more information how to
 use this feature
 
+
+.. _debugging-of-scheduler-task-enableschedulerloging:
 
 Debugging of scheduler task [enableSchedulerLoging]
 """""""""""""""""""""""""""""""""""""""""""""""""""

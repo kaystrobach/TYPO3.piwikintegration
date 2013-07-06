@@ -1,0 +1,7 @@
+# this is file .gitignore
+
+# ignore everything in this directory
+_not_versioned/*
+
+# but do not ignore this file
+!_not_versioned/.gitignore

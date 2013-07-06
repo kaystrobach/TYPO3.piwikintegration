@@ -1,25 +1,23 @@
-﻿
-
-.. ==================================================
+﻿.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. include:: ../../../Includes.txt
 
+
+
+.. _generated:
 
 ((generated))
 ^^^^^^^^^^^^^
 
+.. _generated:
+
 ((generated))
 """""""""""""
+
+.. _what-do-i-have-to-do-if-the-installation-fails-with-there-is-no-valid-unzip-wrapper-i-need-either-the-class-ziparchiv-from-php-or-a-nix-system-with-unset-path-set:
 
 What do I have to do if the installation fails with:There is no valid unzip wrapper, i need either the class ZipArchiv from php or a \*nix system with unset path set.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,12 +33,16 @@ You have 3 opinions:
    TYPO3 Install tool.
 
 
+.. _use-with-ks-sitemgr-currently-not-published-in-ter:
+
 Use with ks\_sitemgr (currently not published in TER)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the customer id constant to setup the trackingcode – example will
 be provided later.
 
+
+.. _what-to-do-if-piwik-can-t-update:
 
 What to do if Piwik can't update?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,23 +1,19 @@
-﻿.. include:: Images.txt
-
-.. ==================================================
+﻿.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. include:: ../../../Includes.txt
+.. include:: Images.txt
 
+
+.. _add-content-element:
 
 Add Content Element
 ^^^^^^^^^^^^^^^^^^^
 
+
+.. _general:
 
 General
 """""""
@@ -25,6 +21,8 @@ General
 To add a Piwik widget simply add it like every content element in
 TYPO3.
 
+
+.. _options:
 
 Options
 """""""
@@ -48,6 +46,8 @@ You can obtain these settings from your Piwik dashboard. On the Piwik
 dashboard you also have the chance to generate the code to integration
 Piwik widgets into other websites.
 
+
+.. _templavoila:
 
 templavoila
 """""""""""
