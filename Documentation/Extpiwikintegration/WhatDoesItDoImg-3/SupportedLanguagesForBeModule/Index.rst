@@ -1,0 +1,33 @@
+﻿
+
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+.. ==================================================
+.. DEFINE SOME TEXTROLES
+.. --------------------------------------------------
+.. role::   underline
+.. role::   typoscript(code)
+.. role::   ts(typoscript)
+   :class:  typoscript
+.. role::   php(code)
+
+
+Supported languages for BE module
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Currently the Piwik integration BE module supports the following
+languages. You can translate this extension yourself via normal TYPO3
+translation system (II-XML translation). Please provide your
+translations to the EXT:piwikintegration developer team.
+
+- English as default
+
+- German
+
+To get the full list of available languages for the original Piwik
+application, please look into the official piwik blog at
+`http://piwik.org/translations/ <http://piwik.org/translations/>`_ .
+

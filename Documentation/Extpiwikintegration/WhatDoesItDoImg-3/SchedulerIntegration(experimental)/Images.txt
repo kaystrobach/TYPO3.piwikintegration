@@ -1,0 +1,7 @@
+﻿.. |img-8|      image:: ../../Images/manual_html_26a4fc49.png
+   :height: 128
+   :width: 452
+.. :align: bottom
+.. :border: 0
+.. :name: Grafik13
+

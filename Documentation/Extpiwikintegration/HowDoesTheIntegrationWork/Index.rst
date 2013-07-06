@@ -1,0 +1,32 @@
+﻿
+
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+.. ==================================================
+.. DEFINE SOME TEXTROLES
+.. --------------------------------------------------
+.. role::   underline
+.. role::   typoscript(code)
+.. role::   ts(typoscript)
+   :class:  typoscript
+.. role::   php(code)
+
+
+How does the integration work?
+------------------------------
+
+#. User opens statistik module for a specific page → TYPO3 checks access
+   → Module inserts access records to piwik tables automatically (admin
+   as superuser, normal user with view rights)
+
+#. load piwik in iframe / object tag
+
+#. Authenticate user against TYPO3 be\_users table with the user of the
+   be cookie. For that step the plugin TYPO3Login is needed in piwik.
+
+#. That's all.
+
+

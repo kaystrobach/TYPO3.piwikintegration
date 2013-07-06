@@ -1,0 +1,6 @@
+﻿.. |img-10|     image:: ../../Images/manual_html_1859b860.png
+   :height: 379
+   :width: 446
+.. :align: bottom
+.. :border: 0
+.. :name: Grafik12

@@ -1,0 +1,6 @@
+﻿.. |img-3|      image:: ../Images/manual_html_7a0770c3.jpg
+.. :align: left
+.. :border: 0
+.. :name: Grafik17
+.. :width: 20%
+
