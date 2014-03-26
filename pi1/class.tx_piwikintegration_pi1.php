@@ -35,7 +35,6 @@
  */
  
  
-require_once(PATH_tslib.'class.tslib_pibase.php');
 require_once(t3lib_extMgm::extPath('piwikintegration').'Classes/Lib/Install.php');
 
 /**
