@@ -69,12 +69,6 @@ $BE_USER->modAccess($MCONF,1);	// This checks permissions and exits if the users
 			global $BE_USER,$LANG,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
 			$this->piwikHelper = t3lib_div::makeInstance('tx_piwikintegration_div');
 			parent::init();
-
-			/*
-			if (t3lib_div::_GP('clear_all_cache'))	{
-				$this->include_once[] = PATH_t3lib.'class.t3lib_tcemain.php';
-			}
-			*/
 		}
 
 		/**
