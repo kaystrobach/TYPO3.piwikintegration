@@ -34,9 +34,6 @@
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
  
- 
-require_once(t3lib_extMgm::extPath('piwikintegration').'Classes/Lib/Install.php');
-
 /**
  * Frontend plugin for piwikintegration
  * 
