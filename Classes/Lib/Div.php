@@ -182,7 +182,6 @@ class tx_piwikintegration_div {
 	 * @return	void
 	 */
 	function correctUserRightsForSiteId($uid) {
-		//t3lib_div::debug('Add access grants for:'.$uid);
 		if($uid <= 0 || $uid!=intval($uid)) {
 			throw new Exception('Problem with uid in tx_piwikintegration_helper.php::correctUserRightsForPid');
 		}
