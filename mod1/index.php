@@ -111,18 +111,17 @@ $BE_USER->modAccess($MCONF,1);	// This checks permissions and exits if the users
 			$this->doc->getPageRenderer()->addCssFile(t3lib_extMgm::extRelPath('piwikintegration') . 'mod1/ext-icons.css');
 
 			if($this->content = $this->checkEnvironment()) {
-				die('check environment');
 				if(version_compare (TYPO3_version,'4.5.0','>=')) {
 					$this->content = '';
-
 					$piwikSiteId   = $this->piwikHelper->getPiwikSiteIdForPid($this->id);
-
 					$this->piwikHelper->correctUserRightsForSiteId($piwikSiteId);
 					$this->piwikHelper->correctTitle($this->id,$piwikSiteId,$this->piwikHelper->getPiwikConfigArray($this->id));
+
 					$this->doc->extJScode = file_get_contents(t3lib_extMgm::extPath('piwikintegration') . 'mod1/extjs.js');
 					$this->doc->extJScode = str_replace('###piwikTab###'       ,$LANG->getLL('piwikTab')    ,$this->doc->extJScode);
 					$this->doc->extJScode = str_replace('###piwikApiTab###'    ,$LANG->getLL('piwikApiTab') ,$this->doc->extJScode);
-					$this->doc->extJScode = str_replace('###piwikApiContent###',$this->getPiwikApi()        ,$this->doc->extJScode);
+					/** @todo */
+					#$this->doc->extJScode = str_replace('###piwikApiContent###',$this->getPiwikApi()        ,$this->doc->extJScode);
 					$this->doc->extJScode = str_replace('###siteId###'         ,$piwikSiteId                ,$this->doc->extJScode);
 				} else {
 					$this->content = '<h3>Fallback Mode for older TYPO3 versions, you need at least 4.3 to use all features</h3>';
@@ -210,7 +209,6 @@ $BE_USER->modAccess($MCONF,1);	// This checks permissions and exits if the users
 				t3lib_FlashMessageQueue::addMessage($flashMessage);
 				return false;
 			}
-			die('2');
 				// check wether piwik_host is correct
 			$t = $this->piwikHelper->getPiwikConfigArray($this->pageinfo['uid']);
 			if(($t['piwik_host'] !== 'typo3conf/piwik/piwik/') && ($t['piwik_host'] !== '/typo3conf/piwik/piwik/')) {
