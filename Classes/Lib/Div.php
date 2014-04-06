@@ -154,9 +154,9 @@ class tx_piwikintegration_div {
 		);
 		if(count($erg)==0) {
 			//FIX currency for current Piwik version, since 0.6.3
-			$currency = Piwik_Option::getInstance()->get('SitesManager_DefaultCurrency') ? Piwik_Option::getInstance()->get('SitesManager_DefaultCurrency') : 'USD';
+			$currency = \Piwik\Option::get('SitesManager_DefaultCurrency') ? \Piwik\Option::get('SitesManager_DefaultCurrency') : 'USD';
 			//FIX timezone for current Piwik version, since 0.6.3
-			$timezone = Piwik_Option::getInstance()->get('SitesManager_DefaultTimezone') ? Piwik_Option::getInstance()->get('SitesManager_DefaultTimezone') : 'UTC';
+			$timezone = \Piwik\Option::get('SitesManager_DefaultTimezone') ? \Piwik\Option::get('SitesManager_DefaultTimezone') : 'UTC';
 			
 			$GLOBALS['TYPO3_DB']->exec_INSERTquery(
 				tx_piwikintegration_div::getTblName('site'),
