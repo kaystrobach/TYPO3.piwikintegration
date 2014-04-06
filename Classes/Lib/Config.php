@@ -86,9 +86,6 @@ class tx_piwikintegration_config {
 
 		include_once PIWIK_INCLUDE_PATH . 'libs/upgradephp/upgrade.php';
 		include_once PIWIK_INCLUDE_PATH . 'core/Loader.php';
-		include_once(PIWIK_INCLUDE_PATH . 'core/Piwik.php');
-		include_once(PIWIK_INCLUDE_PATH . 'core/Config.php');
-		include_once(PIWIK_INCLUDE_PATH . 'core/PluginsManager.php');
 
 		//create config object
 		try {
@@ -108,7 +105,7 @@ class tx_piwikintegration_config {
 		#if($noLoadConfig===true) {
 		#	Piwik::createConfigObject(PIWIK_INCLUDE_PATH.'config/config.ini.php');
 		#}
-		Piwik::createDatabaseObject();
+		\Piwik\Db::createDatabaseObject();
 	}
 	function makePiwikConfigured() {
 		$this->initPiwikFrameWork();
