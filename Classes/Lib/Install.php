@@ -250,7 +250,6 @@ class tx_piwikintegration_install {
      */
 	public function getConfigObject() {
 		if($this->checkInstallation()) {
-			include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Config.php'));
 			return tx_piwikintegration_config::getConfigObject();
 		} else {
 			throw new Exception('Piwik is not installed!');

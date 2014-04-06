@@ -87,7 +87,6 @@ class ext_update {
 		return $buffer;
 	}
 	function installPiwik() {
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 		$installer =  tx_piwikintegration_install::getInstaller();
 		$installer->installPiwik();
 		return 'Piwik installed';
@@ -96,7 +95,6 @@ class ext_update {
 		return 'Please use the wizard in Piwik to update your installation';
 	}
 	function removePiwik() {
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 		$installer =  tx_piwikintegration_install::getInstaller();
 		if($installer->removePiwik()) {
 			return 'Piwik removed';
@@ -105,7 +103,6 @@ class ext_update {
 		}
 	}
 	function patchPiwik() {
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 		$installer =  tx_piwikintegration_install::getInstaller();
 		$exclude = array(
 			'config/config.ini.php',
@@ -114,13 +111,11 @@ class ext_update {
 		return 'Piwik patched - without modifying config/config.ini.php';
 	}
 	function configurePiwik() {
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 		$installer =  tx_piwikintegration_install::getInstaller();
 		$installer->getConfigObject()->makePiwikConfigured();
 		return 'Piwik is configured now';
 	}
 	function resetUserRights() {
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Div.php'));
 		$installer =  tx_piwikintegration_install::getInstaller();
 		$installer->getConfigObject();
 		$GLOBALS['TYPO3_DB']->admin_query('TRUNCATE TABLE '.tx_piwikintegration_div::getTblName('access'));
@@ -138,7 +133,6 @@ class ext_update {
 	}
 	function getButton($func,$piwikNeeded=true) {
 		global $LANG;
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 		$params = array('do_update' => 1, 'func' => $func);
 		$onClick = "document.location='" . t3lib_div::linkThisScript($params) . "'; return false;";
 		
@@ -167,7 +161,6 @@ class ext_update {
 		return $button;
 	}
 	function cleanupPiwikDB() {
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 		$path   = tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
 		$tablesInstalled = Piwik::getTablesInstalled();
 		$buffer = 'Dropped Tables:';
@@ -179,12 +172,10 @@ class ext_update {
 	}
 	function reInitPiwikDB() {
 		$this->truncatePiwikDB();
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 		$path   = tx_piwikintegration_install::getInstaller()->getConfigObject()->installDatabase();
 		return 'Tables dropped an recreated';
 	}//*/
 	function showPiwikConfig() {
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 		$path   = tx_piwikintegration_install::getInstaller()->getAbsInstallPath().'piwik/config/config.ini.php';
 		$button = $path;
 		$button.= '</b><pre style="width:80%;height:300px;overflow-y:scroll;border:1px solid silver;padding:10px;">';
@@ -193,16 +184,13 @@ class ext_update {
 		return $button;
 	}
 	function enableSuggestedPlugins() {
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 		$config =  tx_piwikintegration_install::getInstaller()->getConfigObject();
 		$config->enableSuggestedPlugins();
 		$config->disablePlugin('Login');
 		return 'installed: TYPO3Login, TYPO3Menu, SecurityInfo, DBStats, AnonymizeIP<br />removed: Login';
 	}
 	function respectGermanDataPrivacyAct() {
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 		$config =  tx_piwikintegration_install::getInstaller()->getConfigObject();
-
 		tx_piwikintegration_install::getInstaller()->getConfigObject()->enablePlugin('AnonymizeIP');
 		$config->setOption('Tracker','ip_address_mask_length',2);
 		$config->setOption('Tracker','cookie_expire',604800);
@@ -210,7 +198,6 @@ class ext_update {
 		return 'installed: AnonymizeIP<br />set: Tracker.ip_address_mask_length=2<br />set: Tracker.cookie_expire=604800';
 	}
 	function renameTables() {
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 		$buffer = 'Renamed all tables prepended with tx_piwikintegration to user_piwikintegration:';
 		$tablesInstalled = $GLOBALS['TYPO3_DB']->admin_get_tables();
 		foreach($tablesInstalled as $table) {

@@ -109,10 +109,14 @@ $BE_USER->modAccess($MCONF,1);	// This checks permissions and exits if the users
 			$this->doc->setModuleTemplate(t3lib_extMgm::extPath('piwikintegration') . 'mod1/mod_template.html');
 			$this->doc->getPageRenderer()->loadExtJS();
 			$this->doc->getPageRenderer()->addCssFile(t3lib_extMgm::extRelPath('piwikintegration') . 'mod1/ext-icons.css');
+
 			if($this->content = $this->checkEnvironment()) {
-				if(version_compare (TYPO3_version,'4.3.0','>=')) {
+				die('check environment');
+				if(version_compare (TYPO3_version,'4.5.0','>=')) {
 					$this->content = '';
+
 					$piwikSiteId   = $this->piwikHelper->getPiwikSiteIdForPid($this->id);
+
 					$this->piwikHelper->correctUserRightsForSiteId($piwikSiteId);
 					$this->piwikHelper->correctTitle($this->id,$piwikSiteId,$this->piwikHelper->getPiwikConfigArray($this->id));
 					$this->doc->extJScode = file_get_contents(t3lib_extMgm::extPath('piwikintegration') . 'mod1/extjs.js');
@@ -125,7 +129,7 @@ $BE_USER->modAccess($MCONF,1);	// This checks permissions and exits if the users
 					$this->content.= '<iframe width="100%" height="80%" src="../typo3conf/piwik/piwik"></iframe>';
 				}
 			}
-			
+
 			if (($this->id && $access) || ($BE_USER->user['admin'] && !$this->id))	{
 
 					// Draw the form
@@ -206,6 +210,7 @@ $BE_USER->modAccess($MCONF,1);	// This checks permissions and exits if the users
 				t3lib_FlashMessageQueue::addMessage($flashMessage);
 				return false;
 			}
+			die('2');
 				// check wether piwik_host is correct
 			$t = $this->piwikHelper->getPiwikConfigArray($this->pageinfo['uid']);
 			if(($t['piwik_host'] !== 'typo3conf/piwik/piwik/') && ($t['piwik_host'] !== '/typo3conf/piwik/piwik/')) {

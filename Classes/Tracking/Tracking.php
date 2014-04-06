@@ -31,8 +31,6 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
- 
-include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Div.php'));
 
 class tx_piwikintegration_tracking {
 	function init(&$params, &$reference) {
@@ -41,13 +39,15 @@ class tx_piwikintegration_tracking {
 		//read base url
 		$this->baseUrl = $params['pObj']->config['config']['baseURL'];
 	}
-    /**
+
+	/**
 	 * handler for non cached output processing to insert piwik tracking code
 	 * if in independent mode
 	 *
-	 * @param	pointer    $$params: passed params from the hook
-	 * @param	pointer    $reference: to the parent object
-	 * @return	void       void
+	 * @param $params
+	 * @param    pointer $reference : to the parent object
+	 * @internal param $pointer $$params: passed params from the hook
+	 * @return    void       void
 	 */
     function contentPostProc_output(&$params, &$reference){
         $this->init($params,$reference);
@@ -144,7 +144,6 @@ class tx_piwikintegration_tracking {
 	 */
 	function getPiwikBaseURL() {
 		if(TYPO3_MODE == 'BE') {
-			include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 			tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikFrameWork();
 			$path = Piwik_Url::getCurrentUrlWithoutFileName();
 			$path = dirname($path);

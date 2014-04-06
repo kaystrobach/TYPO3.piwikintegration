@@ -68,7 +68,6 @@ if (!defined ("TYPO3_MODE"))     die ("Access denied.");
  * load fe hooks
  */ 
 	if(TYPO3_MODE=='FE') {
-		include_once(t3lib_extMgm::extPath('piwikintegration').'Classes/Tracking/Tracking.php');
 		if($_EXTCONF['enableIndependentMode']) {
 			$TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-output'][] = 'tx_piwikintegration_tracking->contentPostProc_output'; 
 		}

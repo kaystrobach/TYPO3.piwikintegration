@@ -40,7 +40,7 @@ class tx_piwikintegration_config {
 	private        $initPiwikDB  = false;
 	/**
 	 *
-	 */	 	
+	 */
 	private function __construct() {
 		$this->installer = tx_piwikintegration_install::getInstaller();
 		$this->initPiwikFrameWork();
@@ -62,39 +62,41 @@ class tx_piwikintegration_config {
 			$this->initPiwikFW = true;
 			return;
 		}
+
 		//load files from piwik
-			if(!defined('PIWIK_INCLUDE_PATH'))
-			{
-				define('PIWIK_INCLUDE_PATH', PATH_site.'typo3conf/piwik/piwik/');
-				define('PIWIK_USER_PATH'   , PATH_site.'typo3conf/piwik/piwik/');
-			}
-			if(!defined('PIWIK_INCLUDE_SEARCH_PATH'))
-			{
-				define('PIWIK_INCLUDE_SEARCH_PATH',
-					  PIWIK_INCLUDE_PATH . '/core'
-					. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/libs'
-					. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/plugins'
+		if(!defined('PIWIK_INCLUDE_PATH')) {
+			define('PIWIK_INCLUDE_PATH', PATH_site.'typo3conf/piwik/piwik/');
+			define('PIWIK_USER_PATH'   , PATH_site.'typo3conf/piwik/piwik/');
+		}
+		if(!defined('PIWIK_INCLUDE_SEARCH_PATH')) {
+			define('PIWIK_INCLUDE_SEARCH_PATH',
+				  PIWIK_INCLUDE_PATH . '/core'
+				. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/libs'
+				. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/plugins'
+				. PATH_SEPARATOR . get_include_path());
+			@ini_set('include_path', PIWIK_INCLUDE_SEARCH_PATH);
+			@set_include_path(PIWIK_INCLUDE_SEARCH_PATH);
+		}
+
+		set_include_path(PIWIK_INCLUDE_PATH
+					. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/libs/'
+					. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/plugins/'
+					. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/core/'
 					. PATH_SEPARATOR . get_include_path());
-				@ini_set('include_path', PIWIK_INCLUDE_SEARCH_PATH);
-				@set_include_path(PIWIK_INCLUDE_SEARCH_PATH);
-			}
-			set_include_path(PIWIK_INCLUDE_PATH
-						. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/libs/'
-						. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/plugins/'
-						. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/core/'
-						. PATH_SEPARATOR . get_include_path());
-			include_once PIWIK_INCLUDE_PATH . 'libs/upgradephp/upgrade.php';
-			include_once PIWIK_INCLUDE_PATH . 'core/Loader.php';
-			include_once('core/Piwik.php');
-			include_once('core/Config.php');
-			include_once('core/PluginsManager.php');
+
+		include_once PIWIK_INCLUDE_PATH . 'libs/upgradephp/upgrade.php';
+		include_once PIWIK_INCLUDE_PATH . 'core/Loader.php';
+		include_once(PIWIK_INCLUDE_PATH . 'core/Piwik.php');
+		include_once(PIWIK_INCLUDE_PATH . 'core/Config.php');
+		include_once(PIWIK_INCLUDE_PATH . 'core/PluginsManager.php');
+
 		//create config object
-			try {
-				Piwik::createConfigObject();
-				$config = Piwik_Config::getInstance();
-				$config->init();
-			} catch(Exception $e) {
-			}
+		try {
+			$config = \Piwik\Config::getInstance();
+			$config->init();
+		} catch(\Exception $e) {
+
+		}
 	}
 	function initPiwikDatabase($noLoadConfig = false) {
 		$this->initPiwikFrameWork();
@@ -173,12 +175,14 @@ class tx_piwikintegration_config {
 			$updater->recordComponentSuccessfullyUpdated('core', Piwik_Version::VERSION);
 		}
 	}
+
 	/**
 	 * This function makes a page statistics accessable for a user
 	 * call it with $this->pageinfo['uid'] as param from a backend module
 	 *
-	 * @param	integer		$uid: pid for which the user will get access
-	 * @return	void
+	 * @param    integer $uid : pid for which the user will get access
+	 * @throws Exception
+	 * @return    void
 	 */
 	function correctUserRightsForPid($uid) {
 		$this->initPiwikFrameWork();
@@ -223,7 +227,7 @@ class tx_piwikintegration_config {
 	}
 	function setOption($sectionName,$option,$value) {
 		$this->initPiwikFrameWork();
-		$piwikConfig = Piwik_Config::getInstance();
+		$piwikConfig = \Piwik\Config::getInstance();
 		$section     = $piwikConfig->$sectionName;
 		$section[$option] = $value;
 		$piwikConfig->$sectionName = $section;
@@ -231,18 +235,18 @@ class tx_piwikintegration_config {
 	}
 	function getOption($sectionName,$option) {
 		$this->initPiwikFrameWork();
-		$piwikConfig = Piwik_Config::getInstance();
+		$piwikConfig = \Piwik\Config::getInstance();
 		$section     = $piwikConfig->$sectionName;
 		return $section[$option];
 	}
 	function enablePlugin($plugin) {
 		$this->initPiwikFrameWork();
-		if(!Piwik_PluginsManager::getInstance()->isPluginActivated($plugin)) {
+		if(!\Piwik\Plugin\Manager::getInstance()->isPluginActivated($plugin)) {
 			try {
-				Piwik_PluginsManager::getInstance()->activatePlugin($plugin);
-				Piwik_PluginsManager::getInstance()->loadPlugins( Piwik_Config::getInstance()->Plugins['Plugins'] );
-				#Piwik_PluginsManager::getInstance()->installLoadedPlugins();
-				Piwik::install();
+				#\Piwik\Plugin\Manager::getInstance()->activatePlugin($plugin);
+				#\Piwik\Plugin\Manager::getInstance()->loadPlugins( \Piwik\Config::getInstance()->Plugins['Plugins'] );
+				#\Piwik\Plugin\Manager::getInstance()->installLoadedPlugins();
+				\Piwik::install();
 			} catch(Exception $e) {
 
 			}
@@ -251,11 +255,11 @@ class tx_piwikintegration_config {
 	}
 	function disablePlugin($plugin) {
 		$this->initPiwikFrameWork();
-		if(Piwik_PluginsManager::getInstance()->isPluginActivated($plugin)) {
+		if(\Piwik\Plugin\Manager::getInstance()->isPluginActivated($plugin)) {
 			try {
-				Piwik_PluginsManager::getInstance()->deactivatePlugin($plugin);
-				#Piwik_PluginsManager::getInstance()->installLoadedPlugins();
-				Piwik::install();
+				\Piwik\Plugin\Manager::getInstance()->deactivatePlugin($plugin);
+				#\Piwik\Plugin\Manager::getInstance()->installLoadedPlugins();
+				\Piwik::install();
 			} catch(Exception $e) {
 
 			}

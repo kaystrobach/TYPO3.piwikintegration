@@ -32,7 +32,6 @@
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 
-include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
 class tx_piwikintegration_div {
     function correctTitle($uid,$siteid,$config) {
 		if($config['customerRefresh'] && $config['customerName'] && $config['customerRootPid']) {
@@ -73,15 +72,16 @@ class tx_piwikintegration_div {
     function tblNm($table) {
         return self::getTblName($table);
     }
+
 	/**
 	 * returns the piwik config for a given page
 	 * call it with $this->pageinfo['uid'] as param from a backend module
 	 *
-	 * @param	integer		$uid: Page ID
-	 * @return	array    	piwik config array
+	 * @param    integer $uid : Page ID
+	 * @throws Exception
+	 * @return    array        piwik config array
 	 */
 	function getPiwikConfigArray($uid) {
-		include_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/Lib/Install.php'));
         $path              = tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
 
 		if($uid <= 0 || $uid!=intval($uid)) {
@@ -135,11 +135,13 @@ class tx_piwikintegration_div {
 		//return
 			return $id;
 	}
+
 	/**
 	 * creates piwik site, if not existing
 	 *
-	 * @param	integer		$siteid: Piwik ID
-	 * @return	integer     piwik site id
+	 * @param $id
+	 * @internal param int $siteid : Piwik ID
+	 * @return    integer     piwik site id
 	 */
 	function makePiwikSiteExisting($id) {
 		$erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
@@ -151,7 +153,6 @@ class tx_piwikintegration_div {
 			'0,1'
 		);
 		if(count($erg)==0) {
-			#include_once(tx_piwikintegration_install::getInstaller()->getAbsInstallPath() . '/core/Option.php');
 			//FIX currency for current Piwik version, since 0.6.3
 			$currency = Piwik_Option::getInstance()->get('SitesManager_DefaultCurrency') ? Piwik_Option::getInstance()->get('SitesManager_DefaultCurrency') : 'USD';
 			//FIX timezone for current Piwik version, since 0.6.3
