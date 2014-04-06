@@ -165,9 +165,9 @@ class tx_piwikintegration_config {
 		$tablesInstalled = Piwik::getTablesInstalled();
 		$tablesToInstall = Piwik::getTablesNames();
 		if(count($tablesInstalled) == 0) {
-			Piwik::createTables();
-			Piwik::createAnonymousUser();
-			$updater = new Piwik_Updater();
+			\Piwik\Db::createTables();
+			\Piwik\DB::createAnonymousUser();
+			$updater = new \Piwik\Updater();
 			//set Piwikversion
 			$updater->recordComponentSuccessfullyUpdated('core', Piwik_Version::VERSION);
 		}
