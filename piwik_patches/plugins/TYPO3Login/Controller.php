@@ -24,6 +24,8 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+namespace Piwik\Plugins\TYPO3Login;
+
 /**
  * piwik_patches/plugins/TYPO3Login/Controller.php
  *
@@ -41,7 +43,7 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  * @package Piwik_TYPO3Login
  */
-class Piwik_TYPO3Login_Controller extends Piwik_Login_Controller
+class Controller extends \Piwik\Plugins\Login\Controller
 {
 	/**
 	 * redirect to dashboard as we have no view
