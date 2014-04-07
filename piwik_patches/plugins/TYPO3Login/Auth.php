@@ -29,7 +29,9 @@ namespace Piwik\Plugins\TYPO3Login;
  * for version 3.0.9
  */
 
-	define('TYPO3_MODE', 'BE');
+	if(!defined('TYPO3_MODE')) {
+		define('TYPO3_MODE', 'BE');
+	}
 	if(file_exists(PIWIK_INCLUDE_PATH.'/../../LocalConfiguration.php')) {
 		$TYPO3config = include(PIWIK_INCLUDE_PATH.'/../../LocalConfiguration.php');
 		define('TYPO3DB', $TYPO3config['DB']['database']);
