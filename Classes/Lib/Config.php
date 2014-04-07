@@ -81,10 +81,10 @@ class tx_piwikintegration_config {
 		set_include_path(PIWIK_INCLUDE_PATH
 					. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/libs/'
 					. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/plugins/'
-					. PATH_SEPARATOR . PIWIK_INCLUDE_PATH . '/core/'
 					. PATH_SEPARATOR . get_include_path());
 
 		include_once PIWIK_INCLUDE_PATH . 'libs/upgradephp/upgrade.php';
+		include_once PIWIK_INCLUDE_PATH . 'vendor/autoload.php';
 		include_once PIWIK_INCLUDE_PATH . 'core/Loader.php';
 
 		//create config object
@@ -152,11 +152,9 @@ class tx_piwikintegration_config {
 
 	function enableSuggestedPlugins() {
 		$this->enablePlugin('TYPO3Login');
-		$this->enablePlugin('TYPO3Menu');
-		$this->enablePlugin('TYPO3Widgets');
-		$this->enablePlugin('SecurityInfo');
+		#$this->enablePlugin('TYPO3Menu');
+		#$this->enablePlugin('TYPO3Widgets');
 		$this->enablePlugin('DBStats');
-		$this->enablePlugin('AnonymizeIP');
 
 	}
 
@@ -240,8 +238,8 @@ class tx_piwikintegration_config {
 		$this->initPiwikFrameWork();
 		if(!\Piwik\Plugin\Manager::getInstance()->isPluginActivated($plugin)) {
 			try {
-				#\Piwik\Plugin\Manager::getInstance()->activatePlugin($plugin);
-				#\Piwik\Plugin\Manager::getInstance()->loadPlugins( \Piwik\Config::getInstance()->Plugins['Plugins'] );
+				\Piwik\Plugin\Manager::getInstance()->activatePlugin($plugin);
+				\Piwik\Plugin\Manager::getInstance()->loadPlugins( \Piwik\Config::getInstance()->Plugins['Plugins'] );
 				#\Piwik\Plugin\Manager::getInstance()->installLoadedPlugins();
 				\Piwik::install();
 			} catch(Exception $e) {
