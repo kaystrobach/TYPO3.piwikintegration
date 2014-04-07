@@ -97,7 +97,7 @@ class TYPO3Login extends \Piwik\Plugin
 	function initAuthenticationObject($notification)
 	{
 		$auth = new \Piwik\Plugins\TYPO3Login\Auth();
-     	Zend_Registry::set('auth', $auth);
+     	\Zend_Registry::set('auth', $auth);
 
      	$action = \Piwik\Piwik::getAction();
 		if(\Piwik\Piwik::getModule() === 'API'
@@ -136,7 +136,7 @@ class TYPO3Login extends \Piwik\Plugin
 		if(!$authResult->isValid())
 		{
 			/** @todo find translator */
-			throw new Exception('Login_LoginPasswordNotCorrect');
+			throw new \Exception('Login_LoginPasswordNotCorrect');
 		}
 		$ns = new \Zend_Session_Namespace('Piwik_Login.referer');
 		unset($ns->referer);
