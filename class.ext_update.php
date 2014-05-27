@@ -34,6 +34,9 @@
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 class ext_update {
 	function access($what = 'all') {
 		return TRUE;
