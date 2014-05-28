@@ -118,7 +118,14 @@ class tx_piwikintegration_config {
 		$this->setOption('superuser','email'        ,$GLOBALS["BE_USER"]->user['email']);
 
 		//Database
-		$this->setOption('database' ,'host'         ,TYPO3_db_host);
+		$hostAndPort = explode(':', TYPO3_db_host);
+		if(count($hostAndPort) == 2) {
+			$this->setOption('database' ,'host'     , $hostAndPort[0]);
+			$this->setOption('database' ,'port'     , $hostAndPort[1]);
+		} else{
+			$this->setOption('database' ,'host'     ,TYPO3_db_host);
+		}
+
 		$this->setOption('database' ,'username'     ,TYPO3_db_username);
 		$this->setOption('database' ,'password'     ,TYPO3_db_password);
 		$this->setOption('database' ,'dbname'       ,TYPO3_db);
