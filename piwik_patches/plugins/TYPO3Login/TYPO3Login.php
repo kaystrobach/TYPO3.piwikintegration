@@ -49,22 +49,6 @@ require PIWIK_INCLUDE_PATH.'/plugins/TYPO3Login/Auth.php';
  */
 class TYPO3Login extends \Piwik\Plugin
 {
-	/**
-	 * get extension information
-	 *
-	 * @return	array		with information
-	 */
-	public function getInformation()
-	{
-		include(PIWIK_INCLUDE_PATH.'/piwikintegration.php');
-		return array(
-			'name' => 'TYPO3Login',
-			'description' => 'TYPO3 Auth Login plugin. It uses the TYPO3 session and permission data to grant access to users on piwik.',
-			'author' => 'Kay Strobach',
-			'homepage' => 'http://kay-strobach.de/',
-		    'version' => $piwikPatchVersion,
-			);
-	}
 
 	/**
 	 * returns registered hooks

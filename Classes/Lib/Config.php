@@ -239,7 +239,6 @@ class tx_piwikintegration_config {
 				\Piwik\Plugin\Manager::getInstance()->activatePlugin($plugin);
 				\Piwik\Plugin\Manager::getInstance()->loadPlugins( \Piwik\Config::getInstance()->Plugins['Plugins'] );
 				#\Piwik\Plugin\Manager::getInstance()->installLoadedPlugins();
-				\Piwik::install();
 			} catch(Exception $e) {
 
 			}
@@ -251,8 +250,6 @@ class tx_piwikintegration_config {
 		if(\Piwik\Plugin\Manager::getInstance()->isPluginActivated($plugin)) {
 			try {
 				\Piwik\Plugin\Manager::getInstance()->deactivatePlugin($plugin);
-				#\Piwik\Plugin\Manager::getInstance()->installLoadedPlugins();
-				\Piwik::install();
 			} catch(Exception $e) {
 
 			}

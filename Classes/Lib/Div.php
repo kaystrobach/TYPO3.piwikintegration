@@ -125,8 +125,8 @@ class tx_piwikintegration_div {
 	function getPiwikSiteIdForPid($uid) {
 		//save time get config
 			$r = $this->getPiwikConfigArray($uid);
-			if($r['piwik_idsite']) {
-				$id = intval($r['piwik_idsite']);
+			if(isset($r['piwik_idsite'])) {
+				$id = (integer)$r['piwik_idsite'];
 			} else {
 				$id = 0;
 			}
@@ -175,12 +175,14 @@ class tx_piwikintegration_div {
 		$uid = $this->getPiwikSiteIdForPid($uid);
 		return $this->correctUserRightsForSiteId($uid);
 	}
+
 	/**
 	 * This function makes a page statistics accessable for a user
 	 * call it with $this->pageinfo['uid'] as param from a backend module
 	 *
-	 * @param	integer		$uid: siteid for which the user will get access
-	 * @return	void
+	 * @param    integer $uid : siteid for which the user will get access
+	 * @throws Exception
+	 * @return    void
 	 */
 	function correctUserRightsForSiteId($uid) {
 		if($uid <= 0 || $uid!=intval($uid)) {

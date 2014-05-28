@@ -2,34 +2,25 @@
 
 /**
  * Add widgets
- */ 
+ */
+namespace Piwik\Plugins\TYPO3Widgets;
 
- 
-Piwik_AddWidget('TYPO3 Widgets', 'TYPO3 All News',                'TYPO3Widgets', 'rssAllNews');
-Piwik_AddWidget('TYPO3 Widgets', 'TYPO3 All Team News',           'TYPO3Widgets', 'rssAllTeamNews');
-Piwik_AddWidget('TYPO3 Widgets', 'TYPO3 Community',               'TYPO3Widgets', 'rssCommunity');
-Piwik_AddWidget('TYPO3 Widgets', 'TYPO3 Content Rendering Group', 'TYPO3Widgets', 'rssContentRenderingGroup');
-Piwik_AddWidget('TYPO3 Widgets', 'TYPO3 Development',             'TYPO3Widgets', 'rssDevelopment');
-Piwik_AddWidget('TYPO3 Widgets', 'TYPO3 Extensions',              'TYPO3Widgets', 'rssExtensions');
-Piwik_AddWidget('TYPO3 Widgets', 'TYPO3 Security',                'TYPO3Widgets', 'rssSecurity');
-Piwik_AddWidget('TYPO3 Widgets', 'TYPO3.Org',                     'TYPO3Widgets', 'rssTypo3Org');
-Piwik_AddWidget('TYPO3 Widgets', 'TYPO3 Associaton',              'TYPO3Widgets', 'rssTypo3Associaton');
+use Piwik;
 
-class Piwik_TYPO3Widgets  extends Piwik_Plugin {
-	/**
-	 * get extension information
-	 *
-	 * @return	array		with information
-	 */
-	public function getInformation()
+
+
+class TYPO3Widgets extends \Piwik\Plugin {
+	public function addWidgets()
 	{
-		include(PIWIK_INCLUDE_PATH.'/piwikintegration.php');
-		return array(
-			'name' => 'TYPO3Widgets',
-			'description' => 'Widgets to show TYPO3 specific data.',
-			'author' => 'Kay Strobach',
-			'homepage' => 'http://kay-strobach.de/',
-		    'version' => $piwikPatchVersion,
-			);
+		WidgetsList::add('TYPO3 Widgets', 'TYPO3 All News',                'TYPO3Widgets', 'rssAllNews');
+		WidgetsList::add('TYPO3 Widgets', 'TYPO3 All Team News',           'TYPO3Widgets', 'rssAllTeamNews');
+		WidgetsList::add('TYPO3 Widgets', 'TYPO3 Community',               'TYPO3Widgets', 'rssCommunity');
+		WidgetsList::add('TYPO3 Widgets', 'TYPO3 Content Rendering Group', 'TYPO3Widgets', 'rssContentRenderingGroup');
+		WidgetsList::add('TYPO3 Widgets', 'TYPO3 Development',             'TYPO3Widgets', 'rssDevelopment');
+		WidgetsList::add('TYPO3 Widgets', 'TYPO3 Extensions',              'TYPO3Widgets', 'rssExtensions');
+		WidgetsList::add('TYPO3 Widgets', 'TYPO3 Security',                'TYPO3Widgets', 'rssSecurity');
+		WidgetsList::add('TYPO3 Widgets', 'TYPO3.Org',                     'TYPO3Widgets', 'rssTypo3Org');
+		WidgetsList::add('TYPO3 Widgets', 'TYPO3 Associaton',              'TYPO3Widgets', 'rssTypo3Associaton');
+
 	}
 }

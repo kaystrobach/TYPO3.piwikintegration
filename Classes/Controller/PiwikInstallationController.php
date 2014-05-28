@@ -2,8 +2,13 @@
 
 
 class Tx_Piwikintegration_Controller_PiwikInstallationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-	public function initializeAction() {
+	/**
+	 * @var int
+	 */
+	protected $id = 0;
 
+	public function initializeAction() {
+		$this->id = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
 	}
 
 

@@ -7,14 +7,26 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 	 */
 	protected $piwikHelper = NULL;
 
+	/**
+	 * @var int
+	 */
+	protected $id = 0;
+
 	public function initializeAction() {
+		$this->id = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
 		$this->piwikHelper = t3lib_div::makeInstance('tx_piwikintegration_div');
+		$GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/Resources/Private/language/mod1/locallang.xml');
 	}
 
 	public function indexAction() {
-		if($this->content = $this->checkPiwikEnvironment()) {
-
+		if($this->checkPiwikEnvironment()  || 1) {
+			$piwikSiteId   = $this->piwikHelper->getPiwikSiteIdForPid($this->id);
+			$this->view->assign('piwikSiteId', $piwikSiteId);
+			$this->piwikHelper->correctUserRightsForSiteId($piwikSiteId);
+			$this->piwikHelper->correctTitle($this->id,$piwikSiteId,$this->piwikHelper->getPiwikConfigArray($this->id));
 		}
+
+		$this->view->assign('debug', print_r($this->piwikHelper->getPiwikConfigArray($this->id), TRUE));
 
 	}
 
@@ -46,8 +58,8 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 		if(!$this->pageinfo['uid'] || !$this->piwikHelper->getPiwikSiteIdForPid($this->pageinfo['uid'])) {
 			$flashMessage = t3lib_div::makeInstance(
 				't3lib_FlashMessage',
-				$LANG->getLL('selectpage_description'),
-				$LANG->getLL('selectpage_tip'),
+				'Please select a page in the pagetree',
+				'',
 				t3lib_FlashMessage::NOTICE
 			);
 			t3lib_FlashMessageQueue::addMessage($flashMessage);
@@ -58,8 +70,8 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 		if(($t['piwik_host'] !== 'typo3conf/piwik/piwik/') && ($t['piwik_host'] !== '/typo3conf/piwik/piwik/')) {
 			$flashMessage = t3lib_div::makeInstance(
 				't3lib_FlashMessage',
-				$LANG->getLL('config_piwik_host_description'),
-				$LANG->getLL('config_piwik_host_tip'),
+				'Piwik host is not set correctly',
+				'',
 				t3lib_FlashMessage::ERROR
 			);
 			t3lib_FlashMessageQueue::addMessage($flashMessage);
