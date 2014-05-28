@@ -80,8 +80,8 @@ if (!defined ("TYPO3_MODE"))     die ("Access denied.");
 		//add task to scheduler list
 		$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_piwikintegration_scheduler_archive'] = array(
 				'extension'        => $_EXTKEY,
-				'title'            => 'LLL:EXT:' . $_EXTKEY . '/locallang.xml:piwikArchiveTask.name',
-				'description'      => 'LLL:EXT:' . $_EXTKEY . '/locallang.xml:piwikArchiveTask.description',
+				'title'            => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/language/locallang.xml:piwikArchiveTask.name',
+				'description'      => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/language/locallang.xml:piwikArchiveTask.description',
 				#'additionalFields' => 'tx_piwikintegration_piwikArchiveTask_AdditionalFieldProvider',
 		);
 		require_once(t3lib_extMgm::extPath('piwikintegration', 'Classes/SchedulerTasks/Archive.php'));

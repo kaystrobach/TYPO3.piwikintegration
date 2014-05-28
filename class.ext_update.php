@@ -43,7 +43,7 @@ class ext_update {
 	}
 	function main() {
 		global $LANG;
-		$LANG->includeLLFile('EXT:piwikintegration/locallang.xml');
+		$LANG->includeLLFile('EXT:piwikintegration/Resources/Private/Language/locallang.xml');
 		$func = trim(t3lib_div::_GP('func'));
 		$buffer = '';
 		if(t3lib_div::_GP('do_update')) {

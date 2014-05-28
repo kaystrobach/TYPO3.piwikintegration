@@ -41,7 +41,6 @@ $EM_CONF[$_EXTKEY] = array (
 		),
 		'conflicts' => 
 		array (
-			'typo3' => '3.0.0-4.3.99',
 			'dbal' => '1.0.0-99.0.0',
 		),
 		'suggests' => 

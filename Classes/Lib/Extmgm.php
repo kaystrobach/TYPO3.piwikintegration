@@ -95,7 +95,7 @@ class tx_piwikintegration_extmgm {
 		}
 	}
 	function emMakeHeader($params) {
-		$GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/locallang.xml');
+		$GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/Resources/Private/language/locallang.xml');
 		$flashMessage = t3lib_div::makeInstance(
 			't3lib_FlashMessage',
 			$GLOBALS['LANG']->getLL('extmgm.noticeText')

@@ -44,12 +44,29 @@ if (!defined ('TYPO3_MODE')) {
 	if (TYPO3_MODE == 'BE') {
 		t3lib_extMgm::addModulePath('web_txpiwikintegrationM1', t3lib_extMgm::extPath($_EXTKEY) . 'mod1/');
 		t3lib_extMgm::addModule('web', 'txpiwikintegrationM1', '', t3lib_extMgm::extPath($_EXTKEY) . 'mod1/');
+
+		if (TYPO3_MODE === 'BE') {
+			Tx_Extbase_Utility_Extension::registerModule(
+				$_EXTKEY,
+				'web',          // Main area
+				'mod2',         // Name of the module
+				'',             // Position of the module
+				array(          // Allowed controller action combinations
+					'Piwik' => 'index',
+				),
+				array(          // Additional configuration
+					'access'    => 'user,group',
+					'icon'      => 'EXT:piwikintegration/ext_icon.gif',
+					'labels'    => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
+				)
+			);
+		}
 	}
 
 /*******************************************************************************
  * Static file
  */ 
-t3lib_extMgm::addStaticFile($_EXTKEY,'static/piwik_integration/', 'Piwik Integration');
+t3lib_extMgm::addStaticFile($_EXTKEY,'Configuration/TypoScript/', 'Piwik Integration');
 
 $tempColumns = array (
 	'tx_piwikintegration_api_code' => array (		
