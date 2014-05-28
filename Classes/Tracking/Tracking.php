@@ -122,7 +122,7 @@ class tx_piwikintegration_tracking {
 	 */
 	function getPiwikJavaScriptCodeForSite($siteId) {
 		tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikFrameWork();
-		$content=Piwik::getJavascriptCode($siteId, $this->getPiwikBaseURL());
+		$content=\Piwik\Piwik::getJavascriptCode($siteId, $this->getPiwikBaseURL());
 		return $content;
 	}
 
@@ -145,7 +145,7 @@ class tx_piwikintegration_tracking {
 	function getPiwikBaseURL() {
 		if(TYPO3_MODE == 'BE') {
 			tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikFrameWork();
-			$path = Piwik_Url::getCurrentUrlWithoutFileName();
+			$path = \Piwik\Url::getCurrentUrlWithoutFileName();
 			$path = dirname($path);
 			$path.='/typo3conf/piwik/piwik/';
 		} else {

@@ -139,7 +139,6 @@ class tx_piwikintegration_config {
 
 		//set Plugins
 		$this->disablePlugin('ExampleAPI');
-		$this->disablePlugin('ExampleFeedburner');
 		$this->disablePlugin('ExamplePlugin');
 		$this->disablePlugin('ExampleRssWidget');
 		$this->disablePlugin('ExampleUI');
@@ -154,20 +153,19 @@ class tx_piwikintegration_config {
 		$this->enablePlugin('TYPO3Login');
 		#$this->enablePlugin('TYPO3Menu');
 		#$this->enablePlugin('TYPO3Widgets');
-		$this->enablePlugin('DBStats');
-
+		#$this->enablePlugin('DBStats');
+		$this->enablePlugin('Zeitgeist');
 	}
 
 	function installDatabase() {
 		$this->initPiwikDatabase(true);
-		$tablesInstalled = Piwik::getTablesInstalled();
-		$tablesToInstall = Piwik::getTablesNames();
+		$tablesInstalled = \Piwik\DbHelper::getTablesInstalled();
 		if(count($tablesInstalled) == 0) {
-			\Piwik\Db::createTables();
-			\Piwik\DB::createAnonymousUser();
+			\Piwik\DbHelper::createTables();
+			\Piwik\DbHelper::createAnonymousUser();
 			$updater = new \Piwik\Updater();
 			//set Piwikversion
-			$updater->recordComponentSuccessfullyUpdated('core', Piwik_Version::VERSION);
+			$updater->recordComponentSuccessfullyUpdated('core', \Piwik\Version::VERSION);
 		}
 	}
 
