@@ -172,7 +172,7 @@ class ext_update {
 		return $buffer;
 	}
 	function reInitPiwikDB() {
-		$this->truncatePiwikDB();
+		$this->cleanupPiwikDB();
 		$path   = tx_piwikintegration_install::getInstaller()->getConfigObject()->installDatabase();
 		return 'Tables dropped an recreated';
 	}//*/
