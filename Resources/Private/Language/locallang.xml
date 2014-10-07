@@ -15,9 +15,10 @@
 			<label index="extmgm.noticeText">There are several assistants available in the update wizard to help you keeping your piwik installation working</label>
 			<label index="extmgm.assistent">Update Assistant</label>
 			<label index="extmgm.databaseTablePrefix">Prefix for Database: Please note, saving causes TYPO3 to try to move the tables to the database you provided. If this fails moving is canceled and Piwik will not work. If the Piwik data is stored in TYPO3 database don't use compare without knowing what you do...</label>
-			<label index="extmgm.enableIndependentMode">EXPERIMENTAL independent mode: Enable independent mode of piwikintegration - the JS is rendered without additional extensions. If not enabled an additional extension is needed to render the FE output for piwik - it's suggested to use EXT:piwik for FE-Rendering</label>
-			<label index="extmgm.enableSchedulerTask">EXPERIMENTAL scheduler task: Enable EXPERIMENTAL scheduler task integration, don't enable prior 4.3</label>
-			<label index="extmgm.enableSchedulerLogging">Debugging of scheduler task: Enable heavy logging for the scheduler task - should be off in production environments, don't enable prior 4.3</label>
+			<label index="extmgm.enableIndependentMode">EXPERIMENTAL Independent mode: Enable independent mode of piwikintegration - the JS is rendered without additional extensions. If not enabled an additional extension is needed to render the FE output for piwik - it's suggested to use EXT:piwik for FE-Rendering</label>
+			<label index="extmgm.enableSchedulerTask">EXPERIMENTAL Scheduler task: Enable scheduler task integration, don't enable prior TYPO3 4.3</label>
+			<label index="extmgm.enableSchedulerLogging">Debugging of scheduler task: Enable heavy logging for the scheduler task - should be off in production environments, don't enable prior TYPO3 4.3</label>
+			<label index="extmgm.piwikDownloadSource">Alternative Piwik download URL: Provide an alternative location to download Piwik. (Default is http://builds.piwik.org/latest.zip)</label>
 			
 			<label index="header.installation">Installation</label>
 			<label index="header.configuration">Configuration</label>
@@ -49,7 +50,7 @@
 			<label index="desc.respectGermanDataPrivacyAct">Set settings to respect german data privacy act, the base for these settings is the document of the the ULDSH. https://www.datenschutzzentrum.de/tracking/piwik/20110315-webanalyse-piwik.pdf </label>
 			<label index="desc.renameTables">Fixes table rename bug</label>
 			<label index="button.DoIt">Do It</label>
-			<label index="installedPiwikNeeded">For some actions piwik sources need to be present!</label>
+			<label index="installedPiwikNeeded">Piwik is not installed yet. For some actions Piwik sources need to be present!</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="piwikArchiveTask.name">Piwik Archivierungs Cron Job</label>
@@ -61,9 +62,11 @@
 			<label index="extmgm.noticeText">Der Aktualisierungs-Assistent enthält einige Hilfsmittel, um die Pflege der Piwik-Installation zu vereinfachen.</label>
 			<label index="extmgm.assistent">Aktualisierungs-Assistent</label>
 			<label index="extmgm.databaseTablePrefix">Prefix für Datenbank: Es wird versucht, die Tabellen in die angegebene Datenbank zu verschieben. Falls das fehlschlägt, wird das Verschieben abgebrochen und Piwik funktioniert nicht mehr. Wenn die Piwik-Daten in der TYPO3-Datenbank gespeichert werden, Compare nur benutzen, wenn Sie wissen, was Sie tun...</label>
-			<label index="extmgm.enableIndependentMode">EXPERIMENTAL independent mode: bindet den Tracking code ohne weitere Extension ein, denoch wird die Nutzung von EXT:piwik für das FE-Rendering empfohlen</label>
-			<label index="extmgm.enableSchedulerTask">EXPERIMENTAL scheduler task: Aktiviere EXPERIMENTAL scheduler task Integration, nicht für TYPO CMS 4.3 oder früher aktivieren</label>
-			<label index="extmgm.enableSchedulerLogging">Debug scheduler task: Aktiviere aggressives Loggen, nicht für TYPO CMS 4.3 oder früher aktivieren</label>
+			<label index="extmgm.enableIndependentMode">EXPERIMENTAL Unabhängiger Modus: Tracking-Code ohne weitere Extension einbinden. Dennoch wird die Nutzung von EXT:piwik für das FE-Rendering empfohlen</label>
+			<label index="extmgm.enableSchedulerTask">EXPERIMENTAL Scheduler-Task: Aktiviere Scheduler-Task-Integration, nicht für TYPO 4.3 oder früher aktivieren</label>
+			<label index="extmgm.enableSchedulerLogging">Scheduler-Task debuggen: Aktiviere aggressives Loggen, nicht für TYPO 4.3 oder früher aktivieren</label>
+			<label index="extmgm.piwikDownloadSource">Alternative Download-URL: Geben Sie eine alternative URL zum Piwik-Download an. (Standard ist http://builds.piwik.org/latest.zip)</label>
+
 			<label index="action.renameTables">Tabellen umbenennen von tx_piwikintegration_* in user_piwikintegration_*</label>
 
 			<label index="header.installation">Installation</label>
@@ -96,7 +99,7 @@
 			<label index="desc.renameTables">Löst das Problem der umbenannten Tabellen.</label>
 
 			<label index="button.DoIt">Ausführen</label>
-			<label index="installedPiwikNeeded">Für einige Aktionen muss Piwik installiert sein!</label>
+			<label index="installedPiwikNeeded">Piwik ist noch nicht installiert. Für einige Aktionen muss Piwik installiert sein!</label>
 		</languageKey>
 
 	</data>
