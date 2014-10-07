@@ -58,8 +58,8 @@ class TYPO3Login extends \Piwik\Plugin
 	function getListHooksRegistered()
 	{
 		$hooks = array(
-			'FrontController.initAuthenticationObject'	    => 'initAuthenticationObject',
-			'FrontController.NoAccessException'	            => 'noAccess',
+			'Request.initAuthenticationObject'	    => 'initAuthenticationObject',
+			'User.isNotAuthorized'	            => 'noAccess',
 			'API.Request.authenticate'                      => 'ApiRequestAuthenticate',
 			'Login.initSession'                             => 'initSession',
 		);
@@ -75,10 +75,9 @@ class TYPO3Login extends \Piwik\Plugin
 	/**
 	 * init the authentification object
 	 *
-	 * @param	mixed		$notification: some data from the api, which is not needed
 	 * @return	void
 	 */
-	function initAuthenticationObject($notification)
+	function initAuthenticationObject()
 	{
 		$auth = new \Piwik\Plugins\TYPO3Login\Auth();
      	\Zend_Registry::set('auth', $auth);
