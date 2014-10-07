@@ -71,8 +71,13 @@ class Auth implements \Piwik\Auth
 	        return 'TYPO3Login';
 	}
 	protected function getTableName($table,$isT3Table=true) {
-		$t3database    = \Zend_Registry::get('config')->database->t3dbname;
-		$prefix        = \Zend_Registry::get('config')->database->tables_prefix;
+		if(array_key_exists('t3dbname', \Piwik\Config::getInstance()->database)) {
+			$t3database    = \Piwik\Config::getInstance()->database['t3dbname'];
+		} else {
+			$t3database    = \Piwik\Config::getInstance()->database['dbname'];
+		}
+		
+		$prefix        = \Piwik\Config::getInstance()->database['tables_prefix'];
 		if(!$isT3Table) {
 			$table = '`'.$prefix.$table.'`';
 		} elseif($t3database!='') {
@@ -93,8 +98,8 @@ class Auth implements \Piwik\Auth
 		/***********************************************************************
 		 * authenticate against the piwik configuration file for emergency access or installer or cronjob!
 		 */		 		
-			$rootLogin    = \Zend_Registry::get('config')->superuser->login;
-			$rootPassword = \Zend_Registry::get('config')->superuser->password;
+			$rootLogin    = \Piwik\Config::getInstance()->superuser['login'];
+			$rootPassword = \Piwik\Config::getInstance()->superuser['password'];
 		/**
 		 * Fix http://forge.typo3.org/issues/37167
 		 */
@@ -118,7 +123,7 @@ class Auth implements \Piwik\Auth
 			//catch normal logins (login form)
 			if((array_key_exists('token_auth',$_REQUEST)) &&($_REQUEST['token_auth']!='')) {
 				// fetch UserId, if token is set
-				$beUserId = \Zend_Registry::get('db')->fetchOne(
+				$beUserId = \Piwik\Db::get()->fetchOne(
 							'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
 							array($_REQUEST['token_auth'])
 				);
@@ -126,13 +131,13 @@ class Auth implements \Piwik\Auth
 			//catch typo3 logins
 			} elseif(array_key_exists('be_typo_user',$_COOKIE)) {
 				$beUserCookie = $_COOKIE['be_typo_user'];
-				$beUserId = \Zend_Registry::get('db')->fetchOne(
+				$beUserId = \Piwik\Db::get()->fetchOne(
 							'SELECT ses_userid FROM '.$this->getTableName('be_sessions').' WHERE ses_id = ?',
 							array($beUserCookie)
 				);
 			//catch apikey logins
 			} elseif($this->token_auth && $this->token_auth!='anonymous') {
-				$beUserId = \Zend_Registry::get('db')->fetchOne(
+				$beUserId = \Piwik\Db::get()->fetchOne(
 						'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
 						array($this->token_auth)
 				);
@@ -144,12 +149,12 @@ class Auth implements \Piwik\Auth
 		 */		 		
 			if($beUserId!==false) {
 				// getUserName
-				$beUserName = \Zend_Registry::get('db')->fetchOne(
+				$beUserName = \Piwik\Db::get()->fetchOne(
 							'SELECT username FROM '.$this->getTableName('be_users').' WHERE uid = ?',
 							array($beUserId)
 				);
 				// get isAdmin
-				$beUserIsAdmin = \Zend_Registry::get('db')->fetchOne(
+				$beUserIsAdmin = \Piwik\Db::get()->fetchOne(
 							'SELECT admin FROM '.$this->getTableName('be_users').' WHERE uid = ?',
 							array($beUserId)
 				);
@@ -196,7 +201,7 @@ class Auth implements \Piwik\Auth
 	}
 	
 	static function getTokenAuth($login, $md5Password) {
-		$token = \Zend_Registry::get('db')->fetchOne(
+		$token = \Piwik\Db::get()->fetchOne(
 						'SELECT ' . self::getTableName('api_code') . ' FROM `be_users` WHERE username = ?',
 						array($login)
 			);
