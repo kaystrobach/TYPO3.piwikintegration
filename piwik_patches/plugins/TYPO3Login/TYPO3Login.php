@@ -138,11 +138,10 @@ class TYPO3Login extends \Piwik\Plugin
 
 		\Zend_Session::regenerateId();
 	}
-	function ApiRequestAuthenticate($notification)
+	function ApiRequestAuthenticate($tokenAuth)
 	{
-		$tokenAuth = $notification->getNotificationObject();
-		\Zend_Registry::get('auth')->setLogin($login = null);
-		\Zend_Registry::get('auth')->setTokenAuth($tokenAuth);
+		\Piwik\Registry::get('auth')->setLogin($login = null);
+		\Piwik\Registry::get('auth')->setTokenAuth($tokenAuth);
 	}
 
 }
