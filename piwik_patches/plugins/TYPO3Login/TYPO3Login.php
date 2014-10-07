@@ -79,8 +79,10 @@ class TYPO3Login extends \Piwik\Plugin
 	 */
 	function initAuthenticationObject()
 	{
+		$config = \Piwik\Config::getInstance();
+		
 		$auth = new \Piwik\Plugins\TYPO3Login\Auth();
-     	\Zend_Registry::set('auth', $auth);
+        \Piwik\Registry::set('auth', $auth);
 
      	$action = \Piwik\Piwik::getAction();
 		if(\Piwik\Piwik::getModule() === 'API'
@@ -89,8 +91,8 @@ class TYPO3Login extends \Piwik\Plugin
 			return;
 		}
 
-		$authCookieName = \Zend_Registry::get('config')->General->login_cookie_name;
-		$authCookieExpiry = time() + \Zend_Registry::get('config')->General->login_cookie_expire;
+		$authCookieName = $config->General['login_cookie_name'];
+		$authCookieExpiry = time() + $config->General['login_cookie_expire'];
 		$authCookie = new \Piwik\Cookie($authCookieName, $authCookieExpiry);
 		$defaultLogin = 'anonymous';
 		$defaultTokenAuth = 'anonymous';
@@ -104,6 +106,8 @@ class TYPO3Login extends \Piwik\Plugin
 	}
 	function initSession($notification)
 	{
+		$config = \Piwik\Config::getInstance();
+		
 		$info = $notification->getNotificationObject();
 		$login = $info['login'];
 		$md5Password = $info['md5Password'];
@@ -124,9 +128,9 @@ class TYPO3Login extends \Piwik\Plugin
 		$ns = new \Zend_Session_Namespace('Piwik_Login.referer');
 		unset($ns->referer);
 
-		$authCookieName = \Zend_Registry::get('config')->General->login_cookie_name;
-		$authCookieExpiry = time() + \Zend_Registry::get('config')->General->login_cookie_expire;
-		$authCookiePath = \Zend_Registry::get('config')->General->login_cookie_path;
+		$authCookieName = $config->General['login_cookie_name'];
+		$authCookieExpiry = time() + $config->General['login_cookie_expire'];
+		$authCookiePath = $config->General['login_cookie_path'];
 		$cookie = new \Piwik\Cookie($authCookieName, $authCookieExpiry, $authCookiePath);
 		$cookie->set('login', $login);
 		$cookie->set('token_auth', $tokenAuth);
@@ -142,4 +146,3 @@ class TYPO3Login extends \Piwik\Plugin
 	}
 
 }
-?>
