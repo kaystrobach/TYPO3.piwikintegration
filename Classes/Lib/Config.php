@@ -85,7 +85,6 @@ class tx_piwikintegration_config {
 
 		include_once PIWIK_INCLUDE_PATH . 'libs/upgradephp/upgrade.php';
 		include_once PIWIK_INCLUDE_PATH . 'vendor/autoload.php';
-		include_once PIWIK_INCLUDE_PATH . 'core/Loader.php';
 
 		//create config object
 		try {
