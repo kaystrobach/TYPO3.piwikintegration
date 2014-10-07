@@ -99,7 +99,7 @@ class tx_piwikintegration_extmgm {
 		$flashMessage = t3lib_div::makeInstance(
 			't3lib_FlashMessage',
 			$GLOBALS['LANG']->getLL('extmgm.noticeText')
-				.'<br><a href="mod.php?&id=0&M=tools_em&CMD[showExt]=piwikintegration&SET[singleDetails]=updateModule">'.$GLOBALS['LANG']->getLL('details_update').'</a>',
+				.'<br><a href="mod.php?&id=0&M=tools_em&CMD[showExt]=piwikintegration&SET[singleDetails]=updateModule">'.$GLOBALS['LANG']->getLL('extmgm.noticeHeader').'</a>',
 			$GLOBALS['LANG']->getLL('extmgm.noticeHeader'),
 			t3lib_FlashMessage::INFO
 		);
