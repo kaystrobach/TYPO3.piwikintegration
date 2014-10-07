@@ -38,7 +38,7 @@
  */
 
 
-$LANG->includeLLFile('EXT:piwikintegration/Resources/Private/language/mod1/locallang.xml');
+$LANG->includeLLFile('EXT:piwikintegration/Resources/Private/Language/mod1/locallang.xml');
 require_once(t3lib_extMgm::extPath('piwikintegration').'Classes/Lib/Install.php');
 require_once(t3lib_extMgm::extPath('piwikintegration').'Classes/Lib/Div.php');
 require_once(t3lib_extMgm::extPath('piwikintegration').'Classes/Tracking/Tracking.php');
