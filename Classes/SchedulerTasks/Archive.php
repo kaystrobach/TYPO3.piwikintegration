@@ -153,7 +153,7 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 			$_SERVER['REMOTE_ADDR'] = 'local CLI';
 		}
 		$conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['piwikintegration']);
-		if($conf['enableSchedulerLoging']) {
+		if($conf['enableSchedulerLogging']) {
 			$GLOBALS['BE_USER']->writeLog(
 				4,	//extension
 				0,	//no categorie

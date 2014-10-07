@@ -120,7 +120,7 @@ class ext_update {
 		$installer =  tx_piwikintegration_install::getInstaller();
 		$installer->getConfigObject();
 		$GLOBALS['TYPO3_DB']->admin_query('TRUNCATE TABLE '.tx_piwikintegration_div::getTblName('access'));
-		return 'Userrights reseted';
+		return 'User rights have been reset';
 	}
 	function getHeader($text) {
 		$buffer = '';

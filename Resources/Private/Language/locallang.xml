@@ -17,7 +17,7 @@
 			<label index="extmgm.databaseTablePrefix">Prefix for Database. Please note, saving causes TYPO3 to try to move the tables to the database you provided, if that fails move is canceld and Piwik will not work. Empty field means Piwikdata is stored in TYPO3 database - don't use compare whitout knowing what you do ... The dot is automatically added just provide a databasename{value}.{tablename}</label>
 			<label index="extmgm.enableIndependentMode">EXPERIMENTAL independent mode: Enable independent mode of piwikintegration, that means, the JS is rendered without additional extensions, if not enabled an additional extension is needed to render the fe output for piwik - it's suggested to use EXT:piwik for FE-Rendering</label>
 			<label index="extmgm.enableSchedulerTask">EXPERIMENTAL scheduler task: Enable EXPERIMENTAL scheduler task integration, don't enable prior 4.3</label>
-			<label index="extmgm.enableSchedulerLoging">Debugging of scheduler task:Enable heavy logging for the scheduler task - should be off in production environments, don't enable prior 4.3</label>
+			<label index="extmgm.enableSchedulerLogging">Debugging of scheduler task:Enable heavy logging for the scheduler task - should be off in production environments, don't enable prior 4.3</label>
 			
 
 			<label index="header.installation">installation</label>
@@ -64,7 +64,7 @@
 			<label index="extmgm.databaseTablePrefix">Prefix für Datenbank. Das Ändern dieses Wertes verursacht einen verschiebe Versuch der Datenbanktabellen.</label>
 			<label index="extmgm.enableIndependentMode">EXPERIMENTAL independent mode: bindet den Tracking code ohne weitere Extension ein, denoch wird die Nutzung von EXT:piwik für das FE-Rendering empfohlen</label>
 			<label index="extmgm.enableSchedulerTask">EXPERIMENTAL scheduler task: Aktiviere EXPERIMENTAL scheduler task Integration, aktiviere nicht vor TYPOO 4.3</label>
-			<label index="extmgm.enableSchedulerLoging">Debug scheduler task:aktiviere aggressives loggen, nicht vor TYPO3 4.3 aktivieren</label>
+			<label index="extmgm.enableSchedulerLogging">Debug scheduler task: Aktiviere aggressives Loggen, nicht vor TYPO3 4.3 aktivieren</label>
 			<label index="action.renameTables">Umbenennen, tx_piwikintegration_* in user_piwikintegration_*</label>
 
 			<label index="header.installation">Installation</label>
