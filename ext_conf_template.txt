@@ -6,7 +6,7 @@ databaseTablePrefix =
 enableIndependentMode = 0
 # cat=basic/enable; type=boolean; label= LLL:EXT:piwikintegration/Resources/Private/language/locallang.xml:extmgm.enableSchedulerTask
 enableSchedulerTask = 0
-# cat=basic/enable; type=boolean; label= LLL:EXT:piwikintegration/Resources/Private/language/locallang.xml:extmgm.enableSchedulerLoging
-enableSchedulerLoging = 0
+# cat=basic/enable; type=boolean; label= LLL:EXT:piwikintegration/Resources/Private/language/locallang.xml:extmgm.enableSchedulerLogging
+enableSchedulerLogging = 0
 # cat=basic/enable; type=string; label= LLL:EXT:piwikintegration/Resources/Private/language/locallang.xml:extmgm.piwikDownloadSource
 piwikDownloadSource =
