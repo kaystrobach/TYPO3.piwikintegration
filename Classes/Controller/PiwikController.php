@@ -15,7 +15,7 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 	public function initializeAction() {
 		$this->id = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
 		$this->piwikHelper = t3lib_div::makeInstance('tx_piwikintegration_div');
-		$GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/Resources/Private/language/mod1/locallang.xml');
+		$GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/Resources/Private/Language/mod1/locallang.xml');
 	}
 
 	public function indexAction() {
