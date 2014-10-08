@@ -18,15 +18,12 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 	}
 
 	public function indexAction() {
-		if($this->checkPiwikEnvironment()  || 1) {
+		if($this->checkPiwikEnvironment()) {
 			$piwikSiteId   = $this->piwikHelper->getPiwikSiteIdForPid($this->id);
 			$this->view->assign('piwikSiteId', $piwikSiteId);
 			$this->piwikHelper->correctUserRightsForSiteId($piwikSiteId);
 			$this->piwikHelper->correctTitle($this->id,$piwikSiteId,$this->piwikHelper->getPiwikConfigArray($this->id));
 		}
-
-		$this->view->assign('debug', print_r($this->piwikHelper->getPiwikConfigArray($this->id), TRUE));
-
 	}
 
 	public function apiCodeAction() {
@@ -46,7 +43,7 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 				$flashMessage = t3lib_div::makeInstance(
 					't3lib_FlashMessage',
 					'Piwik installed',
-					'Piwik is now installed / upgraded, wait a moment, reload the page ;) <meta http-equiv="refresh" content="2; URL=mod.php?M=web_txpiwikintegrationM1&uid=' .$this->pageinfo['uid']  . '#reload">',
+					'Piwik is now installed / upgraded, wait a moment, reload the page ;) <meta http-equiv="refresh" content="2; URL=mod.php?M=web_txpiwikintegrationM1&uid=' .$this->id  . '#reload">',
 					t3lib_FlashMessage::OK
 				);
 				t3lib_FlashMessageQueue::addMessage($flashMessage);
@@ -54,7 +51,7 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 			return false;
 		}
 		// check wether a configured page is selected
-		if(!$this->pageinfo['uid'] || !$this->piwikHelper->getPiwikSiteIdForPid($this->pageinfo['uid'])) {
+		if(!$this->id || !$this->piwikHelper->getPiwikSiteIdForPid($this->id)) {
 			$flashMessage = t3lib_div::makeInstance(
 				't3lib_FlashMessage',
 				'Please select a page in the pagetree',
@@ -65,7 +62,7 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 			return false;
 		}
 		// check wether piwik_host is correct
-		$t = $this->piwikHelper->getPiwikConfigArray($this->pageinfo['uid']);
+		$t = $this->piwikHelper->getPiwikConfigArray($this->id);
 		if(($t['piwik_host'] !== 'typo3conf/piwik/piwik/') && ($t['piwik_host'] !== '/typo3conf/piwik/piwik/')) {
 			$flashMessage = t3lib_div::makeInstance(
 				't3lib_FlashMessage',
