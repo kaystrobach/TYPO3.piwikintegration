@@ -164,8 +164,8 @@ class tx_piwikintegration_config {
 		// $this->enablePlugin('TYPO3Menu');
 		// $this->enablePlugin('TYPO3Widgets');
 		// $this->enablePlugin('DBStats');
-		$this->enablePlugin('Zeitgeist');
-		return 'TYPO3Login, Zeitgeist';
+		$this->enablePlugin('Morpheus');
+		return 'TYPO3Login, Morpheus';
 	}
 
 	/**
