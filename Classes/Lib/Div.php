@@ -147,31 +147,33 @@ class tx_piwikintegration_div {
 	 * @return    integer     piwik site id
 	 */
 	public function makePiwikSiteExisting($id) {
-		$erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-			'*',
-			tx_piwikintegration_div::getTblName('site'),
-			'idsite = '.intval($id),
-			'',
-			'',
-			'0,1'
-		);
-		if (count($erg)==0) {
-			//FIX currency for current Piwik version, since 0.6.3
-			$currency = \Piwik\Option::get('SitesManager_DefaultCurrency') ? \Piwik\Option::get('SitesManager_DefaultCurrency') : 'USD';
-			//FIX timezone for current Piwik version, since 0.6.3
-			$timezone = \Piwik\Option::get('SitesManager_DefaultTimezone') ? \Piwik\Option::get('SitesManager_DefaultTimezone') : 'UTC';
-			
-			$GLOBALS['TYPO3_DB']->exec_INSERTquery(
+		if($id !== 0) {
+			$erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+				'*',
 				tx_piwikintegration_div::getTblName('site'),
-				array(
-					'idsite'     => $id,
-					'main_url'   => 'http://'.$_SERVER["SERVER_NAME"],
-					'name'       => 'Customer '.$id,
-					'timezone'   => $timezone,
-					'currency'   => $currency,
-					'ts_created' => date('Y-m-d H:i:s',time()),
-				)
+				'idsite = ' . intval($id),
+				'',
+				'',
+				'0,1'
 			);
+			if (count($erg) == 0) {
+				//FIX currency for current Piwik version, since 0.6.3
+				$currency = \Piwik\Option::get('SitesManager_DefaultCurrency') ? \Piwik\Option::get('SitesManager_DefaultCurrency') : 'USD';
+				//FIX timezone for current Piwik version, since 0.6.3
+				$timezone = \Piwik\Option::get('SitesManager_DefaultTimezone') ? \Piwik\Option::get('SitesManager_DefaultTimezone') : 'UTC';
+
+				$GLOBALS['TYPO3_DB']->exec_INSERTquery(
+					tx_piwikintegration_div::getTblName('site'),
+					array(
+						'idsite' => $id,
+						'main_url' => 'http://' . $_SERVER["SERVER_NAME"],
+						'name' => 'Customer ' . $id,
+						'timezone' => $timezone,
+						'currency' => $currency,
+						'ts_created' => date('Y-m-d H:i:s', time()),
+					)
+				);
+			}
 		}
 	}
 
