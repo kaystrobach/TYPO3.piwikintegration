@@ -98,8 +98,7 @@ class tx_piwikintegration_extmgm {
 		$GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/Resources/Private/Language/locallang.xml');
 		$flashMessage = t3lib_div::makeInstance(
 			't3lib_FlashMessage',
-			$GLOBALS['LANG']->getLL('extmgm.noticeText')
-				.'<br><a href="mod.php?&id=0&M=tools_em&CMD[showExt]=piwikintegration&SET[singleDetails]=updateModule">'.$GLOBALS['LANG']->getLL('extmgm.noticeHeader').'</a>',
+			$GLOBALS['LANG']->getLL('extmgm.noticeText'),
 			$GLOBALS['LANG']->getLL('extmgm.noticeHeader'),
 			t3lib_FlashMessage::INFO
 		);
