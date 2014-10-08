@@ -70,8 +70,8 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 			}
 			return FALSE;
 		}
-		// check wether a configured page is selected
-		if (!$this->id || !$this->piwikHelper->getPiwikSiteIdForPid($this->id)) {
+		// check whether a page is selected
+		if (!$this->id) {
 			$flashMessage = t3lib_div::makeInstance(
 				't3lib_FlashMessage',
 				'Please select a page in the pagetree',
@@ -81,8 +81,19 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 			t3lib_FlashMessageQueue::addMessage($flashMessage);
 			return FALSE;
 		}
-		// check wether piwik_host is correct
 		$t = $this->piwikHelper->getPiwikConfigArray($this->id);
+		// check whether a configured page is selected
+		if (!isset($t['piwik_idsite']) || !$this->piwikHelper->getPiwikSiteIdForPid($this->id)) {
+			$flashMessage = t3lib_div::makeInstance(
+				't3lib_FlashMessage',
+				'Page is not configured. Did you include the Typoscript template?',
+				'',
+				t3lib_FlashMessage::NOTICE
+			);
+			t3lib_FlashMessageQueue::addMessage($flashMessage);
+			return FALSE;
+		}
+		// check whether piwik_host is correct
 		if (($t['piwik_host'] !== 'typo3conf/piwik/piwik/') && ($t['piwik_host'] !== '/typo3conf/piwik/piwik/')) {
 			$flashMessage = t3lib_div::makeInstance(
 				't3lib_FlashMessage',
