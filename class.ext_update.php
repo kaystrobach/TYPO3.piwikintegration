@@ -165,7 +165,7 @@ class ext_update {
 		$tablesInstalled = \Piwik\DbHelper::getTablesInstalled();
 		$buffer = 'Dropped Piwik tables:';
 		foreach($tablesInstalled as $table) {
-			$GLOBALS['TYPO3_DB']->admin_query('DROP TABLE `'.$table.'`');
+			$GLOBALS['TYPO3_DB']->admin_query('DROP TABLE `' . $table . '`');
 			 $buffer.= $table.', ';
 		}
 		return $buffer;
