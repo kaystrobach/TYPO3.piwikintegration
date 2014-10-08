@@ -41,7 +41,7 @@
 			<label index="desc.updatePiwik">Download, unzip and patch Piwik</label>
 			<label index="desc.removePiwik">Remove Piwik directory</label>
 			<label index="desc.patchPiwik">Patch Piwik</label>
-			<label index="desc.configurePiwik">Configure Piwik</label>
+			<label index="desc.configurePiwik">Basic configuration for user, database, settings and plugins.</label>
 			<label index="desc.enableSuggestedPlugins">Enable shipped plugins, suggested plugins and disable senseless stuff</label>
 			<label index="desc.respectGermanDataPrivacyAct">Set settings to respect german data privacy act, the base for these settings is the document of the the ULDSH. https://www.datenschutzzentrum.de/tracking/piwik/20110315-webanalyse-piwik.pdf </label>
 			<label index="desc.showPiwikConfig">Shows the configuration file of Piwik</label>
@@ -99,7 +99,7 @@
 			<label index="desc.updatePiwik">Piwik herunterladen, entpacken und patchen</label>
 			<label index="desc.removePiwik">Piwik-Verzeichnis löschen</label>
 			<label index="desc.patchPiwik">Piwik patchen</label>
-			<label index="desc.configurePiwik">Piwik konfigurieren</label>
+			<label index="desc.configurePiwik">Grundkonfiguration für Benutzer, Datenbank, Einstellungen und Plugins.</label>
 			<label index="desc.enableSuggestedPlugins">Aktiviere mitgelieferte und empfohlene Plugins und deaktiviere unnötige Plugins</label>
 			<label index="desc.respectGermanDataPrivacyAct">Aktiviere Einstellungen, um den deutschen Datenschutz zu respektieren. Die Grundlage für die Einstellungen ist das folgende Dokument des ULDSH. https://www.datenschutzzentrum.de/tracking/piwik/20110315-webanalyse-piwik.pdf </label>
 			<label index="desc.showPiwikConfig">Zeigt die Konfigurationsdatei von Piwik an</label>
