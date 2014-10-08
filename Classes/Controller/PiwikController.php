@@ -18,14 +18,15 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 	}
 
 	public function indexAction() {
-		if($this->checkPiwikEnvironment()) {
+		if($this->checkPiwikEnvironment()  || 1) {
 			$piwikSiteId   = $this->piwikHelper->getPiwikSiteIdForPid($this->id);
-			if((int)$piwikSiteId !== 0) {
-				$this->view->assign('piwikSiteId', $piwikSiteId);
-				$this->piwikHelper->correctUserRightsForSiteId($piwikSiteId);
-				$this->piwikHelper->correctTitle($this->id,$piwikSiteId,$this->piwikHelper->getPiwikConfigArray($this->id));
-			}
+			$this->view->assign('piwikSiteId', $piwikSiteId);
+			$this->piwikHelper->correctUserRightsForSiteId($piwikSiteId);
+			$this->piwikHelper->correctTitle($this->id,$piwikSiteId,$this->piwikHelper->getPiwikConfigArray($this->id));
 		}
+
+		$this->view->assign('debug', print_r($this->piwikHelper->getPiwikConfigArray($this->id), TRUE));
+
 	}
 
 	public function apiCodeAction() {
@@ -53,19 +54,18 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 			return false;
 		}
 		// check wether a configured page is selected
-		if(!$this->id || !$this->piwikHelper->getPiwikSiteIdForPid($this->id)) {
+		if(!$this->pageinfo['uid'] || !$this->piwikHelper->getPiwikSiteIdForPid($this->pageinfo['uid'])) {
 			$flashMessage = t3lib_div::makeInstance(
 				't3lib_FlashMessage',
 				'Please select a page in the pagetree',
 				'',
-				t3lib_FlashMessage::WARNING
+				t3lib_FlashMessage::NOTICE
 			);
 			t3lib_FlashMessageQueue::addMessage($flashMessage);
 			return false;
 		}
 		// check wether piwik_host is correct
-
-		$t = $this->piwikHelper->getPiwikConfigArray($this->id);
+		$t = $this->piwikHelper->getPiwikConfigArray($this->pageinfo['uid']);
 		if(($t['piwik_host'] !== 'typo3conf/piwik/piwik/') && ($t['piwik_host'] !== '/typo3conf/piwik/piwik/')) {
 			$flashMessage = t3lib_div::makeInstance(
 				't3lib_FlashMessage',
