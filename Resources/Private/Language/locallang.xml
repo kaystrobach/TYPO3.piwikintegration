@@ -12,7 +12,7 @@
 			<label index="methodNotFound">method not found - perhaps not implemented</label>
 
 			<label index="extmgm.noticeHeader">Update Assistent</label>
-			<label index="extmgm.noticeText">There several assistents which help you to keep your piwikinstallation working available in update wizard</label>
+			<label index="extmgm.noticeText">There several assistents which help you to keep your piwikinstallation working available in update wizard, please use it from the extensionmanager.</label>
 			<label index="extmgm.assistent">Updateassistent</label>
 			<label index="extmgm.databaseTablePrefix">Prefix for Database. Please note, saving causes TYPO3 to try to move the tables to the database you provided, if that fails move is canceld and Piwik will not work. Empty field means Piwikdata is stored in TYPO3 database - don't use compare whitout knowing what you do ... The dot is automatically added just provide a databasename{value}.{tablename}</label>
 			<label index="extmgm.enableIndependentMode">EXPERIMENTAL independent mode: Enable independent mode of piwikintegration, that means, the JS is rendered without additional extensions, if not enabled an additional extension is needed to render the fe output for piwik - it's suggested to use EXT:piwik for FE-Rendering</label>
@@ -59,7 +59,7 @@
 			<label index="methodNotFound">Methode nicht gefunden - evt. noch nicht implmentiert?</label>
 
 			<label index="extmgm.noticeHeader">Update Assistent</label>
-			<label index="extmgm.noticeText">Im Update Asssitenten sind einige Hilfsmittel, um die Pflege der Piwikinstallation zu vereinfachen.</label>
+			<label index="extmgm.noticeText">Im Update Assistenten sind einige Hilfsmittel, um die Pflege der Piwikinstallation zu vereinfachen, bitte nutzen Sie diese vom Extensionmanager aus.</label>
 			<label index="extmgm.assistent">Aktualisierungsassistent</label>
 			<label index="extmgm.databaseTablePrefix">Prefix für Datenbank. Das Ändern dieses Wertes verursacht einen verschiebe Versuch der Datenbanktabellen.</label>
 			<label index="extmgm.enableIndependentMode">EXPERIMENTAL independent mode: bindet den Tracking code ohne weitere Extension ein, denoch wird die Nutzung von EXT:piwik für das FE-Rendering empfohlen</label>
