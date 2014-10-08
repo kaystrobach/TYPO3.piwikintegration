@@ -42,26 +42,21 @@ if (!defined ('TYPO3_MODE')) {
  * Add Backend Module and Ext.Direct for it
  */ 
 	if (TYPO3_MODE == 'BE') {
-		t3lib_extMgm::addModulePath('web_txpiwikintegrationM1', t3lib_extMgm::extPath($_EXTKEY) . 'mod1/');
-		t3lib_extMgm::addModule('web', 'txpiwikintegrationM1', '', t3lib_extMgm::extPath($_EXTKEY) . 'mod1/');
-
-		if (TYPO3_MODE === 'BE') {
-			Tx_Extbase_Utility_Extension::registerModule(
-				$_EXTKEY,
-				'web',          // Main area
-				'mod2',         // Name of the module
-				'',             // Position of the module
-				array(          // Allowed controller action combinations
-					'Piwik'             => 'index,apiCode',
-					'PiwikInstallation' => 'index,download,patch,configure',
-				),
-				array(          // Additional configuration
-					'access'    => 'user,group',
-					'icon'      => 'EXT:piwikintegration/ext_icon.gif',
-					'labels'    => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
-				)
-			);
-		}
+		Tx_Extbase_Utility_Extension::registerModule(
+			$_EXTKEY,
+			'web',          // Main area
+			'mod2',         // Name of the module
+			'',             // Position of the module
+			array(          // Allowed controller action combinations
+				'Piwik'             => 'index,apiCode',
+				'PiwikInstallation' => 'index,download,patch,configure',
+			),
+			array(          // Additional configuration
+				'access'    => 'user,group',
+				'icon'      => 'EXT:piwikintegration/Resources/Public/Images/module.png',
+				'labels'    => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
+			)
+		);
 	}
 
 /*******************************************************************************
