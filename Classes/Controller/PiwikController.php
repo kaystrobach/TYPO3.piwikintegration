@@ -27,7 +27,7 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 	}
 
 	public function apiCodeAction() {
-		$this->view->assign('beuser',             $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code']);
+		$this->view->assign('piwikApiCode',       $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code']);
 		$this->view->assign('piwikBaseUri',       tx_piwikintegration_install::getInstaller()->getBaseUrl());
 
 		$tracker = new tx_piwikintegration_tracking();
