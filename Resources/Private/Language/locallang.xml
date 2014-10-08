@@ -34,8 +34,8 @@
 			<label index="action.showPiwikConfig">Show Piwik configuration</label> 
 			<label index="action.renameTables">Rename tables</label>
 			<label index="action.resetUserRights">Reset user rights</label>
-			<label index="action.cleanupPiwikDB">Remove Piwik tables</label>
-			<label index="action.reInitPiwikDB">(Delete and) Create Piwik tables</label>
+			<label index="action.deletePiwikTables">Remove Piwik tables</label>
+			<label index="action.createPiwikTables">(Delete and) Create Piwik tables</label>
 			
 			<label index="desc.installPiwik">Download, unzip, patch and configure Piwik</label>
 			<label index="desc.updatePiwik">Download, unzip and patch Piwik</label>
@@ -47,8 +47,8 @@
 			<label index="desc.showPiwikConfig">Shows the configuration file of Piwik</label>
 			<label index="desc.renameTables">Fixes bug by renaming tables from tx_piwikintegration_* to user_piwikintegration_*</label>
 			<label index="desc.resetUserRights">Reset user rights by truncating Piwik access table</label>
-			<label index="desc.cleanupPiwikDB">Delete all Piwik tables. WARNING: All Piwik data will be lost!</label>
-			<label index="desc.reInitPiwikDB">Delete all Piwik tables and create them again. WARNING: All Piwik data will be lost!</label>
+			<label index="desc.deletePiwikTables">Delete all Piwik tables. WARNING: All Piwik data will be lost!</label>
+			<label index="desc.createPiwikTables">Delete all Piwik tables and create them again. WARNING: All Piwik data will be lost!</label>
 
 			<label index="button.DoIt">Do it</label>
 			<label index="installedPiwikNeeded">For some actions Piwik sources need to be present!</label>
@@ -82,8 +82,8 @@
 			<label index="action.showPiwikConfig">Zeige Piwik-Konfiguration</label>
 			<label index="action.renameTables">Tabellen umbenennen</label>
 			<label index="action.resetUserRights">Benutzerrechte zurücksetzen</label>
-			<label index="action.cleanupPiwikDB">Piwik-Tabellen löschen</label>
-			<label index="action.reInitPiwikDB">Piwik-Tabellen löschen und neu erstellen</label>
+			<label index="action.deletePiwikTables">Piwik-Tabellen löschen</label>
+			<label index="action.createPiwikTables">Piwik-Tabellen löschen und neu erstellen</label>
 			
 			<label index="desc.installPiwik">Piwik herunterladen, entpacken, patchen und konfigurieren</label>
 			<label index="desc.updatePiwik">Piwik herunterladen, entpacken und patchen</label>
@@ -95,8 +95,8 @@
 			<label index="desc.showPiwikConfig">Zeigt die Konfigurationsdatei von Piwik an</label>
 			<label index="desc.renameTables">Umbenennen der Tabellen von tx_piwikintegration_* in user_piwikintegration_* (Bugfix)</label>
 			<label index="desc.resetUserRights">Benutzerrechte zurücksetzen durch Leeren der Piwik-Rechte-Tabelle</label>
-			<label index="desc.cleanupPiwikDB">Alle Piwik-Tabellen löschen. WARNUNG: Alle Piwik-Daten werden gelöscht!</label>
-			<label index="desc.reInitPiwikDB">Alle Piwik-Tabellen löschen und neu erstellen. WARNUNG: Alle Piwik-Daten werden gelöscht!</label>
+			<label index="desc.deletePiwikTables">Alle Piwik-Tabellen löschen. WARNUNG: Alle Piwik-Daten werden gelöscht!</label>
+			<label index="desc.createPiwikTables">Alle Piwik-Tabellen löschen und neu erstellen. WARNUNG: Alle Piwik-Daten werden gelöscht!</label>
 
 			<label index="button.DoIt">Ausführen</label>
 			<label index="installedPiwikNeeded">Für einige Aktionen muss Piwik installiert sein!</label>
