@@ -82,8 +82,8 @@ class ext_update {
 		$buffer.= $this->getHeader($LANG->getLL('header.database'));
 		$buffer.= $this->getButton('renameTables');
 		$buffer.= $this->getButton('resetUserRights');
-		$buffer.= $this->getButton('cleanupPiwikDB');
-		$buffer.= $this->getButton('reInitPiwikDB');
+		$buffer.= $this->getButton('deletePiwikTables');
+		$buffer.= $this->getButton('createPiwikTables');
 		$buffer.= $this->getFooter();
 		return $buffer;
 	}
@@ -160,7 +160,7 @@ class ext_update {
 		$button.='</tr>';
 		return $button;
 	}
-	function cleanupPiwikDB() {
+	function deletePiwikTables() {
 		tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
 		$tablesInstalled = \Piwik\DbHelper::getTablesInstalled();
 		$buffer = 'Dropped Piwik tables:';
@@ -170,8 +170,8 @@ class ext_update {
 		}
 		return $buffer;
 	}
-	function reInitPiwikDB() {
-		$this->cleanupPiwikDB();
+	function createPiwikTables() {
+		$this->deletePiwikTables();
 		tx_piwikintegration_install::getInstaller()->getConfigObject()->installDatabase();
 		return 'Piwik tables dropped and recreated';
 	}
