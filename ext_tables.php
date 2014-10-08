@@ -67,7 +67,7 @@ t3lib_extMgm::addStaticFile($_EXTKEY,'Configuration/TypoScript/', 'Piwik Integra
 $tempColumns = array (
 	'tx_piwikintegration_api_code' => array (		
 		'exclude' => 0,		
-		'label'   => 'LLL:EXT:piwikintegration/locallang_db.xml:be_users.tx_piwikintegration_api_code',		
+		'label'   => 'LLL:EXT:piwikintegration/Resources/Private/Language/locallang_db.xml:be_users.tx_piwikintegration_api_code',		
 		'config'  => array (
 			'type'    => 'input',
 			'readOnly' => true,
