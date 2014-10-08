@@ -160,12 +160,18 @@ class tx_piwikintegration_config {
 	 * @return string
 	 */
 	public function enableSuggestedPlugins() {
-		$this->enablePlugin('TYPO3Login');
-		// $this->enablePlugin('TYPO3Menu');
-		// $this->enablePlugin('TYPO3Widgets');
-		// $this->enablePlugin('DBStats');
-		$this->enablePlugin('Morpheus');
-		return 'TYPO3Login, Morpheus';
+		$pluginsToActivate = array(
+			'TYPO3Login',
+			'Morpheus',
+			'Actions',
+			'Dashboard',
+		);
+
+		foreach($pluginsToActivate as $plugin) {
+			$this->enablePlugin($plugin);
+		}
+
+		return implode(', ', $pluginsToActivate);
 	}
 
 	/**
