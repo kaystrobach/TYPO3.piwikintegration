@@ -161,6 +161,7 @@ class tx_piwikintegration_config {
 		#$this->enablePlugin('TYPO3Widgets');
 		#$this->enablePlugin('DBStats');
 		$this->enablePlugin('Zeitgeist');
+		return 'TYPO3Login, Zeitgeist';
 	}
 
 	function installDatabase() {

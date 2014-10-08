@@ -100,7 +100,7 @@ class ext_update {
 		if($installer->removePiwik()) {
 			return 'Piwik removed';
 		} else {
-			return 'Piwik not removed';
+			return 'Piwik could not be removed';
 		}
 	}
 	function patchPiwik() {
@@ -143,7 +143,6 @@ class ext_update {
 		$button.= '<b style="float:left;">'.$LANG->getLL('action.'.$func).'</b><br>';
 		$button.= '<p>'.$LANG->getLL('desc.'.$func).'</p>';
 		$button.= '</td><td>';
-			//<a href="javascript:' . htmlspecialchars($onClick) . '">'.$LANG->getLL('DoIt').'</a>
 			try{
 				if($piwikNeeded) {
 					tx_piwikintegration_install::getInstaller()->getConfigObject();
@@ -162,9 +161,9 @@ class ext_update {
 		return $button;
 	}
 	function cleanupPiwikDB() {
-		$path   = tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
-		$tablesInstalled = Piwik::getTablesInstalled();
-		$buffer = 'Dropped Tables:';
+		tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
+		$tablesInstalled = \Piwik\DbHelper::getTablesInstalled();
+		$buffer = 'Dropped Piwik tables:';
 		foreach($tablesInstalled as $table) {
 			$GLOBALS['TYPO3_DB']->admin_query('DROP TABLE `'.$table.'`');
 			 $buffer.= $table.', ';
@@ -173,9 +172,9 @@ class ext_update {
 	}
 	function reInitPiwikDB() {
 		$this->cleanupPiwikDB();
-		$path   = tx_piwikintegration_install::getInstaller()->getConfigObject()->installDatabase();
-		return 'Tables dropped an recreated';
-	}//*/
+		tx_piwikintegration_install::getInstaller()->getConfigObject()->installDatabase();
+		return 'Piwik tables dropped and recreated';
+	}
 	function showPiwikConfig() {
 		$path   = tx_piwikintegration_install::getInstaller()->getAbsInstallPath().'piwik/config/config.ini.php';
 		$button = $path;
@@ -186,9 +185,9 @@ class ext_update {
 	}
 	function enableSuggestedPlugins() {
 		$config =  tx_piwikintegration_install::getInstaller()->getConfigObject();
-		$config->enableSuggestedPlugins();
+		$suggestedPlugins = $config->enableSuggestedPlugins();
 		$config->disablePlugin('Login');
-		return 'installed: TYPO3Login, TYPO3Menu, SecurityInfo, DBStats, AnonymizeIP<br />removed: Login';
+		return 'Installed: ' . $suggestedPlugins . '<br />Removed: Login';
 	}
 	function respectGermanDataPrivacyAct() {
 		$config =  tx_piwikintegration_install::getInstaller()->getConfigObject();
@@ -196,7 +195,7 @@ class ext_update {
 		$config->setOption('Tracker','ip_address_mask_length',2);
 		$config->setOption('Tracker','cookie_expire',604800);
 		
-		return 'installed: AnonymizeIP<br />set: Tracker.ip_address_mask_length=2<br />set: Tracker.cookie_expire=604800';
+		return 'Installed: AnonymizeIP<br />Set: Tracker.ip_address_mask_length=2<br />Set: Tracker.cookie_expire=604800';
 	}
 	function renameTables() {
 		$buffer = 'Renamed all tables prepended with tx_piwikintegration to user_piwikintegration:';
