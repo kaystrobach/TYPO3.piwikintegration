@@ -58,13 +58,15 @@ class ext_update {
 			}
 		}
 		
-		$flashMessage = t3lib_div::makeInstance(
-					't3lib_FlashMessage',
-					$LANG->getLL('installedPiwikNeeded'),
-					'',
-					t3lib_FlashMessage::INFO
-			    );
-		$buffer.= $flashMessage->render();
+		try {
+			tx_piwikintegration_install::getInstaller()->getConfigObject();
+		} catch (Exception $e) {
+			$flashMessage = t3lib_div::makeInstance(
+					't3lib_FlashMessage', $LANG->getLL('installedPiwikNeeded'), '', t3lib_FlashMessage::INFO
+			);
+			$buffer.= $flashMessage->render();
+		}
+		
 		$buffer.= $this->getHeader($LANG->getLL('header.installation'));
 		$buffer.= $this->getButton('installPiwik',false);
 		$buffer.= $this->getButton('updatePiwik');
