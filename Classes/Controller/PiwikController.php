@@ -55,7 +55,6 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 	 * @throws Exception
 	 */
 	protected function checkPiwikEnvironment() {
-		global $LANG;
 		// check if piwik is installed
 		if (!tx_piwikintegration_install::getInstaller()->checkInstallation()) {
 			tx_piwikintegration_install::getInstaller()->installPiwik();
@@ -63,7 +62,7 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 				$flashMessage = t3lib_div::makeInstance(
 					't3lib_FlashMessage',
 					'Piwik installed',
-					'Piwik is now installed / upgraded, wait a moment, reload the page ;) <meta http-equiv="refresh" content="2; URL=mod.php?M=web_txpiwikintegrationM1&uid=' .$this->id  . '#reload">',
+					'Piwik is now installed / upgraded, wait a moment, reload the page ;) <meta http-equiv="refresh" content="2; URL=mod.php?M=web_txpiwikintegrationM1&uid=' . $this->id  . '#reload">',
 					t3lib_FlashMessage::OK
 				);
 				t3lib_FlashMessageQueue::addMessage($flashMessage);
