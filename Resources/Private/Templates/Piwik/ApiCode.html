@@ -4,14 +4,29 @@
 	<h3>
 		Piwik API
 	</h3>
-	<pre>
-		Your API Code:  {beuser.user.tx_piwikintegration_api_code}
-		Your Piwik URL: {piwikBaseUri};
-	</pre>
+	<table class="t3-table">
+		<tbody>
+			<tr>
+				<td>
+					Your API Code
+				</td>
+				<td>
+					{beuser.user.tx_piwikintegration_api_code}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Your Piwik URL
+				</td>
+				<td>
+					{piwikBaseUri}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
 	<h3>
 		JavaScript Code
 	</h3>
-	<pre>
-		{piwikTrackingCode}
-	</pre>
+	<pre><f:format.raw>{piwikTrackingCode}</f:format.raw></pre>
 </f:section>
