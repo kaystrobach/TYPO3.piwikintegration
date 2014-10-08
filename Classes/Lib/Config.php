@@ -48,7 +48,7 @@ class tx_piwikintegration_config {
 	 * @return tx_piwikintegration_config
 	 */
 	public static function getConfigObject() {
-		if(self::$configObject == NULL) {
+		if (self::$configObject == NULL) {
 			self::$configObject = new tx_piwikintegration_config();
 		}
 		return self::$configObject;
@@ -56,7 +56,7 @@ class tx_piwikintegration_config {
 	/**
 	 * @return void
 	 */
-	function initPiwikFrameWork() {
+	public function initPiwikFrameWork() {
 		if ($this->initPiwikFramework) {
 			$this->initPiwikFramework = TRUE;
 			return;
@@ -64,8 +64,8 @@ class tx_piwikintegration_config {
 
 		//load files from piwik
 		if (!defined('PIWIK_INCLUDE_PATH')) {
-			define('PIWIK_INCLUDE_PATH', PATH_site.'typo3conf/piwik/piwik/');
-			define('PIWIK_USER_PATH', PATH_site.'typo3conf/piwik/piwik/');
+			define('PIWIK_INCLUDE_PATH', PATH_site . 'typo3conf/piwik/piwik/');
+			define('PIWIK_USER_PATH', PATH_site . 'typo3conf/piwik/piwik/');
 		}
 		if (!defined('PIWIK_INCLUDE_SEARCH_PATH')) {
 			define('PIWIK_INCLUDE_SEARCH_PATH',
@@ -89,7 +89,7 @@ class tx_piwikintegration_config {
 		try {
 			$config = \Piwik\Config::getInstance();
 			$config->init();
-		} catch(\Exception $e) {
+		} catch (\Exception $e) {
 
 		}
 	}
@@ -123,12 +123,12 @@ class tx_piwikintegration_config {
 			$this->setOption('database', 'host', $hostAndPort[0]);
 			$this->setOption('database', 'port', $hostAndPort[1]);
 		} else{
-			$this->setOption('database', 'host',TYPO3_db_host);
+			$this->setOption('database', 'host', TYPO3_db_host);
 		}
 
-		$this->setOption('database', 'username',TYPO3_db_username);
-		$this->setOption('database', 'password',TYPO3_db_password);
-		$this->setOption('database', 'dbname',TYPO3_db);
+		$this->setOption('database', 'username', TYPO3_db_username);
+		$this->setOption('database', 'password', TYPO3_db_password);
+		$this->setOption('database', 'dbname', TYPO3_db);
 		$this->setOption('database', 'tables_prefix','user_piwikintegration_');
 		$this->setOption('database', 'adapter', 'PDO_MYSQL');
 
@@ -155,7 +155,11 @@ class tx_piwikintegration_config {
 		$this->installDatabase();
 	}
 
-	function enableSuggestedPlugins() {
+	/**
+	 * enables the suggested plugins
+	 * @return string
+	 */
+	public function enableSuggestedPlugins() {
 		$this->enablePlugin('TYPO3Login');
 		// $this->enablePlugin('TYPO3Menu');
 		// $this->enablePlugin('TYPO3Widgets');
@@ -164,6 +168,10 @@ class tx_piwikintegration_config {
 		return 'TYPO3Login, Zeitgeist';
 	}
 
+	/**
+	 * inits the Piwik DB
+	 * @return void
+	 */
 	public function installDatabase() {
 		$this->initPiwikDatabase(TRUE);
 		$tablesInstalled = \Piwik\DbHelper::getTablesInstalled();
@@ -194,7 +202,7 @@ class tx_piwikintegration_config {
 		 * ensure, that user's right are added to the database
 		 * tx_piwikintegration_access		 
 		 */
-		if ($GLOBALS['BE_USER']->user['admin']!=1) {
+		if ($GLOBALS['BE_USER']->user['admin'] != 1) {
 			$erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 					'*',
 					tx_piwikintegration_div::getTblName('access'),
@@ -207,9 +215,9 @@ class tx_piwikintegration_config {
 				$GLOBALS['TYPO3_DB']->exec_INSERTquery(
 					tx_piwikintegration_div::getTblName('access'),
 					array(
-						'login' => $beUserName,
-						'idsite'=> $this->getPiwikSiteIdForPid($uid),
-						'access'=> 'view',
+						'login'  => $beUserName,
+						'idsite' => $this->getPiwikSiteIdForPid($uid),
+						'access' => 'view',
 					)
 				);
 			}

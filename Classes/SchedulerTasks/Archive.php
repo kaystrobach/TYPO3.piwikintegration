@@ -64,8 +64,8 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 		define('PIWIK_ENABLE_ERROR_HANDLER', FALSE);
 		define('PIWIK_DISPLAY_ERRORS', FALSE);
 		ini_set('display_errors', 0);
-		require_once PIWIK_INCLUDE_PATH . "/index.php";
-		require_once PIWIK_INCLUDE_PATH . "/core/API/Request.php";
+		require_once PIWIK_INCLUDE_PATH . '/index.php';
+		require_once PIWIK_INCLUDE_PATH . '/core/API/Request.php';
 
 		Piwik_FrontController::getInstance()->init();
 
