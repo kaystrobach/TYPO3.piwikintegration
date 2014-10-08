@@ -98,13 +98,13 @@ class tx_piwikintegration_tracking {
 			);
 			$numRows = $GLOBALS['TYPO3_DB']->sql_num_rows($erg);
 			//check wether siteid exists
-			if ($numRows==0) {
+			if ($numRows === 0) {
 				//if not -> create
 				//FIX currency for current Piwik version, since 0.6.3
 				// $currency = Piwik_GetOption('SitesManager_DefaultCurrency') ? Piwik_GetOption('SitesManager_DefaultCurrency') : 'USD';
 				//FIX timezone for current Piwik version, since 0.6.3
 				// $timezone = Piwik_GetOption('SitesManager_DefaultTimezone') ? Piwik_GetOption('SitesManager_DefaultTimezone') : 'UTC';
-				
+
 				$GLOBALS['TYPO3_DB']->exec_INSERTquery(
 					tx_piwikintegration_div::getTblName('site'),
 					array(
@@ -113,10 +113,10 @@ class tx_piwikintegration_tracking {
 						'main_url' => $this->baseUrl,
 						// 'timezone'   => $timezone,
 						// 'currency'   => $currency,
-						'ts_created' => date('Y-m-d H:i:s',time()),
+						'ts_created' => date('Y-m-d H:i:s', time()),
 					)
 				);
-			} elseif ($numRows>1) {
+			} elseif ($numRows > 1) {
 				//more than once -> error
 				die('piwik idsite table is inconsistent, please contact server administrator');
 			}
@@ -151,13 +151,13 @@ class tx_piwikintegration_tracking {
 	 * @return	string
 	 */
 	public function getPiwikBaseURL() {
-		if(TYPO3_MODE == 'BE') {
+		if (TYPO3_MODE == 'BE') {
 			tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikFrameWork();
 			$path  = \Piwik\Url::getCurrentUrlWithoutFileName();
 			$path  = dirname($path);
-			$path .='/typo3conf/piwik/piwik/';
+			$path .= '/typo3conf/piwik/piwik/';
 		} else {
-			$path = 'http://' . $_SERVER["SERVER_NAME"] . dirname($_SERVER['SCRIPT_NAME']) . '/typo3conf/piwik/piwik/';
+			$path = 'http://' . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . '/typo3conf/piwik/piwik/';
 		}
 		return $path;
 	}
