@@ -1,21 +1,22 @@
 <f:layout name="Default" />
 
 <f:section name="Content">
-	<style type="text/css">
-		#typo3-inner-docbody {
-			height: 90%;
-		}
-	</style>
+
+</f:section>
+
+<f:section name="ContentOutside">
+
 	<f:if condition="{piwikSiteId}">
 		<f:then>
-			<iframe width="100%" height="600" src="../typo3conf/piwik/piwik" frameborder="0"></iframe>
+			<style type="text/css">
+				div#typo3-inner-docbody {
+					padding:0px;
+				}
+			</style>
+			<iframe width="100%" height="600" src="../typo3conf/piwik/piwik/index.php?module=CoreHome&action=index&period=week&date=yesterday&idSite={piwikSiteId}" frameborder="0"></iframe>
 		</f:then>
 		<f:else>
 
 		</f:else>
 	</f:if>
-
-	[{piwikSiteId}]
-
-	{debug}
 </f:section>

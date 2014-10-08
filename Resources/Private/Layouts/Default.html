@@ -1,5 +1,5 @@
 <f:be.container
-		pageTitle="plimm"
+		pageTitle="piwik"
 		>
 	<div class="typo3-fullDoc">
 		<div id="typo3-docheader">
@@ -24,7 +24,8 @@
 	<div id="typo3-docbody">
 		<div id="typo3-inner-docbody">
 			<f:flashMessages renderMode="div" />
-			<f:render section="Content" />
+			<f:render section="Content" optional="1"/>
 		</div>
+		<f:render section="ContentOutside" optional="1"/>
 	</div>
 </f:be.container>
