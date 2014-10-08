@@ -1,6 +1,10 @@
 <?php
 
-
+/**
+ * Class Tx_Piwikintegration_Controller_PiwikController
+ *
+ * is the backend controller
+ */
 class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	/**
 	 * @var tx_piwikintegration_div
@@ -12,11 +16,17 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 	 */
 	protected $id = 0;
 
+	/**
+	 *
+	 */
 	public function initializeAction() {
 		$this->id = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
 		$this->piwikHelper = t3lib_div::makeInstance('tx_piwikintegration_div');
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public function indexAction() {
 		if($this->checkPiwikEnvironment()) {
 			$piwikSiteId   = $this->piwikHelper->getPiwikSiteIdForPid($this->id);
@@ -26,6 +36,9 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 		}
 	}
 
+	/**
+	 * shows the api code
+	 */
 	public function apiCodeAction() {
 		$this->view->assign('piwikApiCode',       $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code']);
 		$this->view->assign('piwikBaseUri',       tx_piwikintegration_install::getInstaller()->getBaseUrl());
@@ -34,6 +47,12 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 		$this->view->assign('piwikTrackingCode',  $tracker->getPiwikJavaScriptCodeForPid($this->id));
 	}
 
+	/**
+	 * checks the piwik environment
+	 *
+	 * @return bool
+	 * @throws Exception
+	 */
 	protected function checkPiwikEnvironment() {
 		global $LANG;
 		// check if piwik is installed

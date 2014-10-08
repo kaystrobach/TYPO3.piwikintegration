@@ -24,6 +24,7 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+
 /**
  * Handles the first steps of install and returns config object for next steps
  *
@@ -31,14 +32,13 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
- 
- 
 class tx_piwikintegration_install {
 	/**
 	 * cache for checking if piwik is installed, as many functions require
 	 * a valid installation, otherwise problems will occur.	 
 	 */	 	
 	protected $installed   = null;
+
 	/**
 	 * path were piwik will be installed
 	 */	 	
@@ -48,17 +48,19 @@ class tx_piwikintegration_install {
 	 * @var tx_piwikintegration_install
 	 */
 	private static $installer   = null;
+
 	/**
 	 * get Singleton function
 	 * @static
 	 * @return tx_piwikintegration_install
 	 */
 	static function getInstaller() {
-		if(self::$installer == null) {
+		if (self::$installer == null) {
 			self::$installer = new tx_piwikintegration_install();
 		}
 		return self::$installer;
 	}
+
 	/**
 	 * private constructor to get a singleton
 	 */	 	
@@ -79,10 +81,10 @@ class tx_piwikintegration_install {
 	 *
 	 */
 	public function checkInstallation() {
-		if(file_exists(t3lib_div::getFileAbsFileName($this->installPath.'piwik/index.php'))) {
-			return true;
+		if (file_exists(t3lib_div::getFileAbsFileName($this->installPath . 'piwik/index.php'))) {
+			return TRUE;
 		} else {
-			return false;
+			return FALSE;
 		}
 	}
 	public function installPiwik() {
@@ -98,7 +100,7 @@ class tx_piwikintegration_install {
 				$e->getMessage(),
 				'There was a Problem',
 				t3lib_FlashMessage::ERROR
-		    );
+			);
 			t3lib_FlashMessageQueue::addMessage($flashMessage);
 		}
 	}
@@ -109,14 +111,12 @@ class tx_piwikintegration_install {
 		return $this->installPath;
 	}
 	public function getBaseUrl() {
-		return $this->installPath.'piwik/';
+		return $this->installPath . 'piwik/';
 	}
 	private function downloadLatestPiwik() {
-		GLOBAL $TYPO3_CONF_VARS;
-
 		// tell installer where to grab piwik
-		$settings = unserialize($TYPO3_CONF_VARS['EXT']['extConf']['piwikintegration']);
-		if(array_key_exists('piwikDownloadSource', $settings) && $settings['piwikDownloadSource'] != '') {
+		$settings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['piwikintegration']);
+		if (array_key_exists('piwikDownloadSource', $settings) && $settings['piwikDownloadSource'] != '') {
 			$downloadSource = $settings['piwikDownloadSource'];
 		} else {
 			$downloadSource = 'http://builds.piwik.org/latest.zip';
@@ -125,19 +125,19 @@ class tx_piwikintegration_install {
 		//download piwik into typo3temp
 		$zipArchivePath = t3lib_div::getFileAbsFileName('typo3temp/piwiklatest.zip');
 		t3lib_div::writeFileToTypo3tempDir($zipArchivePath,t3lib_div::getURL($downloadSource));
-		if(@filesize($zipArchivePath)===FALSE) {
-			throw new Exception('Installation invalid, typo3temp '.$zipArchivePath.' can´t be created for some reason');
+		if (@filesize($zipArchivePath) === FALSE) {
+			throw new Exception('Installation invalid, typo3temp ' . $zipArchivePath . ' can´t be created for some reason');
 		}
-		if(@filesize($zipArchivePath)<10) {
-			throw new Exception('Installation invalid, typo3temp'.$zipArchivePath.' is smaller than 10 bytes, download definitly failed');
+		if (@filesize($zipArchivePath)<10) {
+			throw new Exception('Installation invalid, typo3temp' . $zipArchivePath . ' is smaller than 10 bytes, download definitly failed');
 		}
 		return $zipArchivePath;
 	}
 	private function extractDownloadedPiwik($zipArchivePath) {
 		//make dir for extraction
 			t3lib_div::mkdir_deep(PATH_site,$this->installPath);
-			if(!is_writeable(PATH_site.$this->installPath)) {
-				throw new Exception($this->installPath.' must be writeable');
+			if (!is_writeable(PATH_site.$this->installPath)) {
+				throw new Exception($this->installPath . ' must be writeable');
 			}
 		//extract archive
 			switch($this->checkUnzip()) {
@@ -149,7 +149,7 @@ class tx_piwikintegration_install {
 					unset($zip);
 				break;
 				case 'cmd':
-					$cmd = $GLOBALS['TYPO3_CONF_VARS']['BE']['unzip_path'].'unzip -qq "'.$zipArchivePath.'" -d "'.$this->getAbsInstallPath().'"';
+					$cmd = $GLOBALS['TYPO3_CONF_VARS']['BE']['unzip_path'] . 'unzip -qq "' . $zipArchivePath . '" -d "' . $this->getAbsInstallPath() . '"';
 					exec($cmd);
 				break;
 				case 'zlib':
@@ -174,15 +174,15 @@ class tx_piwikintegration_install {
 			}
 		//unlink archiv to save space in typo3temp ;)
 			t3lib_div::unlink_tempfile($zipArchivePath);
-		if(!$this->checkInstallation()) {
+		if (!$this->checkInstallation()) {
 			$buffer = 'No files has been extracted!';
-			if(!class_exists('ZipArchive')) {
-				$buffer.= ' -> Please enable the phpextensions Zip or Zlib!';
+			if (!class_exists('ZipArchive')) {
+				$buffer .= ' -> Please enable the phpextensions Zip or Zlib!';
 			}
-			if((!(TYPO3_OS=='WIN' || $GLOBALS['TYPO3_CONF_VARS']['BE']['disable_exec_function']))) {
-				$buffer.= ' -> used TYPO3 cmd line function to extract files, if you use solaris this may be the problem.';
-				$buffer.= ' -> please manually extract piwik and copy it to typo3conf/piwik/piwik and use the extmgm update script to patch and configure piwik';
-				$buffer.= ' -> take a look in your manual for more information or use an environment with a working zip class';
+			if ((!(TYPO3_OS=='WIN' || $GLOBALS['TYPO3_CONF_VARS']['BE']['disable_exec_function']))) {
+				$buffer .= ' -> used TYPO3 cmd line function to extract files, if you use solaris this may be the problem.';
+				$buffer .= ' -> please manually extract piwik and copy it to typo3conf/piwik/piwik and use the extmgm update script to patch and configure piwik';
+				$buffer .= ' -> take a look in your manual for more information or use an environment with a working zip class';
 			}
 			throw new Exception($buffer);
 		}
@@ -192,44 +192,44 @@ class tx_piwikintegration_install {
 		$_EXTKEY = 'piwikintegration';
 		$piwikPatchVersion = '0.0.0';
 		$EM_CONF = array();
-		@include(t3lib_extMgm::extPath('piwikintegration').'ext_emconf.php');
-		@include($this->getAbsInstallPath().'/piwik/piwikintegration.php');
-		if($EM_CONF['piwikintegration']['version'] != $piwikPatchVersion) {
-			return false;
+		@include(t3lib_extMgm::extPath('piwikintegration') . 'ext_emconf.php');
+		@include($this->getAbsInstallPath() . '/piwik/piwikintegration.php');
+		if ($EM_CONF['piwikintegration']['version'] != $piwikPatchVersion) {
+			return FALSE;
 		}
-		return true;
+		return TRUE;
 	}
 	public function patchPiwik($exclude=array()) {
-		if(!is_writeable($this->getAbsInstallPath())) {
-			throw new Exception('Installation is invalid, '.$this->getAbsInstallPath().' was not writeable for applying the patches');
+		if (!is_writeable($this->getAbsInstallPath())) {
+			throw new Exception('Installation is invalid, ' . $this->getAbsInstallPath() . ' was not writeable for applying the patches');
 		}
 		//recursive directory copy is not supported under windows ... so i implement is myself!!!
-		$source = t3lib_extMgm::extPath('piwikintegration').'piwik_patches/';
-		$dest   = $this->getAbsInstallPath().'piwik/';
+		$source = t3lib_extMgm::extPath('piwikintegration') . 'piwik_patches/';
+		$dest   = $this->getAbsInstallPath() . 'piwik/';
 		$cmd    = array();
 		$t = t3lib_div::getAllFilesAndFoldersInPath(
 			array(),
 			$source,
 			'',
-			true,
+			TRUE,
 			99
 		);
-		foreach($t as $entry) {
-			$shortEntry = str_replace($source,'',$entry);
-			if($shortEntry!='' && $shortEntry!='.') {
-				if(!in_array($shortEntry, $exclude)) {
-					if(is_dir($entry)) {
+		foreach ($t as $entry) {
+			$shortEntry = str_replace($source, '', $entry);
+			if ($shortEntry!='' && $shortEntry != '.') {
+				if (!in_array($shortEntry, $exclude)) {
+					if (is_dir($entry)) {
 						$cmd['newfolder'][] = array(
 							'data'   => basename($shortEntry),
-							'target' => dirname($dest.$shortEntry),
+							'target' => dirname($dest . $shortEntry),
 						);
-						@mkdir($dest.$shortEntry);
-					} elseif(is_file($entry)) {
+						@mkdir($dest . $shortEntry);
+					} elseif (is_file($entry)) {
 						$cmd['copy'][] = array(
 							'data'   => $entry,
-							'target' => $dest.$shortEntry,
+							'target' => $dest . $shortEntry,
 						);
-						@copy($entry,$dest.$shortEntry);
+						@copy($entry,$dest . $shortEntry);
 					}
 				}
 			}
@@ -237,36 +237,36 @@ class tx_piwikintegration_install {
 		//store information about the last patch process
 		$_EXTKEY = 'piwikintegration';
 		$EM_CONF = array();
-		@include(t3lib_extMgm::extPath('piwikintegration').'ext_emconf.php');
-		$data = '<?php $piwikPatchVersion = "'.$EM_CONF['piwikintegration']['version'].'"; '.chr(63).'>';
-		file_put_contents($this->getAbsInstallPath().'piwik/piwikintegration.php',$data);
+		@include(t3lib_extMgm::extPath('piwikintegration') . 'ext_emconf.php');
+		$data = '<?php $piwikPatchVersion = "' . $EM_CONF['piwikintegration']['version'] . '"; ' . chr(63) . '>';
+		file_put_contents($this->getAbsInstallPath() . 'piwik/piwikintegration.php', $data);
 	}
 	private function configureDownloadedPiwik() {
 		$this->getConfigObject()->makePiwikConfigured();
 	}
-    /**
-     * @throws Exception
-     * @return tx_piwikintegration_config
-     */
+	/**
+	 * @throws Exception
+	 * @return tx_piwikintegration_config
+	 */
 	public function getConfigObject() {
-		if($this->checkInstallation()) {
+		if ($this->checkInstallation()) {
 			return tx_piwikintegration_config::getConfigObject();
 		} else {
 			throw new Exception('Piwik is not installed!');
 		}
 	}
 	public function removePiwik() {
-		return t3lib_div::rmdir($this->getAbsInstallPath(),true);
+		return t3lib_div::rmdir($this->getAbsInstallPath(), TRUE);
 	}
 	public function checkUnzip() {
-		if(class_exists('ZipArchive')) {
-				return 'clsZipArchive';
-			} elseif(extension_loaded('zlib')) {
-				return 'zlib';
-			} elseif(!(TYPO3_OS=='WIN' || $GLOBALS['TYPO3_CONF_VARS']['BE']['disable_exec_function']))	{
-				return 'cmd';
-			} else {
-				throw new Exception('There is no valid unzip wrapper, i need either the class ZipArchiv from php or a *nix system with unzip path set.');
-			}
+		if (class_exists('ZipArchive')) {
+			return 'clsZipArchive';
+		} elseif(extension_loaded('zlib')) {
+			return 'zlib';
+		} elseif(!(TYPO3_OS=='WIN' || $GLOBALS['TYPO3_CONF_VARS']['BE']['disable_exec_function'])) {
+			return 'cmd';
+		} else {
+			throw new Exception('There is no valid unzip wrapper, i need either the class ZipArchiv from php or a *nix system with unzip path set.');
+		}
 	}
 }
