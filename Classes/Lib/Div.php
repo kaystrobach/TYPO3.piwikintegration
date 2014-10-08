@@ -24,16 +24,19 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+
 /**
  * div functions to handle piwik stuff
  *
- * $Id: class.tx_piwikintegration_div.php 44087 2011-02-22 20:05:29Z kaystrobach $
- *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-
 class tx_piwikintegration_div {
-    function correctTitle($uid,$siteid,$config) {
+	/**
+	 * @param $uid
+	 * @param $siteid
+	 * @param $config
+	 */
+	public function correctTitle($uid,$siteid,$config) {
 		if($config['customerRefresh'] && $config['customerName'] && $config['customerRootPid']) {
 			$newName = $config['customerName'];
 			$newName = str_replace('%siteid%',$config['piwik_idsite'],$newName);
@@ -51,27 +54,27 @@ class tx_piwikintegration_div {
 		}
 	}
 	/**
-     * @param  $table piwik tablename without prefix
-     * @return string name of the table prefixed with database
-     *
-     */
-    static function getTblName($table) {
+	 * @param  $table piwik tablename without prefix
+	 * @return string name of the table prefixed with database
+	 *
+	 */
+	static function getTblName($table) {
 		tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikFrameWork();
-        $database = tx_piwikintegration_install::getInstaller()->getConfigObject()->getDBName();
-        $tablePrefix = tx_piwikintegration_install::getInstaller()->getConfigObject()->getTablePrefix();
-        if($database != '') {
-            $database = '`'.$database.'`.';
-        }
-        return $database.'`'.$tablePrefix.$table.'`';
-    }
-    /**
-     * @param  $table string piwik tablename without prefix
-     * @return string name of the table prefixed with database
-     *
-     */
-    function tblNm($table) {
-        return self::getTblName($table);
-    }
+		$database = tx_piwikintegration_install::getInstaller()->getConfigObject()->getDBName();
+		$tablePrefix = tx_piwikintegration_install::getInstaller()->getConfigObject()->getTablePrefix();
+		if($database != '') {
+			$database = '`'.$database.'`.';
+		}
+		return $database.'`'.$tablePrefix.$table.'`';
+	}
+	/**
+	* @param  $table string piwik tablename without prefix
+	* @return string name of the table prefixed with database
+	*
+	*/
+	public function tblNm($table) {
+		return self::getTblName($table);
+	}
 
 	/**
 	 * returns the piwik config for a given page
@@ -81,14 +84,14 @@ class tx_piwikintegration_div {
 	 * @throws Exception
 	 * @return    array        piwik config array
 	 */
-	function getPiwikConfigArray($uid) {
-        $path              = tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
+	public function getPiwikConfigArray($uid) {
+		$path              = tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
 
-		if($uid <= 0 || $uid!=intval($uid)) {
+		if ($uid <= 0 || $uid!=intval($uid)) {
 			throw new Exception('Problem with uid in tx_piwikintegration_helper.php::getPiwikSiteIdForPid');
 		}
 
-		if(isset($this->piwik_option[$uid])) {
+		if (isset($this->piwik_option[$uid])) {
 			return $this->piwik_option[$uid];
 		}
 		//parse ts template
@@ -103,18 +106,18 @@ class tx_piwikintegration_div {
 				$rootLine = $sys_page->getRootLine($uid);
 				$tmpl->runThroughTemplates($rootLine);	// This generates the constants/config + hierarchy info for the template.
 				$tmpl->generateConfig();
-				if($tmpl->setup['config.']['tx_piwik.']['customerPidLevel']) {
+				if ($tmpl->setup['config.']['tx_piwik.']['customerPidLevel']) {
 					$k = $tmpl->setup['config.']['tx_piwik.']['customerPidLevel'];
 					$tmpl->setup['config.']['tx_piwik.']['customerRootPid'] = $rootLine[$k]['uid'];
 				}
-				if(!$tmpl->setup['config.']['tx_piwik.']['customerRootPid']) {
+				if (!$tmpl->setup['config.']['tx_piwik.']['customerRootPid']) {
 					$tmpl->setup['config.']['tx_piwik.']['customerRootPid'] = $rootLine[0]['uid'];
 				}
 				return $this->piwik_option[$uid] = $tmpl->setup['config.']['tx_piwik.'];
 			}
 		return array();
 	}
-	
+
 	/**
 	 * returns the piwik site id for a given page
 	 * call it with $this->pageinfo['uid'] as param from a backend module
@@ -122,18 +125,18 @@ class tx_piwikintegration_div {
 	 * @param	integer		$uid: Page ID
 	 * @return	integer     piwik site id
 	 */
-	function getPiwikSiteIdForPid($uid) {
+	public function getPiwikSiteIdForPid($uid) {
 		//save time get config
-			$r = $this->getPiwikConfigArray($uid);
-			if(isset($r['piwik_idsite'])) {
-				$id = (integer)$r['piwik_idsite'];
-			} else {
-				$id = 0;
-			}
+		$r = $this->getPiwikConfigArray($uid);
+		if (isset($r['piwik_idsite'])) {
+			$id = (integer)$r['piwik_idsite'];
+		} else {
+			$id = 0;
+		}
 		//check wether site already exists in piwik db
-			$this->makePiwikSiteExisting($id);
+		$this->makePiwikSiteExisting($id);
 		//return
-			return $id;
+		return $id;
 	}
 
 	/**
@@ -143,35 +146,42 @@ class tx_piwikintegration_div {
 	 * @internal param int $siteid : Piwik ID
 	 * @return    integer     piwik site id
 	 */
-	function makePiwikSiteExisting($id) {
-		$erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-			'*',
-			tx_piwikintegration_div::getTblName('site'),
-			'idsite = '.intval($id),
-			'',
-			'',
-			'0,1'
-		);
-		if(count($erg)==0) {
-			//FIX currency for current Piwik version, since 0.6.3
-			$currency = \Piwik\Option::get('SitesManager_DefaultCurrency') ? \Piwik\Option::get('SitesManager_DefaultCurrency') : 'USD';
-			//FIX timezone for current Piwik version, since 0.6.3
-			$timezone = \Piwik\Option::get('SitesManager_DefaultTimezone') ? \Piwik\Option::get('SitesManager_DefaultTimezone') : 'UTC';
-			
-			$GLOBALS['TYPO3_DB']->exec_INSERTquery(
+	public function makePiwikSiteExisting($id) {
+		if($id !== 0) {
+			$erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+				'*',
 				tx_piwikintegration_div::getTblName('site'),
-				array(
-					'idsite'     => $id,
-					'main_url'   => 'http://'.$_SERVER["SERVER_NAME"],
-					'name'       => 'Customer '.$id,
-					'timezone'   => $timezone,
-					'currency'   => $currency,
-					'ts_created' => date('Y-m-d H:i:s',time()),
-				)
+				'idsite = ' . intval($id),
+				'',
+				'',
+				'0,1'
 			);
+			if (count($erg) == 0) {
+				//FIX currency for current Piwik version, since 0.6.3
+				$currency = \Piwik\Option::get('SitesManager_DefaultCurrency') ? \Piwik\Option::get('SitesManager_DefaultCurrency') : 'USD';
+				//FIX timezone for current Piwik version, since 0.6.3
+				$timezone = \Piwik\Option::get('SitesManager_DefaultTimezone') ? \Piwik\Option::get('SitesManager_DefaultTimezone') : 'UTC';
+
+				$GLOBALS['TYPO3_DB']->exec_INSERTquery(
+					tx_piwikintegration_div::getTblName('site'),
+					array(
+						'idsite' => $id,
+						'main_url' => 'http://' . $_SERVER["SERVER_NAME"],
+						'name' => 'Customer ' . $id,
+						'timezone' => $timezone,
+						'currency' => $currency,
+						'ts_created' => date('Y-m-d H:i:s', time()),
+					)
+				);
+			}
 		}
 	}
-	function correctUserRightsForPid($uid) {
+
+	/**
+	 * @param $uid
+	 * @throws Exception
+	 */
+	public function correctUserRightsForPid($uid) {
 		$uid = $this->getPiwikSiteIdForPid($uid);
 		return $this->correctUserRightsForSiteId($uid);
 	}
@@ -185,7 +195,7 @@ class tx_piwikintegration_div {
 	 * @return    void
 	 */
 	function correctUserRightsForSiteId($uid) {
-		if($uid <= 0 || $uid!=intval($uid)) {
+		if ($uid <= 0 || $uid!=intval($uid)) {
 			throw new Exception('Problem with uid in tx_piwikintegration_helper.php::correctUserRightsForPid');
 		}
 		$beUserName = $GLOBALS['BE_USER']->user['username'];
@@ -203,7 +213,7 @@ class tx_piwikintegration_div {
 			'',
 			'0,1'
 			);
-		if(count($erg)!=1) {
+		if (count($erg)!=1) {
 			$GLOBALS['TYPO3_DB']->exec_INSERTquery(
 					$this->tblNm('user'),
 					array(
@@ -229,7 +239,7 @@ class tx_piwikintegration_div {
 		 * ensure, that user's right are added to the database
 		 * tx_piwikintegration_access		 
 		 */
-		if($GLOBALS['BE_USER']->user['admin']!=1) {
+		if ($GLOBALS['BE_USER']->user['admin']!=1) {
 			$erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 					'*',
 					$this->tblNm('access'),

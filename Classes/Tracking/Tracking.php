@@ -53,10 +53,10 @@ class tx_piwikintegration_tracking {
 	 * @internal param $pointer $$params: passed params from the hook
 	 * @return void
 	 */
-	public function contentPostProc_output(&$params, &$reference){
-		$this->init($params,$reference);
-		$content       = $params['pObj']->content;
-		$beUserLogin   = $params['pObj']->beUserLogin;
+	public function contentPostProc_output(&$params, &$reference) {
+		$this->init($params, $reference);
+		$content = $params['pObj']->content;
+		$beUserLogin = $params['pObj']->beUserLogin;
 
 		//check wether there is a BE User loggged in, if yes avoid to display the tracking code!
 		if ($beUserLogin == 1) {
@@ -69,12 +69,16 @@ class tx_piwikintegration_tracking {
 		}
 
 		$piwikCode = $this->piwikHelper->getPiwikJavaScriptCodeForSite($this->extConf['piwik_idsite']);
-		$piwikCode = str_replace('&gt;','>',$piwikCode);
-		$piwikCode = str_replace('&lt;','<',$piwikCode);
-		$piwikCode = str_replace('&quot;','"',$piwikCode);
-		$piwikCode = str_replace('<br />','',$piwikCode);
+		$piwikCode = str_replace('&gt;', '>', $piwikCode);
+		$piwikCode = str_replace('&lt;', '<', $piwikCode);
+		$piwikCode = str_replace('&quot;', '"', $piwikCode);
+		$piwikCode = str_replace('<br />', '', $piwikCode);
 
-		$params['pObj']->content = str_replace('</body>','<!-- EXT:piwikintegration independent mode, disable independent mode, if you have 2 trackingcode snippets! -->'.$piwikCode.'<!-- /EXT:piwikintegration --></body>',$params['pObj']->content);
+		$params['pObj']->content = str_replace(
+			'</body>',
+			'<!-- EXT:piwikintegration independent mode, disable independent mode, if you have 2 trackingcode snippets! -->' . $piwikCode . '<!-- /EXT:piwikintegration --></body>',
+			$params['pObj']->content
+		);
 	}
 	/**
 	 * handler for cached output processing to assure that the siteid is created
@@ -84,9 +88,9 @@ class tx_piwikintegration_tracking {
 	 * @param	pointer $reference: to the parent object
 	 * @return	void
 	 */
-	function contentPostProc_all(&$params, &$reference){
-		$this->init($params,$reference);
-		if ($this->extConf['piwik_idsite']!=0) {
+	public function contentPostProc_all(&$params, &$reference) {
+		$this->init($params, $reference);
+		if ($this->extConf['piwik_idsite'] != 0) {
 			$erg = $GLOBALS['TYPO3_DB']->exec_SELECTquery (
 				'*',
 				tx_piwikintegration_div::getTblName('site'),
@@ -125,7 +129,7 @@ class tx_piwikintegration_tracking {
 	 * @return	string		trackingcode
 	 * @return string
 	 */
-	function getPiwikJavaScriptCodeForSite($siteId) {
+	public function getPiwikJavaScriptCodeForSite($siteId) {
 		tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikFrameWork();
 		$content = \Piwik\Piwik::getJavascriptCode($siteId, $this->getPiwikBaseURL());
 		return $content;
@@ -137,7 +141,7 @@ class tx_piwikintegration_tracking {
 	 * @param	integer		$uid: uid of a page in TYPO3
 	 * @return	string
 	 */
-	function getPiwikJavaScriptCodeForPid($uid) {
+	public function getPiwikJavaScriptCodeForPid($uid) {
 		return $this->getPiwikJavaScriptCodeForSite(1);
 	}
 
@@ -146,12 +150,12 @@ class tx_piwikintegration_tracking {
 	 *
 	 * @return	string
 	 */
-	function getPiwikBaseURL() {
+	public function getPiwikBaseURL() {
 		if(TYPO3_MODE == 'BE') {
 			tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikFrameWork();
-			$path = \Piwik\Url::getCurrentUrlWithoutFileName();
-			$path = dirname($path);
-			$path.='/typo3conf/piwik/piwik/';
+			$path  = \Piwik\Url::getCurrentUrlWithoutFileName();
+			$path  = dirname($path);
+			$path .='/typo3conf/piwik/piwik/';
 		} else {
 			$path = 'http://' . $_SERVER["SERVER_NAME"] . dirname($_SERVER['SCRIPT_NAME']) . '/typo3conf/piwik/piwik/';
 		}

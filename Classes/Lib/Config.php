@@ -24,20 +24,19 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+
+
 /**
  * interact with Piwik core after download and unzip
  *
- * $Id: class.tx_piwikintegration_config.php 56783 2012-01-26 17:19:37Z kaystrobach $
- *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-
-
 class tx_piwikintegration_config {
 	private static $configObject = null;
-	private        $installer    = null;
-	private        $initPiwikFW  = false;
-	private        $initPiwikDB  = false;
+	private $installer    = null;
+	private $initPiwikFW  = false;
+	private $initPiwikDB  = false;
+
 	/**
 	 *
 	 */
@@ -46,8 +45,8 @@ class tx_piwikintegration_config {
 		$this->initPiwikFrameWork();
 	}
 	/**
-	 *
-	 */	 	
+	 * @return tx_piwikintegration_config
+	 */
 	public static function getConfigObject() {
 		if(self::$configObject == null) {
 			self::$configObject = new tx_piwikintegration_config();
@@ -55,11 +54,11 @@ class tx_piwikintegration_config {
 		return self::$configObject;
 	}
 	/**
-	 *
+	 * @return void
 	 */
 	function initPiwikFrameWork() {
 		if($this->initPiwikFW) {
-			$this->initPiwikFW = true;
+			$this->initPiwikFW = TRUE;
 			return;
 		}
 
@@ -94,54 +93,55 @@ class tx_piwikintegration_config {
 
 		}
 	}
-	function initPiwikDatabase($noLoadConfig = false) {
+
+	/**
+	 * @param bool $noLoadConfig
+	 * @return void
+	 */
+	public function initPiwikDatabase($noLoadConfig = FALSE) {
 		$this->initPiwikFrameWork();
 		if($this->initPiwikDB) {
-			$this->initPiwikDB = true;
+			$this->initPiwikDB = TRUE;
 			return;
 		}
-		#include_once(PIWIK_INCLUDE_PATH . '/core/Option.php');
-		#if($noLoadConfig===true) {
-		#	Piwik::createConfigObject(PIWIK_INCLUDE_PATH.'config/config.ini.php');
-		#}
 		\Piwik\Db::createDatabaseObject();
 	}
-	function makePiwikConfigured() {
+
+	/**
+	 * @return void
+	 */
+	public function makePiwikConfigured() {
 		$this->initPiwikFrameWork();
-
-		#Piwik::setUserIsSuperUser(TRUE);
-
 		//userdata
-		$this->setOption('superuser','login'        ,md5(microtime()));
-		$this->setOption('superuser','password'     ,md5(microtime()));
-		$this->setOption('superuser','email'        ,$GLOBALS["BE_USER"]->user['email']);
+		$this->setOption('superuser', 'login'        ,md5(microtime()));
+		$this->setOption('superuser', 'password'     ,md5(microtime()));
+		$this->setOption('superuser', 'email'        ,$GLOBALS["BE_USER"]->user['email']);
 
 		//Database
 		$hostAndPort = explode(':', TYPO3_db_host);
 		if(count($hostAndPort) == 2) {
-			$this->setOption('database' ,'host'     , $hostAndPort[0]);
-			$this->setOption('database' ,'port'     , $hostAndPort[1]);
+			$this->setOption('database', 'host'     , $hostAndPort[0]);
+			$this->setOption('database', 'port'     , $hostAndPort[1]);
 		} else{
-			$this->setOption('database' ,'host'     ,TYPO3_db_host);
+			$this->setOption('database', 'host'     ,TYPO3_db_host);
 		}
 
-		$this->setOption('database' ,'username'     ,TYPO3_db_username);
-		$this->setOption('database' ,'password'     ,TYPO3_db_password);
-		$this->setOption('database' ,'dbname'       ,TYPO3_db);
-		$this->setOption('database' ,'tables_prefix','user_piwikintegration_');
-		$this->setOption('database' ,'adapter'      ,"PDO_MYSQL");
+		$this->setOption('database', 'username'     ,TYPO3_db_username);
+		$this->setOption('database', 'password'     ,TYPO3_db_password);
+		$this->setOption('database', 'dbname'       ,TYPO3_db);
+		$this->setOption('database', 'tables_prefix','user_piwikintegration_');
+		$this->setOption('database', 'adapter'      ,"PDO_MYSQL");
 
 		//General
-		$this->setOption('General'  ,'show_website_selector_in_user_interface',0);
-		$this->setOption('General'  ,'serve_widget_and_data'                  ,0);
+		$this->setOption('General', 'show_website_selector_in_user_interface',0);
+		$this->setOption('General', 'serve_widget_and_data'                  ,0);
 
 		//Disable the frame detection of Piwik
-		$this->setOption('General'  ,'enable_framed_pages'                    ,1);
-		$this->setOption('General'  ,'enable_framed_logins'                   ,1);
-		$this->setOption('General'  ,'enable_framed_settings'                 ,1);
+		$this->setOption('General', 'enable_framed_pages'                    ,1);
+		$this->setOption('General', 'enable_framed_logins'                   ,1);
+		$this->setOption('General', 'enable_framed_settings'                 ,1);
 
 		//init all plugins
-
 
 		//set Plugins
 		$this->disablePlugin('ExampleAPI');
@@ -157,17 +157,17 @@ class tx_piwikintegration_config {
 
 	function enableSuggestedPlugins() {
 		$this->enablePlugin('TYPO3Login');
-		#$this->enablePlugin('TYPO3Menu');
-		#$this->enablePlugin('TYPO3Widgets');
-		#$this->enablePlugin('DBStats');
+		// $this->enablePlugin('TYPO3Menu');
+		// $this->enablePlugin('TYPO3Widgets');
+		// $this->enablePlugin('DBStats');
 		$this->enablePlugin('Zeitgeist');
 		return 'TYPO3Login, Zeitgeist';
 	}
 
-	function installDatabase() {
+	public function installDatabase() {
 		$this->initPiwikDatabase(true);
 		$tablesInstalled = \Piwik\DbHelper::getTablesInstalled();
-		if(count($tablesInstalled) == 0) {
+		if (count($tablesInstalled) == 0) {
 			\Piwik\DbHelper::createTables();
 			\Piwik\DbHelper::createAnonymousUser();
 			$updater = new \Piwik\Updater();
@@ -184,9 +184,9 @@ class tx_piwikintegration_config {
 	 * @throws Exception
 	 * @return    void
 	 */
-	function correctUserRightsForPid($uid) {
+	public function correctUserRightsForPid($uid) {
 		$this->initPiwikFrameWork();
-		if($uid <= 0 || $uid!=intval($uid)) {
+		if (($uid <= 0) || ($uid != intval($uid))) {
 			throw new Exception('Problem with uid in tx_piwikintegration_helper.php::correctUserRightsForPid');
 		}
 		$beUserName = $GLOBALS['BE_USER']->user['username'];
@@ -194,16 +194,16 @@ class tx_piwikintegration_config {
 		 * ensure, that user's right are added to the database
 		 * tx_piwikintegration_access		 
 		 */
-		if($GLOBALS['BE_USER']->user['admin']!=1) {
+		if ($GLOBALS['BE_USER']->user['admin']!=1) {
 			$erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 					'*',
 					tx_piwikintegration_div::getTblName('access'),
-					'login="'.$beUserName.'" AND idsite='.$this->getPiwikSiteIdForPid($uid),
+					'login="' . $beUserName . '" AND idsite=' . $this->getPiwikSiteIdForPid($uid),
 					'',
 					'',
 					'0,1'
 			);
-			if(count($erg)==0) {
+			if (count($erg) === 0) {
 				$GLOBALS['TYPO3_DB']->exec_INSERTquery(
 					tx_piwikintegration_div::getTblName('access'),
 					array(
@@ -215,44 +215,77 @@ class tx_piwikintegration_config {
 			}
 		}
 	}
-	function getTablePrefix() {
-		#throw new Exception('config. getTablePrefix is deprecated');
-		return $this->tablePrefix = $this->getOption('database','tables_prefix');
+
+	/**
+	 * @return string
+	 */
+	public function getTablePrefix() {
+		return $this->tablePrefix = $this->getOption('database', 'tables_prefix');
 	}
-    function getDBName() {
-		return $this->dbName = $this->getOption('database','dbname');
+
+	/**
+	 * @return string
+	 */
+	public function getDBName() {
+		return $this->dbName = $this->getOption('database', 'dbname');
 	}
-    function getT3DBName() {
-		return $this->T3DBName = $this->getOption('database','t3dbname');
+
+	/**
+	 * @return string
+	 */
+	public function getT3DBName() {
+		return $this->T3DBName = $this->getOption('database', 't3dbname');
 	}
-	function setOption($sectionName,$option,$value) {
+
+	/**
+	 * @param $sectionName
+	 * @param $option
+	 * @param $value
+	 * @return void
+	 */
+	public function setOption($sectionName,$option,$value) {
 		$this->initPiwikFrameWork();
 		$piwikConfig = \Piwik\Config::getInstance();
-		$section     = $piwikConfig->$sectionName;
+		$section = $piwikConfig->$sectionName;
 		$section[$option] = $value;
 		$piwikConfig->$sectionName = $section;
 		$piwikConfig->forceSave();
 	}
-	function getOption($sectionName,$option) {
+
+	/**
+	 * @param $sectionName
+	 * @param $option
+	 * @return mixed
+	 */
+	public function getOption($sectionName,$option) {
 		$this->initPiwikFrameWork();
 		$piwikConfig = \Piwik\Config::getInstance();
 		$section     = $piwikConfig->$sectionName;
 		return $section[$option];
 	}
-	function enablePlugin($plugin) {
+
+	/**
+	 * @param $plugin
+	 * @return void
+	 */
+	public function enablePlugin($plugin) {
 		$this->initPiwikFrameWork();
 		if(!\Piwik\Plugin\Manager::getInstance()->isPluginActivated($plugin)) {
 			try {
 				\Piwik\Plugin\Manager::getInstance()->activatePlugin($plugin);
 				\Piwik\Plugin\Manager::getInstance()->loadPlugins( \Piwik\Config::getInstance()->Plugins['Plugins'] );
-				#\Piwik\Plugin\Manager::getInstance()->installLoadedPlugins();
 			} catch(Exception $e) {
 
 			}
 		}
 		return;
 	}
-	function disablePlugin($plugin) {
+
+	/**
+	 * @param $plugin
+	 * @return void
+	 */
+	public function disablePlugin($plugin) {
 		$this->initPiwikFrameWork();
 		if(\Piwik\Plugin\Manager::getInstance()->isPluginActivated($plugin)) {
 			try {
@@ -263,7 +296,13 @@ class tx_piwikintegration_config {
 		}
 		return;
 	}
-	function getJsForUid($uid) {
+
+	/**
+	 * @param $uid
+	 * @return string
+	 * @deprecated
+	 */
+	public function getJsForUid($uid) {
 		return '--';
 	}
 }
