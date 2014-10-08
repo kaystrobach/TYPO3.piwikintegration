@@ -51,7 +51,7 @@
 			<label index="desc.createPiwikTables">Delete all Piwik tables and create them again. WARNING: All Piwik data will be lost!</label>
 
 			<label index="button.DoIt">Do it</label>
-			<label index="installedPiwikNeeded">For some actions Piwik sources need to be present!</label>
+			<label index="installedPiwikNeeded">Piwik is not installed yet. Install it to access all other actions.</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="piwikArchiveTask.name">Piwik Archivierungs-Cronjob</label>
@@ -99,7 +99,7 @@
 			<label index="desc.createPiwikTables">Alle Piwik-Tabellen löschen und neu erstellen. WARNUNG: Alle Piwik-Daten werden gelöscht!</label>
 
 			<label index="button.DoIt">Ausführen</label>
-			<label index="installedPiwikNeeded">Für einige Aktionen muss Piwik installiert sein!</label>
+			<label index="installedPiwikNeeded">Piwik ist noch nicht installert. Installieren Sie es, um auf alle anderen Aktionen zugreifen zu können.</label>
 		</languageKey>
 
 	</data>
