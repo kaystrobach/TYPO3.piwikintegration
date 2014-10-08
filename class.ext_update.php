@@ -46,12 +46,13 @@ class ext_update {
 		$buffer = '';
 		if(t3lib_div::_GP('do_update')) {
 			if (method_exists($this, $func)) {
-				$flashMessage = t3lib_div::makeInstance(
-					't3lib_FlashMessage',
-					$this->$func(),
-					'',
-					t3lib_FlashMessage::OK
-			    );
+				try {
+					$result = $this->$func();
+					$flashMessage = t3lib_div::makeInstance('t3lib_FlashMessage', $result, '', t3lib_FlashMessage::OK);
+				} catch (Exception $e) {
+					$result = $e->getMessage();
+					$flashMessage = t3lib_div::makeInstance('t3lib_FlashMessage', $result, '', t3lib_FlashMessage::ERROR);
+				}
 				$buffer.= $flashMessage->render();
 			} else {
 				$buffer.=$LANG->getLL('methodNotFound');
@@ -99,11 +100,10 @@ class ext_update {
 	}
 	function removePiwik() {
 		$installer =  tx_piwikintegration_install::getInstaller();
-		if($installer->removePiwik()) {
-			return 'Piwik removed';
-		} else {
-			return 'Piwik could not be removed';
+		if(!$installer->removePiwik()) {
+			throw new Exception('Piwik could not be removed');
 		}
+		return 'Piwik removed';
 	}
 	function patchPiwik() {
 		$installer =  tx_piwikintegration_install::getInstaller();
