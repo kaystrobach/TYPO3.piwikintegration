@@ -34,9 +34,6 @@
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 
-# @todo fix that path
-#require_once(t3lib_extMgm::extPath('scheduler', 'class.tx_scheduler_task.php'));
-return;
 
 /**
  * scheduler task class
@@ -48,8 +45,6 @@ return;
  * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  *
  */
- 
- 
 class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 	/**
 	 * execute the piwik archive task
@@ -58,24 +53,24 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 	 */
 	public function execute() {
 		//set execution time
-		ini_set('max_execution_time',0);
+		ini_set('max_execution_time', 0);
 		//find piwik
 		
-		$piwikScriptPath = dirname(dirname(__FILE__)).'/../../piwik/piwik';
+		$piwikScriptPath = dirname(dirname(__FILE__)) . '/../../piwik/piwik';
 		
-		file_put_contents('e:\log.txt',$piwikScriptPath);
+		file_put_contents('e:\log.txt', $piwikScriptPath);
 		
-		define('PIWIK_INCLUDE_PATH'         , $piwikScriptPath);
-		define('PIWIK_ENABLE_DISPATCH'      , false);
-		define('PIWIK_ENABLE_ERROR_HANDLER' , false);
-		define('PIWIK_DISPLAY_ERRORS'       , false);
-		ini_set('display_errors',0);
+		define('PIWIK_INCLUDE_PATH', $piwikScriptPath);
+		define('PIWIK_ENABLE_DISPATCH', FALSE);
+		define('PIWIK_ENABLE_ERROR_HANDLER', FALSE);
+		define('PIWIK_DISPLAY_ERRORS', FALSE);
+		ini_set('display_errors', 0);
 		include_once PIWIK_INCLUDE_PATH . "/index.php";
 		include_once PIWIK_INCLUDE_PATH . "/core/API/Request.php";
 		
 		Piwik_FrontController::getInstance()->init();
 
-		$piwikConfig = parse_ini_file($piwikScriptPath.'/config/config.ini.php',true);
+		$piwikConfig = parse_ini_file($piwikScriptPath . '/config/config.ini.php',true);
 
 		//log
 		$this->writeLog(
@@ -85,8 +80,8 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 		$request = new Piwik_API_Request('
 			module=API
 			&method=UsersManager.getTokenAuth
-			&userLogin='.$piwikConfig['superuser']['login'].'
-			&md5Password='.$piwikConfig['superuser']['password'].'
+			&userLogin=' . $piwikConfig['superuser']['login'] . '
+			&md5Password=' . $piwikConfig['superuser']['password'] . '
 			&format=php
 			&serialize=0'
 		);
@@ -96,7 +91,7 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 		$request = new Piwik_API_Request('
 			module=API
 			&method=SitesManager.getSitesWithAdminAccess
-			&token_auth='.$TOKEN_AUTH.'
+			&token_auth=' . $TOKEN_AUTH . '
 			&format=php
 			&serialize=0'
 		);
@@ -104,7 +99,7 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 
 		//log
 		$this->writeLog(
-			'EXT:piwikintegration got '.count($piwikSiteIds).' siteids and piwik token ('.$TOKEN_AUTH.'), start archiving '
+			'EXT:piwikintegration got ' . count($piwikSiteIds) . ' siteids and piwik token (' . $TOKEN_AUTH . '), start archiving '
 		);
 		//create Archive in piwik
 		$periods = array(
@@ -115,14 +110,14 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 		);
 		//iterate through sites
 		//can be done with allSites, but this cannot create the logentries
-		foreach($periods as $period) {
-			foreach($piwikSiteIds as $siteId) {
+		foreach ($periods as $period) {
+			foreach ($piwikSiteIds as $siteId) {
 				$starttime = microtime(true);
 				$request = new Piwik_API_Request('
 				            module=API
 							&method=VisitsSummary.getVisits
-							&idSite='.intval($siteId['idsite']).'
-							&period='.$period.'
+							&idSite=' . intval($siteId['idsite']) . '
+							&period=' . $period . '
 							&date=last52
 							&format=xml
 							&token_auth='.$TOKEN_AUTH.'"
@@ -130,7 +125,7 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 				$request->process();
 				//log
 				$this->writeLog(
-					'EXT:piwikintegration period '.$period.' ('.$siteId['idsite'].') '.$siteId['name'].' ('.round(microtime(true)-$starttime,3).'s)'
+					'EXT:piwikintegration period ' . $period . ' (' . $siteId['idsite'] . ') ' . $siteId['name'] . ' (' . round(microtime(true) - $starttime, 3) . 's)'
 				);
 			}
 		}
@@ -148,12 +143,12 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 	 * @param	mixed		$data: mixed data to store in the log
 	 * @return	void
 	 */
-	function writeLog($message,$data='') {
-		if(!array_key_exists('REMOTE_ADDR',$_SERVER)) {
+	protected function writeLog($message,$data='') {
+		if (!array_key_exists('REMOTE_ADDR',$_SERVER)) {
 			$_SERVER['REMOTE_ADDR'] = 'local CLI';
 		}
 		$conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['piwikintegration']);
-		if($conf['enableSchedulerLogging']) {
+		if ($conf['enableSchedulerLogging']) {
 			$GLOBALS['BE_USER']->writeLog(
 				4,	//extension
 				0,	//no categorie
