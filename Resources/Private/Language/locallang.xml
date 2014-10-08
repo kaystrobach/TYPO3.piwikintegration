@@ -50,7 +50,7 @@
 			<label index="desc.respectGermanDataPrivacyAct">Set settings to respect german data privacy act, the base for these settings is the document of the the ULDSH. https://www.datenschutzzentrum.de/tracking/piwik/20110315-webanalyse-piwik.pdf </label>
 			<label index="desc.renameTables">Fixes table rename bug</label>
 			<label index="button.DoIt">Do It</label>
-			<label index="installedPiwikNeeded">Piwik is not installed yet. For some actions Piwik sources need to be present!</label>
+			<label index="installedPiwikNeeded">For some actions Piwik sources need to be present!</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="piwikArchiveTask.name">Piwik Archivierungs Cron Job</label>
@@ -99,7 +99,7 @@
 			<label index="desc.renameTables">Löst das Problem der umbenannten Tabellen.</label>
 
 			<label index="button.DoIt">Ausführen</label>
-			<label index="installedPiwikNeeded">Piwik ist noch nicht installiert. Für einige Aktionen muss Piwik installiert sein!</label>
+			<label index="installedPiwikNeeded">Für einige Aktionen muss Piwik installiert sein!</label>
 		</languageKey>
 
 	</data>
