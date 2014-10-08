@@ -19,7 +19,7 @@
 			<label index="extmgm.enableSchedulerTask">EXPERIMENTAL Scheduler task: Enable scheduler task integration (don't enable in TYPO3 4.3 and earlier)</label>
 			<label index="extmgm.enableSchedulerLogging">Debugging of scheduler task: Enable heavy logging for the scheduler task - should be off in production environments (don't enable in TYPO3 4.3 and earlier)</label>
 			<label index="extmgm.piwikDownloadSource">Alternative Piwik download URL: Provide an alternative location to download Piwik. (Default is http://builds.piwik.org/latest.zip)</label>
-			
+
 			<label index="header.installation">Installation</label>
 			<label index="header.configuration">Configuration</label>
 			<label index="header.database">Database</label>
@@ -31,12 +31,12 @@
 			<label index="action.configurePiwik">Configure Piwik</label>
 			<label index="action.enableSuggestedPlugins">Enable suggested plugins</label>
 			<label index="action.respectGermanDataPrivacyAct">Respect german data privacy act</label>
-			<label index="action.showPiwikConfig">Show Piwik configuration</label> 
+			<label index="action.showPiwikConfig">Show Piwik configuration</label>
 			<label index="action.renameTables">Rename tables</label>
 			<label index="action.resetUserRights">Reset user rights</label>
 			<label index="action.deletePiwikTables">Remove Piwik tables</label>
 			<label index="action.createPiwikTables">(Delete and) Create Piwik tables</label>
-			
+
 			<label index="desc.installPiwik">Download, unzip, patch and configure Piwik</label>
 			<label index="desc.updatePiwik">Download, unzip and patch Piwik</label>
 			<label index="desc.removePiwik">Remove Piwik directory</label>
@@ -49,6 +49,16 @@
 			<label index="desc.resetUserRights">Reset user rights by truncating Piwik access table</label>
 			<label index="desc.deletePiwikTables">Delete all Piwik tables. WARNING: All Piwik data will be lost!</label>
 			<label index="desc.createPiwikTables">Delete all Piwik tables and create them again. WARNING: All Piwik data will be lost!</label>
+
+			<label index="action.installPiwik.success">Piwik sources have been installed.</label>
+			<label index="action.updatePiwik.error">Please use the wizard in Piwik to update your installation.</label>
+			<label index="action.removePiwik.success">Piwik sources have been removed.</label>
+			<label index="action.removePiwik.error">Piwik sources could not be removed.</label>
+			<label index="action.patchPiwik.success">Piwik has been patched (without modifying config/config.ini.php).</label>
+			<label index="action.configurePiwik.success">Piwik has been configured.</label>
+			<label index="action.resetUserRights.success">Piwik user rights have been reset.</label>
+			<label index="action.createPiwikTables.success">All Piwik tables have been dropped and recreated.</label>
+			<label index="action.deletePiwikTables.success">Piwik tables have been dropped:</label>
 
 			<label index="button.DoIt">Do it</label>
 			<label index="installedPiwikNeeded">Piwik is not installed yet. Install it to access all other actions.</label>
@@ -84,7 +94,7 @@
 			<label index="action.resetUserRights">Benutzerrechte zurücksetzen</label>
 			<label index="action.deletePiwikTables">Piwik-Tabellen löschen</label>
 			<label index="action.createPiwikTables">Piwik-Tabellen löschen und neu erstellen</label>
-			
+
 			<label index="desc.installPiwik">Piwik herunterladen, entpacken, patchen und konfigurieren</label>
 			<label index="desc.updatePiwik">Piwik herunterladen, entpacken und patchen</label>
 			<label index="desc.removePiwik">Piwik-Verzeichnis löschen</label>
@@ -98,8 +108,18 @@
 			<label index="desc.deletePiwikTables">Alle Piwik-Tabellen löschen. WARNUNG: Alle Piwik-Daten werden gelöscht!</label>
 			<label index="desc.createPiwikTables">Alle Piwik-Tabellen löschen und neu erstellen. WARNUNG: Alle Piwik-Daten werden gelöscht!</label>
 
+			<label index="action.installPiwik.success">Piwik-Quellen wurden installiert.</label>
+			<label index="action.updatePiwik.error">Bitte benutzen Sie den Assistent in Piwik zur Aktualisierung der Installation.</label>
+			<label index="action.removePiwik.success">Piwik-Quellen wurden gelöscht.</label>
+			<label index="action.removePiwik.error">Piwik-Quellen konnten nicht gelöscht werden.</label>
+			<label index="action.patchPiwik.success">Piwik wurde gepatcht (ohne config/config.ini.php zu ändern).</label>
+			<label index="action.configurePiwik.success">Piwik wurde konfiguriert.</label>
+			<label index="action.resetUserRights.success">Piwik-Benutzerrechte wurden zurückgesetzt.</label>
+			<label index="action.createPiwikTables.success">Alle Piwik-Tabellen wurden gelöscht und neu erstellt.</label>
+			<label index="action.deletePiwikTables.success">Piwik-Tabellen wurden gelöscht:</label>
+
 			<label index="button.DoIt">Ausführen</label>
-			<label index="installedPiwikNeeded">Piwik ist noch nicht installert. Installieren Sie es, um auf alle anderen Aktionen zugreifen zu können.</label>
+			<label index="installedPiwikNeeded">Piwik ist noch nicht installiert. Installieren Sie es, um auf alle anderen Aktionen zugreifen zu können.</label>
 		</languageKey>
 
 	</data>
