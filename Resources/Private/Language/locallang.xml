@@ -6,57 +6,58 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="piwikArchiveTask.name">Piwik Archive Cron Job</label>
-			<label index="piwikArchiveTask.description">Run the tasks shipped with piwik.org</label>
+			<label index="piwikArchiveTask.name">Piwik Archive Cronjob</label>
+			<label index="piwikArchiveTask.description">Run the cronjob shipped with Piwik</label>
 
-			<label index="methodNotFound">method not found - perhaps not implemented</label>
+			<label index="methodNotFound">Method not found - perhaps not implemented yet?</label>
 
 			<label index="extmgm.noticeHeader">Update Assistant</label>
-			<label index="extmgm.noticeText">There are several assistants available in the update wizard to help you keeping your piwik installation working</label>
+			<label index="extmgm.noticeText">There are several assistants available in the update wizard to help you keeping your Piwik installation working</label>
 			<label index="extmgm.assistent">Update Assistant</label>
-			<label index="extmgm.databaseTablePrefix">Prefix for Database: Please note, saving causes TYPO3 to try to move the tables to the database you provided. If this fails moving is canceled and Piwik will not work. If the Piwik data is stored in TYPO3 database don't use compare without knowing what you do...</label>
+			<label index="extmgm.databaseTablePrefix">Prefix for Database: Please note, saving causes TYPO3 to try to move the tables to the database you provided. If this fails moving is cancelled and Piwik will not work. If the Piwik data is stored in TYPO3 database don't use compare without knowing what you do...</label>
 			<label index="extmgm.enableIndependentMode">EXPERIMENTAL Independent mode: Enable independent mode of piwikintegration - the JS is rendered without additional extensions. If not enabled an additional extension is needed to render the FE output for piwik - it's suggested to use EXT:piwik for FE-Rendering</label>
-			<label index="extmgm.enableSchedulerTask">EXPERIMENTAL Scheduler task: Enable scheduler task integration, don't enable prior TYPO3 4.3</label>
-			<label index="extmgm.enableSchedulerLogging">Debugging of scheduler task: Enable heavy logging for the scheduler task - should be off in production environments, don't enable prior TYPO3 4.3</label>
+			<label index="extmgm.enableSchedulerTask">EXPERIMENTAL Scheduler task: Enable scheduler task integration (don't enable in TYPO3 4.3 and earlier)</label>
+			<label index="extmgm.enableSchedulerLogging">Debugging of scheduler task: Enable heavy logging for the scheduler task - should be off in production environments (don't enable in TYPO3 4.3 and earlier)</label>
 			<label index="extmgm.piwikDownloadSource">Alternative Piwik download URL: Provide an alternative location to download Piwik. (Default is http://builds.piwik.org/latest.zip)</label>
 			
 			<label index="header.installation">Installation</label>
 			<label index="header.configuration">Configuration</label>
 			<label index="header.database">Database</label>
 
-			<label index="action.installPiwik">Reinstall piwik</label>
-			<label index="action.updatePiwik">Update piwik</label>
-			<label index="action.patchPiwik">Patch piwik</label>
-			<label index="action.removePiwik">Remove piwik</label>
-			<label index="action.configurePiwik">Configure piwik</label>
-			<label index="action.cleanupPiwikDB">Truncate database</label>
+			<label index="action.installPiwik">Install Piwik</label>
+			<label index="action.updatePiwik">Update Piwik</label>
+			<label index="action.removePiwik">Remove Piwik</label>
+			<label index="action.patchPiwik">Patch Piwik</label>
+			<label index="action.configurePiwik">Configure Piwik</label>
 			<label index="action.enableSuggestedPlugins">Enable suggested plugins</label>
-			<label index="action.showPiwikConfig">Show Piwik Configfile</label> 
-			<label index="action.reInitPiwikDB">Init Database</label>
-			<label index="action.resetUserRights">Reset all user rights</label>
-			<label index="action.respectGermanDataPrivacyAct">Settings to respect german data privacy act</label>
-			<label index="action.renameTables">Rename tables from tx_piwikintegration_* to user_piwikintegration_*</label>
+			<label index="action.respectGermanDataPrivacyAct">Respect german data privacy act</label>
+			<label index="action.showPiwikConfig">Show Piwik configuration</label> 
+			<label index="action.renameTables">Rename tables</label>
+			<label index="action.resetUserRights">Reset user rights</label>
+			<label index="action.cleanupPiwikDB">Remove Piwik tables</label>
+			<label index="action.reInitPiwikDB">(Delete and) Create Piwik tables</label>
 			
-			<label index="desc.showPiwikConfig">Shows the configuration file of piwik.</label>
-			<label index="desc.installPiwik">Download, unzip, patch, configure Piwik</label>
-			<label index="desc.updatePiwik">Download, unzip, patch Piwik</label>
-			<label index="desc.patchPiwik">Patch Piwik</label>
+			<label index="desc.installPiwik">Download, unzip, patch and configure Piwik</label>
+			<label index="desc.updatePiwik">Download, unzip and patch Piwik</label>
 			<label index="desc.removePiwik">Remove Piwik directory</label>
+			<label index="desc.patchPiwik">Patch Piwik</label>
 			<label index="desc.configurePiwik">Configure Piwik</label>
-			<label index="desc.cleanupPiwikDB">Drop Piwikdata from database</label>
 			<label index="desc.enableSuggestedPlugins">Enable shipped plugins, suggested plugins and disable senseless stuff</label>
-			<label index="desc.reInitPiwikDB">Init Piwik DB. WARNING: All Piwik tables will be dropped!</label>
-			<label index="desc.resetUserRights">Truncate piwik access table</label>
 			<label index="desc.respectGermanDataPrivacyAct">Set settings to respect german data privacy act, the base for these settings is the document of the the ULDSH. https://www.datenschutzzentrum.de/tracking/piwik/20110315-webanalyse-piwik.pdf </label>
-			<label index="desc.renameTables">Fixes table rename bug</label>
-			<label index="button.DoIt">Do It</label>
+			<label index="desc.showPiwikConfig">Shows the configuration file of Piwik</label>
+			<label index="desc.renameTables">Fixes bug by renaming tables from tx_piwikintegration_* to user_piwikintegration_*</label>
+			<label index="desc.resetUserRights">Reset user rights by truncating Piwik access table</label>
+			<label index="desc.cleanupPiwikDB">Delete all Piwik tables. WARNING: All Piwik data will be lost!</label>
+			<label index="desc.reInitPiwikDB">Delete all Piwik tables and create them again. WARNING: All Piwik data will be lost!</label>
+
+			<label index="button.DoIt">Do it</label>
 			<label index="installedPiwikNeeded">For some actions Piwik sources need to be present!</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="piwikArchiveTask.name">Piwik Archivierungs Cron Job</label>
+			<label index="piwikArchiveTask.name">Piwik Archivierungs-Cronjob</label>
 			<label index="piwikArchiveTask.description">Führe den mit Piwik gelieferten Cronjob aus.</label>
 
-			<label index="methodNotFound">Methode nicht gefunden - evt. noch nicht implementiert?</label>
+			<label index="methodNotFound">Methode nicht gefunden - evtl. noch nicht implementiert?</label>
 
 			<label index="extmgm.noticeHeader">Aktualisierungs-Assistent</label>
 			<label index="extmgm.noticeText">Der Aktualisierungs-Assistent enthält einige Hilfsmittel, um die Pflege der Piwik-Installation zu vereinfachen.</label>
@@ -67,36 +68,35 @@
 			<label index="extmgm.enableSchedulerLogging">Scheduler-Task debuggen: Aktiviere aggressives Loggen, nicht für TYPO 4.3 oder früher aktivieren</label>
 			<label index="extmgm.piwikDownloadSource">Alternative Download-URL: Geben Sie eine alternative URL zum Piwik-Download an. (Standard ist http://builds.piwik.org/latest.zip)</label>
 
-			<label index="action.renameTables">Tabellen umbenennen von tx_piwikintegration_* in user_piwikintegration_*</label>
-
 			<label index="header.installation">Installation</label>
 			<label index="header.configuration">Konfiguration</label>
 			<label index="header.database">Datenbank</label>
 
-			<label index="action.installPiwik">Piwik neu installieren</label>
+			<label index="action.installPiwik">Piwik installieren</label>
 			<label index="action.updatePiwik">Piwik aktualisieren</label>
-			<label index="action.patchPiwik">Piwik patchen</label>
 			<label index="action.removePiwik">Piwik löschen</label>
+			<label index="action.patchPiwik">Piwik patchen</label>
 			<label index="action.configurePiwik">Piwik konfigurieren</label>
-			<label index="action.truncatePiwikDB">Datenbank leeren</label>
-			<label index="action.enableSuggestedPlugins">Aktiviere sinnvolle Plugins</label>
-			<label index="action.showPiwikConfig">Zeige Piwik Konfigurationsdatei</label>
-			<label index="action.reInitPiwikDB">Initialisiere Datenbank</label>
-			<label index="action.resetUserRights">Zurücksetzen aller Benutzerrechte</label>
+			<label index="action.enableSuggestedPlugins">Aktiviere empfohlene Plugins</label>
 			<label index="action.respectGermanDataPrivacyAct">Respektiere den deutschen Datenschutz</label>
+			<label index="action.showPiwikConfig">Zeige Piwik-Konfiguration</label>
+			<label index="action.renameTables">Tabellen umbenennen</label>
+			<label index="action.resetUserRights">Benutzerrechte zurücksetzen</label>
+			<label index="action.cleanupPiwikDB">Piwik-Tabellen löschen</label>
+			<label index="action.reInitPiwikDB">Piwik-Tabellen löschen und neu erstellen</label>
 			
-			<label index="desc.showPiwikConfig">Zeigt die Konfigurationsdatei von Piwik an</label>
-			<label index="desc.installPiwik">Download, entpacken, patchen und konfigurieren von Piwik</label>
-			<label index="desc.updatePiwik">Download, entpacken und patchen von Piwik</label>
-			<label index="desc.patchPiwik">Patche Piwik</label>
-			<label index="desc.removePiwik">Lösche Piwik-Verzeichnis</label>
-			<label index="desc.configurePiwik">Konfiguriere Piwik</label>
-			<label index="desc.truncatePiwikDB">Lösche Piwik-Daten aus der Datenbank</label>
-			<label index="desc.enableSuggestedPlugins">Aktiviere mitgelieferte Plugins, empfohlene Plugins und deaktiviere unnötige Plugins</label>
-			<label index="desc.reInitPiwikDB">Initialisiere Piwik DB, WARNUNG: Alle Piwik-Tabellen werden vorher gelöscht!</label>
-			<label index="desc.resetUserRights">Benutzerrechte zurücksetzen</label>
+			<label index="desc.installPiwik">Piwik herunterladen, entpacken, patchen und konfigurieren</label>
+			<label index="desc.updatePiwik">Piwik herunterladen, entpacken und patchen</label>
+			<label index="desc.removePiwik">Piwik-Verzeichnis löschen</label>
+			<label index="desc.patchPiwik">Piwik patchen</label>
+			<label index="desc.configurePiwik">Piwik konfigurieren</label>
+			<label index="desc.enableSuggestedPlugins">Aktiviere mitgelieferte und empfohlene Plugins und deaktiviere unnötige Plugins</label>
 			<label index="desc.respectGermanDataPrivacyAct">Aktiviere Einstellungen, um den deutschen Datenschutz zu respektieren. Die Grundlage für die Einstellungen ist das folgende Dokument des ULDSH. https://www.datenschutzzentrum.de/tracking/piwik/20110315-webanalyse-piwik.pdf </label>
-			<label index="desc.renameTables">Löst das Problem der umbenannten Tabellen.</label>
+			<label index="desc.showPiwikConfig">Zeigt die Konfigurationsdatei von Piwik an</label>
+			<label index="desc.renameTables">Umbenennen der Tabellen von tx_piwikintegration_* in user_piwikintegration_* (Bugfix)</label>
+			<label index="desc.resetUserRights">Benutzerrechte zurücksetzen durch Leeren der Piwik-Rechte-Tabelle</label>
+			<label index="desc.cleanupPiwikDB">Alle Piwik-Tabellen löschen. WARNUNG: Alle Piwik-Daten werden gelöscht!</label>
+			<label index="desc.reInitPiwikDB">Alle Piwik-Tabellen löschen und neu erstellen. WARNUNG: Alle Piwik-Daten werden gelöscht!</label>
 
 			<label index="button.DoIt">Ausführen</label>
 			<label index="installedPiwikNeeded">Für einige Aktionen muss Piwik installiert sein!</label>
