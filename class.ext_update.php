@@ -58,7 +58,7 @@ class ext_update {
 				$buffer.=$LANG->getLL('methodNotFound');
 			}
 		}
-		
+
 		try {
 			tx_piwikintegration_install::getInstaller()->getConfigObject();
 		} catch (Exception $e) {
@@ -67,7 +67,7 @@ class ext_update {
 			);
 			$buffer.= $flashMessage->render();
 		}
-		
+
 		$buffer.= $this->getHeader($LANG->getLL('header.installation'));
 		$buffer.= $this->getButton('installPiwik',false);
 		$buffer.= $this->getButton('updatePiwik');
@@ -90,40 +90,6 @@ class ext_update {
 		$buffer.= $this->getFooter();
 		return $buffer;
 	}
-	function installPiwik() {
-		$installer =  tx_piwikintegration_install::getInstaller();
-		$installer->installPiwik();
-		return 'Piwik installed';
-	}
-	function updatePiwik() {
-		return 'Please use the wizard in Piwik to update your installation';
-	}
-	function removePiwik() {
-		$installer =  tx_piwikintegration_install::getInstaller();
-		if(!$installer->removePiwik()) {
-			throw new Exception('Piwik could not be removed');
-		}
-		return 'Piwik removed';
-	}
-	function patchPiwik() {
-		$installer =  tx_piwikintegration_install::getInstaller();
-		$exclude = array(
-			'config/config.ini.php',
-		);
-		$installer->patchPiwik($exclude);
-		return 'Piwik patched - without modifying config/config.ini.php';
-	}
-	function configurePiwik() {
-		$installer =  tx_piwikintegration_install::getInstaller();
-		$installer->getConfigObject()->makePiwikConfigured();
-		return 'Piwik is configured now';
-	}
-	function resetUserRights() {
-		$installer =  tx_piwikintegration_install::getInstaller();
-		$installer->getConfigObject();
-		$GLOBALS['TYPO3_DB']->admin_query('TRUNCATE TABLE '.tx_piwikintegration_div::getTblName('access'));
-		return 'User rights have been reset';
-	}
 	function getHeader($text) {
 		$buffer = '';
 		$buffer.= '<table class="typo3-dblist">';
@@ -138,7 +104,7 @@ class ext_update {
 		global $LANG;
 		$params = array('do_update' => 1, 'func' => $func);
 		$onClick = "document.location='" . t3lib_div::linkThisScript($params) . "'; return false;";
-		
+
 		$button = '<tr class="db_list_normal">';
 		$button.= '<td>';
 		$button.= '<span class="typo3-dimmed" style="float:right;">['.$func.']</span>';
@@ -157,15 +123,49 @@ class ext_update {
 			} catch(Exception $e) {
 				$button.='<input type="submit" value="' . $LANG->getLL('button.DoIt') . '" onclick="' . htmlspecialchars($onClick) . '" disabled="disabled" title="Piwik not installed!">';
 			}
-			
+
 		$button.='</td>';
 		$button.='</tr>';
 		return $button;
 	}
+	function installPiwik() {
+		$installer =  tx_piwikintegration_install::getInstaller();
+		$installer->installPiwik();
+		return $GLOBALS['LANG']->getLL('action.installPiwik.success');
+	}
+	function updatePiwik() {
+		throw new Exception($GLOBALS['LANG']->getLL('action.updatePiwik.error'));
+	}
+	function removePiwik() {
+		$installer =  tx_piwikintegration_install::getInstaller();
+		if(!$installer->removePiwik()) {
+			throw new Exception($GLOBALS['LANG']->getLL('action.removePiwik.error'));
+		}
+		return $GLOBALS['LANG']->getLL('action.removePiwik.success');
+	}
+	function patchPiwik() {
+		$installer =  tx_piwikintegration_install::getInstaller();
+		$exclude = array(
+			'config/config.ini.php',
+		);
+		$installer->patchPiwik($exclude);
+		return $GLOBALS['LANG']->getLL('action.patchPiwik.success');
+	}
+	function configurePiwik() {
+		$installer =  tx_piwikintegration_install::getInstaller();
+		$installer->getConfigObject()->makePiwikConfigured();
+		return $GLOBALS['LANG']->getLL('action.configurePiwik.success');
+	}
+	function resetUserRights() {
+		$installer =  tx_piwikintegration_install::getInstaller();
+		$installer->getConfigObject();
+		$GLOBALS['TYPO3_DB']->admin_query('TRUNCATE TABLE '.tx_piwikintegration_div::getTblName('access'));
+		return $GLOBALS['LANG']->getLL('action.resetUserRights.success');
+	}
 	function deletePiwikTables() {
 		tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
 		$tablesInstalled = \Piwik\DbHelper::getTablesInstalled();
-		$buffer = 'Dropped Piwik tables:';
+		$buffer = $GLOBALS['LANG']->getLL('action.deletePiwikTables.success');
 		foreach($tablesInstalled as $table) {
 			$GLOBALS['TYPO3_DB']->admin_query('DROP TABLE `' . $table . '`');
 			 $buffer.= $table.', ';
@@ -175,7 +175,7 @@ class ext_update {
 	function createPiwikTables() {
 		$this->deletePiwikTables();
 		tx_piwikintegration_install::getInstaller()->getConfigObject()->installDatabase();
-		return 'Piwik tables dropped and recreated';
+		return $GLOBALS['LANG']->getLL('action.createPiwikTables.success');
 	}
 	function showPiwikConfig() {
 		$path   = tx_piwikintegration_install::getInstaller()->getAbsInstallPath().'piwik/config/config.ini.php';
@@ -196,7 +196,7 @@ class ext_update {
 		tx_piwikintegration_install::getInstaller()->getConfigObject()->enablePlugin('AnonymizeIP');
 		$config->setOption('Tracker','ip_address_mask_length',2);
 		$config->setOption('Tracker','cookie_expire',604800);
-		
+
 		return 'Installed: AnonymizeIP<br />Set: Tracker.ip_address_mask_length=2<br />Set: Tracker.cookie_expire=604800';
 	}
 	function renameTables() {
