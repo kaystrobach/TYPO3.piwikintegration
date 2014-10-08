@@ -60,6 +60,7 @@ class tx_piwikintegration_extmgm {
 	/**
 	 * @param $par
 	 * @throws Exception
+	 * @return void
 	 */
 	function emSaveConstants($par) {
 		if ($par['extKey'] == 'piwikintegration' && t3lib_div::_POST('submit')) {

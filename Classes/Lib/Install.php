@@ -156,7 +156,7 @@ class tx_piwikintegration_install {
 					try{
 						//up to 4.4.4
 						$emUnzipFile = PATH_typo3.'/mod/tools/em/class.em_unzip.php';
-						if(file_exists($emUnzipFile)) {
+						if (file_exists($emUnzipFile)) {
 							require_once($emUnzipFile);
 						}
 						$zlib_obj = t3lib_div::makeInstance('em_unzip',$zipArchivePath);
@@ -261,9 +261,9 @@ class tx_piwikintegration_install {
 	public function checkUnzip() {
 		if (class_exists('ZipArchive')) {
 			return 'clsZipArchive';
-		} elseif(extension_loaded('zlib')) {
+		} elseif (extension_loaded('zlib')) {
 			return 'zlib';
-		} elseif(!(TYPO3_OS=='WIN' || $GLOBALS['TYPO3_CONF_VARS']['BE']['disable_exec_function'])) {
+		} elseif (!(TYPO3_OS=='WIN' || $GLOBALS['TYPO3_CONF_VARS']['BE']['disable_exec_function'])) {
 			return 'cmd';
 		} else {
 			throw new Exception('There is no valid unzip wrapper, i need either the class ZipArchiv from php or a *nix system with unzip path set.');

@@ -17,7 +17,7 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 	protected $id = 0;
 
 	/**
-	 *
+	 * @return void
 	 */
 	public function initializeAction() {
 		$this->id = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
@@ -26,25 +26,26 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 
 	/**
 	 * @throws Exception
+	 * @return void
 	 */
 	public function indexAction() {
-		if($this->checkPiwikEnvironment()) {
+		if ($this->checkPiwikEnvironment()) {
 			$piwikSiteId   = $this->piwikHelper->getPiwikSiteIdForPid($this->id);
 			$this->view->assign('piwikSiteId', $piwikSiteId);
 			$this->piwikHelper->correctUserRightsForSiteId($piwikSiteId);
-			$this->piwikHelper->correctTitle($this->id,$piwikSiteId,$this->piwikHelper->getPiwikConfigArray($this->id));
+			$this->piwikHelper->correctTitle($this->id, $piwikSiteId, $this->piwikHelper->getPiwikConfigArray($this->id));
 		}
 	}
 
 	/**
 	 * shows the api code
+	 * @return void
 	 */
 	public function apiCodeAction() {
-		$this->view->assign('piwikApiCode',       $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code']);
-		$this->view->assign('piwikBaseUri',       tx_piwikintegration_install::getInstaller()->getBaseUrl());
-
+		$this->view->assign('piwikApiCode', $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code']);
+		$this->view->assign('piwikBaseUri', tx_piwikintegration_install::getInstaller()->getBaseUrl());
 		$tracker = new tx_piwikintegration_tracking();
-		$this->view->assign('piwikTrackingCode',  $tracker->getPiwikJavaScriptCodeForPid($this->id));
+		$this->view->assign('piwikTrackingCode', $tracker->getPiwikJavaScriptCodeForPid($this->id));
 	}
 
 	/**
@@ -56,9 +57,9 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 	protected function checkPiwikEnvironment() {
 		global $LANG;
 		// check if piwik is installed
-		if(!tx_piwikintegration_install::getInstaller()->checkInstallation()) {
+		if (!tx_piwikintegration_install::getInstaller()->checkInstallation()) {
 			tx_piwikintegration_install::getInstaller()->installPiwik();
-			if(tx_piwikintegration_install::getInstaller()->checkInstallation()) {
+			if (tx_piwikintegration_install::getInstaller()->checkInstallation()) {
 				$flashMessage = t3lib_div::makeInstance(
 					't3lib_FlashMessage',
 					'Piwik installed',
@@ -67,10 +68,10 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 				);
 				t3lib_FlashMessageQueue::addMessage($flashMessage);
 			}
-			return false;
+			return FALSE;
 		}
 		// check wether a configured page is selected
-		if(!$this->id || !$this->piwikHelper->getPiwikSiteIdForPid($this->id)) {
+		if (!$this->id || !$this->piwikHelper->getPiwikSiteIdForPid($this->id)) {
 			$flashMessage = t3lib_div::makeInstance(
 				't3lib_FlashMessage',
 				'Please select a page in the pagetree',
@@ -78,11 +79,11 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 				t3lib_FlashMessage::NOTICE
 			);
 			t3lib_FlashMessageQueue::addMessage($flashMessage);
-			return false;
+			return FALSE;
 		}
 		// check wether piwik_host is correct
 		$t = $this->piwikHelper->getPiwikConfigArray($this->id);
-		if(($t['piwik_host'] !== 'typo3conf/piwik/piwik/') && ($t['piwik_host'] !== '/typo3conf/piwik/piwik/')) {
+		if (($t['piwik_host'] !== 'typo3conf/piwik/piwik/') && ($t['piwik_host'] !== '/typo3conf/piwik/piwik/')) {
 			$flashMessage = t3lib_div::makeInstance(
 				't3lib_FlashMessage',
 				'Piwik host is not set correctly',
@@ -90,17 +91,17 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 				t3lib_FlashMessage::ERROR
 			);
 			t3lib_FlashMessageQueue::addMessage($flashMessage);
-			return false;
+			return FALSE;
 		}
 		unset($t);
 		// check if patch level is correct
-		if(!tx_piwikintegration_install::getInstaller()->checkPiwikPatched()) {
+		if (!tx_piwikintegration_install::getInstaller()->checkPiwikPatched()) {
 			//prevent lost configuration and so the forced repair.
 			$exclude = array(
 				'config/config.ini.php',
 			);
 			tx_piwikintegration_install::getInstaller()->patchPiwik($exclude);
 		}
-		return true;
+		return TRUE;
 	}
 }
