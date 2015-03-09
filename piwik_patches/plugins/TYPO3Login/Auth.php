@@ -68,16 +68,16 @@ class Auth implements \Piwik\Auth
 	 */
 	public function getName()
 	{
-	        return 'TYPO3Login';
+		return 'TYPO3Login';
 	}
 	protected function getTableName($table,$isT3Table=true) {
 		if(array_key_exists('t3dbname', \Piwik\Config::getInstance()->database)) {
-			$t3database    = \Piwik\Config::getInstance()->database['t3dbname'];
+			$t3database	= \Piwik\Config::getInstance()->database['t3dbname'];
 		} else {
-			$t3database    = \Piwik\Config::getInstance()->database['dbname'];
+			$t3database	= \Piwik\Config::getInstance()->database['dbname'];
 		}
 		
-		$prefix        = \Piwik\Config::getInstance()->database['tables_prefix'];
+		$prefix		= \Piwik\Config::getInstance()->database['tables_prefix'];
 		if(!$isT3Table) {
 			$table = '`'.$prefix.$table.'`';
 		} elseif($t3database!='') {
@@ -98,7 +98,7 @@ class Auth implements \Piwik\Auth
 		/***********************************************************************
 		 * authenticate against the piwik configuration file for emergency access or installer or cronjob!
 		 */		 		
-			$rootLogin    = \Piwik\Config::getInstance()->superuser['login'];
+			$rootLogin	= \Piwik\Config::getInstance()->superuser['login'];
 			$rootPassword = \Piwik\Config::getInstance()->superuser['password'];
 		/**
 		 * Fix http://forge.typo3.org/issues/37167
@@ -179,7 +179,17 @@ class Auth implements \Piwik\Auth
 	}
 
 	/**
-	 * set login name of the current session
+	 * Returns the login of the user being authenticated.
+	 *
+	 * @return string
+	 */
+	public function getLogin()
+	{
+		return $this->login;
+	}
+
+	/**
+	 * Accessor to set login name
 	 *
 	 * @param	string		$login: login username
 	 * @return	void
@@ -187,6 +197,16 @@ class Auth implements \Piwik\Auth
 	public function setLogin($login)
 	{
 		$this->login = $login;
+	}
+
+	/**
+	 * Returns the secret used to calculate a user's token auth.
+	 *
+	 * @return string
+	 */
+	public function getTokenAuthSecret()
+	{
+		return $this->md5Password;
 	}
 
 	/**
@@ -199,7 +219,32 @@ class Auth implements \Piwik\Auth
 	{
 		$this->token_auth = $token_auth;
 	}
-	
+
+   /**
+	 * Sets the password to authenticate with.
+	 *
+	 * @param string $password
+	 */
+	public function setPassword($password)
+	{
+		$this->md5Password = md5($password);
+	}
+
+	/**
+	 * Sets the password hash to use when authentication.
+	 *
+	 * @param string $passwordHash The password hash.
+	 * @throws Exception if $passwordHash does not have 32 characters in it.
+	 */
+	public function setPasswordHash($passwordHash)
+	{
+		if (strlen($passwordHash) != 32) {
+			throw new Exception("Invalid hash: incorrect length " . strlen($passwordHash));
+		}
+
+		$this->md5Password = $passwordHash;
+	}
+
 	static function getTokenAuth($login, $md5Password) {
 		$token = \Piwik\Db::get()->fetchOne(
 						'SELECT ' . self::getTableName('api_code') . ' FROM `be_users` WHERE username = ?',
