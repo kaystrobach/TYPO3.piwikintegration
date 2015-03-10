@@ -67,6 +67,10 @@ class TYPO3Login extends \Piwik\Plugin
 		);
 		return $hooks;
 	}
+	/**
+	 * Redirects to Login form with error message.
+	 * Listens to User.isNotAuthorized hook.
+	 */
 	function noAccess( Exception $exception )
 	{
 		$exceptionMessage = $exception->getMessage();
