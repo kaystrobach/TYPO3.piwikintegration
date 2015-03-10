@@ -54,5 +54,9 @@ class Controller extends \Piwik\Plugins\Login\Controller
 	{
 		$this->login();
 	}
+	function login($messageNoAccess = null, $infoMessage = false)
+	{
+		// Login function
+	}
 }
 ?>
