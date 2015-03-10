@@ -63,13 +63,19 @@ class TYPO3Login extends \Piwik\Plugin
 			'Request.initAuthenticationObject'	    => 'initAuthenticationObject',
 			'User.isNotAuthorized'	            => 'noAccess',
 			'API.Request.authenticate'                      => 'ApiRequestAuthenticate',
-			'Login.initSession'                             => 'initSession',
+			'AssetManager.getJavaScriptFiles'  => 'getJsFiles'
 		);
 		return $hooks;
 	}
-	function noAccess( Exception $exception )
+
+	public function getJsFiles(&$jsFiles)
 	{
-		$exceptionMessage = $exception->getMessage();
+		$jsFiles[] = "plugins/Login/javascripts/login.js";
+	}
+
+	function noAccess( $notification )
+	{
+		$exceptionMessage = $notification->getMessage();
 		echo \Piwik\FrontController::getInstance()->dispatch('TYPO3Login', 'login', array($exceptionMessage));
 	}
 	/**
