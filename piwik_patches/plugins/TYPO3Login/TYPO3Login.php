@@ -73,9 +73,13 @@ class TYPO3Login extends \Piwik\Plugin
 		$jsFiles[] = "plugins/Login/javascripts/login.js";
 	}
 
-	function noAccess( $notification )
+	/**
+	 * Redirects to Login form with error message.
+	 * Listens to User.isNotAuthorized hook.
+	 */
+	function noAccess( Exception $exception )
 	{
-		$exceptionMessage = $notification->getMessage();
+		$exceptionMessage = $exception->getMessage();
 		echo \Piwik\FrontController::getInstance()->dispatch('TYPO3Login', 'login', array($exceptionMessage));
 	}
 	/**
