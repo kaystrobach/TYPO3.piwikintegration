@@ -228,11 +228,12 @@ class tx_piwikintegration_div {
 			$GLOBALS['TYPO3_DB']->exec_INSERTquery(
 					$this->tblNm('user'),
 					array(
-						'login'           => $beUserName,
-						'alias'           => $GLOBALS['BE_USER']->user['realName'] ? $GLOBALS['BE_USER']->user['realName'] : $beUserName,
-						'email'           => $GLOBALS['BE_USER']->user['email'],
-						'date_registered' => date('Y-m-d H:i:s',time()),
-						'token_auth'      => $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'],
+						'login'            => $beUserName,
+						'alias'            => $GLOBALS['BE_USER']->user['realName'] ? $GLOBALS['BE_USER']->user['realName'] : $beUserName,
+						'email'            => $GLOBALS['BE_USER']->user['email'],
+						'date_registered'  => date('Y-m-d H:i:s',time()),
+						'token_auth'       => $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'],
+						'superuser_access' => $GLOBALS['BE_USER']->user['admin'],
 					)
 				);
 		} else {
@@ -240,9 +241,10 @@ class tx_piwikintegration_div {
 					$this->tblNm('user'),
 					'login = '.$GLOBALS['TYPO3_DB']->fullQuoteStr($beUserName, $this->tblNm('user')).'',
 					array(
-						'alias'           => $GLOBALS['BE_USER']->user['realName'] ? $GLOBALS['BE_USER']->user['realName'] : $beUserName,
-						'email'           => $GLOBALS['BE_USER']->user['email'],
-						'token_auth'      => $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'],
+						'alias'            => $GLOBALS['BE_USER']->user['realName'] ? $GLOBALS['BE_USER']->user['realName'] : $beUserName,
+						'email'            => $GLOBALS['BE_USER']->user['email'],
+						'token_auth'       => $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'],
+						'superuser_access' => $GLOBALS['BE_USER']->user['admin'],
 					)
 				);		
 		}
