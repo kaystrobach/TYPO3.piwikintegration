@@ -35,6 +35,8 @@
  */
 namespace Piwik\Plugins\TYPO3Login;
 
+use Exception;
+
 require PIWIK_INCLUDE_PATH.'/plugins/TYPO3Login/Auth.php';
 
 
@@ -65,12 +67,10 @@ class TYPO3Login extends \Piwik\Plugin
 		);
 		return $hooks;
 	}
-	function noAccess( $notification )
+	function noAccess( Exception $exception )
 	{
-		$exception  = $notification->getNotificationObject();
 		$exceptionMessage = $exception->getMessage();
-		$controller = new \Piwik\Plugins\TYPO3Login\Controller();
-		$controller->login($exceptionMessage);
+		echo \Piwik\FrontController::getInstance()->dispatch('TYPO3Login', 'login', array($exceptionMessage));
 	}
 	/**
 	 * init the authentification object
