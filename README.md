@@ -16,5 +16,5 @@ https://travis-ci.org/kaystrobach/TYPO3.piwikintegration/
 
 Due to the switch to extbase these 2 things has to be taken into account
 
-* please recheck that the TSTemplate is included after upgrading to 4.x
-* please ensure that the rights are set correctly after upgrading to 4.x
+* Please recheck that the static template of piwikintegration is still included after upgrading to 4.x
+* If the BE module of piwikintegration had been made accessible for BE users or groups, then it will now no longer be accessible and it must be made accessible in the BE user/group record again. 
