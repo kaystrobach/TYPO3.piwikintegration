@@ -213,6 +213,17 @@ class tx_piwikintegration_div {
 			'',
 			'0,1'
 			);
+		if($GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'] === '' || $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'] === NULL) {
+			$GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'] = md5(microtime(TRUE));
+			$GLOBALS['TYPO3_DB']->exec_Updatequery(
+				'be_users',
+				'username = '.$GLOBALS['TYPO3_DB']->fullQuoteStr($beUserName, 'be_users').'',
+				array(
+					'tx_piwikintegration_api_code' => $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code']
+				)
+			);
+		}
+
 		if (count($erg)!=1) {
 			$GLOBALS['TYPO3_DB']->exec_INSERTquery(
 					$this->tblNm('user'),
