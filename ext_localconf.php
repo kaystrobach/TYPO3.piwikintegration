@@ -70,6 +70,7 @@ if (!defined ("TYPO3_MODE"))     die ("Access denied.");
 	if(TYPO3_MODE=='FE') {
 		if($_EXTCONF['enableIndependentMode']) {
 			$TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-output'][] = 'tx_piwikintegration_tracking->contentPostProc_output'; 
+		}
 		if (!isset($_EXTCONF['disablePiwikIdCreation']) || (bool)$_EXTCONF['disablePiwikIdCreation'] === FALSE) {
 			$TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-all'][] = 'tx_piwikintegration_tracking->contentPostProc_all';
 		}
