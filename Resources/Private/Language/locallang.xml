@@ -16,6 +16,7 @@
 			<label index="extmgm.assistent">Update Assistant</label>
 			<label index="extmgm.databaseTablePrefix">Prefix for Database: Please note, saving causes TYPO3 to try to move the tables to the database you provided. If this fails moving is cancelled and Piwik will not work. If the Piwik data is stored in TYPO3 database don't use compare without knowing what you do...</label>
 			<label index="extmgm.enableIndependentMode">EXPERIMENTAL Independent mode: Enable independent mode of piwikintegration - the JS is rendered without additional extensions. If not enabled an additional extension is needed to render the FE output for piwik - it's suggested to use EXT:piwik for FE-Rendering</label>
+			<label index="extmgm.disablePiwikIdCreation">Disable Piwik ID creation: If this is set the automatic Piwki site ID creation during Frontend requests is disabled.</label>
 			<label index="extmgm.enableSchedulerTask">EXPERIMENTAL Scheduler task: Enable scheduler task integration (don't enable in TYPO3 4.3 and earlier)</label>
 			<label index="extmgm.enableSchedulerLogging">Debugging of scheduler task: Enable heavy logging for the scheduler task - should be off in production environments (don't enable in TYPO3 4.3 and earlier)</label>
 			<label index="extmgm.piwikDownloadSource">Alternative Piwik download URL: Provide an alternative location to download Piwik. (Default is http://builds.piwik.org/latest.zip)</label>
@@ -74,6 +75,7 @@
 			<label index="extmgm.assistent">Aktualisierungs-Assistent</label>
 			<label index="extmgm.databaseTablePrefix">Prefix für Datenbank: Es wird versucht, die Tabellen in die angegebene Datenbank zu verschieben. Falls das fehlschlägt, wird das Verschieben abgebrochen und Piwik funktioniert nicht mehr. Wenn die Piwik-Daten in der TYPO3-Datenbank gespeichert werden, Compare nur benutzen, wenn Sie wissen, was Sie tun...</label>
 			<label index="extmgm.enableIndependentMode">EXPERIMENTAL Unabhängiger Modus: Tracking-Code ohne weitere Extension einbinden. Dennoch wird die Nutzung von EXT:piwik für das FE-Rendering empfohlen</label>
+			<label index="extmgm.disablePiwikIdCreation">Piwik ID Erstellung deaktivieren: Wenn diese Einstellung aktiv ist, dann wird nicht mehr versucht, die Piwik Site-ID automatisch während Frontend-Aufrufen anzulegen.</label>
 			<label index="extmgm.enableSchedulerTask">EXPERIMENTAL Scheduler-Task: Aktiviere Scheduler-Task-Integration, nicht für TYPO 4.3 oder früher aktivieren</label>
 			<label index="extmgm.enableSchedulerLogging">Scheduler-Task debuggen: Aktiviere aggressives Loggen, nicht für TYPO 4.3 oder früher aktivieren</label>
 			<label index="extmgm.piwikDownloadSource">Alternative Download-URL: Geben Sie eine alternative URL zum Piwik-Download an. (Standard ist http://builds.piwik.org/latest.zip)</label>

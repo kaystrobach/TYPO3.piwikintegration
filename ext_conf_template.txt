@@ -7,6 +7,9 @@ databaseTablePrefix =
 # cat=basic/enable; type=boolean; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xml:extmgm.enableIndependentMode
 enableIndependentMode = 0
 
+# cat=basic/enable; type=boolean; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xml:extmgm.disablePiwikIdCreation
+disablePiwikIdCreation = 0
+
 # cat=basic/enable; type=boolean; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xml:extmgm.enableSchedulerTask
 enableSchedulerTask = 0
 
