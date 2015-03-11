@@ -36,6 +36,7 @@
 namespace Piwik\Plugins\TYPO3Login;
 
 use Exception;
+use Piwik\Container\StaticContainer;
 
 require PIWIK_INCLUDE_PATH.'/plugins/TYPO3Login/Auth.php';
 
@@ -92,7 +93,7 @@ class TYPO3Login extends \Piwik\Plugin
 		$config = \Piwik\Config::getInstance();
 		
 		$auth = new \Piwik\Plugins\TYPO3Login\Auth();
-        \Piwik\Registry::set('auth', $auth);
+		StaticContainer::getContainer()->set('Piwik\Auth', $auth);
 
      	$action = \Piwik\Piwik::getAction();
 		if(\Piwik\Piwik::getModule() === 'API'
@@ -150,8 +151,10 @@ class TYPO3Login extends \Piwik\Plugin
 	}
 	function ApiRequestAuthenticate($tokenAuth)
 	{
-		\Piwik\Registry::get('auth')->setLogin($login = null);
-		\Piwik\Registry::get('auth')->setTokenAuth($tokenAuth);
+		/** @var \Piwik\Auth $auth */
+		$auth = StaticContainer::get('Piwik\Auth');
+		$auth->setLogin($login = null);
+		$auth->setTokenAuth($tokenAuth);
 	}
 
 }
