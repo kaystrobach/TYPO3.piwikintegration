@@ -34,6 +34,16 @@ namespace Piwik\Plugins\TYPO3Login;
 	}
 	if(file_exists(PIWIK_INCLUDE_PATH.'/../../LocalConfiguration.php')) {
 		$TYPO3config = include(PIWIK_INCLUDE_PATH.'/../../LocalConfiguration.php');
+		// Try AdditionalConfiguration.php if database was not defined in LocalConfiguration.php
+		if (empty($TYPO3config['DB']['database']) && file_exists(PIWIK_INCLUDE_PATH . '/../../AdditionalConfiguration.php')) {
+			// Load AdditionalConfiguration.php via closure to avoid variable leak
+			call_user_func(function() use (&$TYPO3config) {
+				// Allow for e.g. array_merge calls within AdditionalConfiguration.php
+				$GLOBALS['TYPO3_CONF_VARS'] = $TYPO3config;
+				include PIWIK_INCLUDE_PATH.'/../../AdditionalConfiguration.php';
+				$TYPO3config['DB']['database'] = $GLOBALS['TYPO3_CONF_VARS']['DB']['database'];
+			});
+		}
 		define('TYPO3DB', $TYPO3config['DB']['database']);
 	} elseif(file_exists(PIWIK_INCLUDE_PATH.'/../../localconf.php')) {
 		include(PIWIK_INCLUDE_PATH.'/../../localconf.php');
