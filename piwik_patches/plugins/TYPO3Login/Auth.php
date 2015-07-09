@@ -23,7 +23,7 @@
 namespace Piwik\Plugins\TYPO3Login;
 
 /**
- * for version 3.0.9
+ * Fix some problems with external DB usage
  */
 
 	if(!defined('TYPO3_MODE')) {
