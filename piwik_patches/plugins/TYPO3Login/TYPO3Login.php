@@ -29,14 +29,14 @@
  *
  * FE controller class
  *
- * $Id: TYPO3Login.php 40947 2010-12-08 07:05:46Z kaystrobach $
- *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 namespace Piwik\Plugins\TYPO3Login;
 
 use Exception;
+use Piwik\Common;
 use Piwik\Container\StaticContainer;
+use Piwik\FrontController;
 
 require PIWIK_INCLUDE_PATH.'/plugins/TYPO3Login/Auth.php';
 
@@ -80,8 +80,13 @@ class TYPO3Login extends \Piwik\Plugin
 	 */
 	function noAccess( Exception $exception )
 	{
-		$exceptionMessage = $exception->getMessage();
-		echo \Piwik\FrontController::getInstance()->dispatch('TYPO3Login', 'login', array($exceptionMessage));
+		$frontController = FrontController::getInstance();
+		if (Common::isXmlHttpRequest()) {
+			echo $frontController->dispatch('TYPO3Login', 'ajaxNoAccess', array($exception->getMessage()));
+			return;
+		}
+
+		echo $frontController->dispatch('TYPO3Login', 'login', array($exception->getMessage()));
 	}
 	/**
 	 * init the authentification object
