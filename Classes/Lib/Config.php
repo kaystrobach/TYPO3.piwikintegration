@@ -85,10 +85,14 @@ class tx_piwikintegration_config {
 		require_once PIWIK_INCLUDE_PATH . 'libs/upgradephp/upgrade.php';
 		require_once PIWIK_INCLUDE_PATH . 'vendor/autoload.php';
 
+		// create root container
+		$environment = new \Piwik\Application\Environment(null);
+		$environment->init();
+
 		//create config object
 		try {
 			$config = \Piwik\Config::getInstance();
-			$config->init();
+			$config->getInstance()->init();
 		} catch (\Exception $e) {
 
 		}
@@ -229,7 +233,7 @@ class tx_piwikintegration_config {
 	public function correctUserRightsForPid($uid) {
 		$this->initPiwikFrameWork();
 		if (($uid <= 0) || ($uid != intval($uid))) {
-			throw new Exception('Problem with uid in tx_piwikintegration_helper.php::correctUserRightsForPid');
+			throw new \Exception('Problem with uid in tx_piwikintegration_helper.php::correctUserRightsForPid');
 		}
 		$beUserName = $GLOBALS['BE_USER']->user['username'];
 		/**
@@ -312,10 +316,11 @@ class tx_piwikintegration_config {
 	 */
 	public function enablePlugin($plugin) {
 		$this->initPiwikFrameWork();
-		if (!\Piwik\Plugin\Manager::getInstance()->isPluginActivated($plugin)) {
+		if (!\Piwik\Plugin\Manager::getInstance()->isPluginLoaded($plugin)) {
 			try {
+				\Piwik\Plugin\Manager::getInstance()->loadActivatedPlugins();
 				\Piwik\Plugin\Manager::getInstance()->activatePlugin($plugin);
-				\Piwik\Plugin\Manager::getInstance()->loadPlugins( \Piwik\Config::getInstance()->Plugins['Plugins'] );
+				#\Piwik\Plugin\Manager::getInstance()->loadPlugins(\Piwik\Plugin\Manager::getInstance()->getActivatedPlugins());
 			} catch (Exception $e) {
 
 			}
@@ -332,7 +337,7 @@ class tx_piwikintegration_config {
 		if (\Piwik\Plugin\Manager::getInstance()->isPluginActivated($plugin)) {
 			try {
 				\Piwik\Plugin\Manager::getInstance()->deactivatePlugin($plugin);
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 
 			}
 		}

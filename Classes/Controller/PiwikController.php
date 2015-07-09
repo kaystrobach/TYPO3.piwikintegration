@@ -21,7 +21,7 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 	 */
 	public function initializeAction() {
 		$this->id = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
-		$this->piwikHelper = t3lib_div::makeInstance('tx_piwikintegration_div');
+		$this->piwikHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_piwikintegration_div');
 	}
 
 	/**
@@ -59,48 +59,48 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 		if (!tx_piwikintegration_install::getInstaller()->checkInstallation()) {
 			tx_piwikintegration_install::getInstaller()->installPiwik();
 			if (tx_piwikintegration_install::getInstaller()->checkInstallation()) {
-				$flashMessage = t3lib_div::makeInstance(
+				$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
 					't3lib_FlashMessage',
 					'Piwik installed',
 					'Piwik is now installed / upgraded, wait a moment, reload the page ;) <meta http-equiv="refresh" content="2; URL=mod.php?M=web_txpiwikintegrationM1&uid=' . $this->id  . '#reload">',
-					t3lib_FlashMessage::OK
+					\TYPO3\CMS\Core\Messaging\FlashMessage::OK
 				);
-				t3lib_FlashMessageQueue::addMessage($flashMessage);
+				\TYPO3\CMS\Core\Messaging\FlashMessageQueue::addMessage($flashMessage);
 			}
 			return FALSE;
 		}
 		// check whether a page is selected
 		if (!$this->id) {
-			$flashMessage = t3lib_div::makeInstance(
+			$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
 				't3lib_FlashMessage',
 				'Please select a page in the pagetree',
 				'',
-				t3lib_FlashMessage::NOTICE
+				\TYPO3\CMS\Core\Messaging\FlashMessage::NOTICE
 			);
-			t3lib_FlashMessageQueue::addMessage($flashMessage);
+			\TYPO3\CMS\Core\Messaging\FlashMessageQueue::addMessage($flashMessage);
 			return FALSE;
 		}
 		$t = $this->piwikHelper->getPiwikConfigArray($this->id);
 		// check whether a configured page is selected
 		if (!isset($t['piwik_idsite']) || !$this->piwikHelper->getPiwikSiteIdForPid($this->id)) {
-			$flashMessage = t3lib_div::makeInstance(
+			$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
 				't3lib_FlashMessage',
 				'Page is not configured. Did you include the Typoscript template?',
 				'',
-				t3lib_FlashMessage::NOTICE
+				\TYPO3\CMS\Core\Messaging\FlashMessage::NOTICE
 			);
-			t3lib_FlashMessageQueue::addMessage($flashMessage);
+			\TYPO3\CMS\Core\Messaging\FlashMessageQueue::addMessage($flashMessage);
 			return FALSE;
 		}
 		// check whether piwik_host is correct
 		if (($t['piwik_host'] !== 'typo3conf/piwik/piwik/') && ($t['piwik_host'] !== '/typo3conf/piwik/piwik/')) {
-			$flashMessage = t3lib_div::makeInstance(
+			$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
 				't3lib_FlashMessage',
 				'Piwik host is not set correctly',
 				'',
-				t3lib_FlashMessage::ERROR
+				\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
 			);
-			t3lib_FlashMessageQueue::addMessage($flashMessage);
+			\TYPO3\CMS\Core\Messaging\FlashMessageQueue::addMessage($flashMessage);
 			return FALSE;
 		}
 		unset($t);

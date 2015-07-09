@@ -67,7 +67,7 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 		require_once PIWIK_INCLUDE_PATH . '/index.php';
 		require_once PIWIK_INCLUDE_PATH . '/core/API/Request.php';
 
-		Piwik_FrontController::getInstance()->init();
+		\Piwik\FrontController::getInstance()->init();
 
 		$piwikConfig = parse_ini_file($piwikScriptPath . '/config/config.ini.php', TRUE);
 
@@ -76,7 +76,7 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 			'EXT:piwikintegration cronjob'
 		);
 		//get API key
-		$request = new Piwik_API_Request('
+		$request = new \Piwik\API\Request('
 			module=API
 			&method=UsersManager.getTokenAuth
 			&userLogin=' . $piwikConfig['superuser']['login'] . '
@@ -87,7 +87,7 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 		$tokenAuth = $request->process();
 
 		//get all piwik siteid's
-		$request = new Piwik_API_Request('
+		$request = new \Piwik\API\Request('
 			module=API
 			&method=SitesManager.getSitesWithAdminAccess
 			&token_auth=' . $tokenAuth . '
@@ -112,7 +112,7 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 		foreach ($periods as $period) {
 			foreach ($piwikSiteIds as $siteId) {
 				$starttime = microtime(TRUE);
-				$request = new Piwik_API_Request('
+				$request = new \Piwik\API\Request('
 				            module=API
 							&method=VisitsSummary.getVisits
 							&idSite=' . intval($siteId['idsite']) . '
@@ -159,7 +159,4 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
 			);
 		}
 	}
-}
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/piwikintegration/lib/class.tx_piwikintegration_scheduler_archive.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/piwikintegration/lib/class.tx_piwikintegration_scheduler_archive.php']);
 }

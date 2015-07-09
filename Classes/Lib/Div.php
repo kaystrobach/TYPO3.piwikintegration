@@ -40,7 +40,7 @@ class tx_piwikintegration_div {
 		if($config['customerRefresh'] && $config['customerName'] && $config['customerRootPid']) {
 			$newName = $config['customerName'];
 			$newName = str_replace('%siteid%',$config['piwik_idsite'],$newName);
-			$page = t3lib_BEfunc::getRecord('pages',intval($config['customerRootPid']));
+			$page = \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord('pages',intval($config['customerRootPid']));
 			foreach($page as $key=>$value) {
 				$newName = str_replace('%'.$key.'%',$value,$newName);
 			}
@@ -88,7 +88,7 @@ class tx_piwikintegration_div {
 		$path              = tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
 
 		if ($uid <= 0 || $uid!=intval($uid)) {
-			throw new Exception('Problem with uid in tx_piwikintegration_helper.php::getPiwikSiteIdForPid');
+			throw new \Exception('Problem with uid in tx_piwikintegration_helper.php::getPiwikSiteIdForPid');
 		}
 
 		if (isset($this->piwik_option[$uid])) {
@@ -96,13 +96,13 @@ class tx_piwikintegration_div {
 		}
 		//parse ts template
 			$template_uid = 0;
-			$tmpl = t3lib_div::makeInstance("t3lib_tsparser_ext");	// Defined global here!
+			$tmpl = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("t3lib_tsparser_ext");	// Defined global here!
 			$tmpl->tt_track = 0;	// Do not log time-performance information
 			$tmpl->init();
 
 			$tplRow = $tmpl->ext_getFirstTemplate($uid,$template_uid);
 			if (is_array($tplRow) || 1)	{	// IF there was a template...
-				$sys_page = t3lib_div::makeInstance("t3lib_pageSelect");
+				$sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("t3lib_pageSelect");
 				$rootLine = $sys_page->getRootLine($uid);
 				$tmpl->runThroughTemplates($rootLine);	// This generates the constants/config + hierarchy info for the template.
 				$tmpl->generateConfig();
@@ -196,7 +196,7 @@ class tx_piwikintegration_div {
 	 */
 	function correctUserRightsForSiteId($uid) {
 		if ($uid <= 0 || $uid!=intval($uid)) {
-			throw new Exception('Problem with uid in tx_piwikintegration_helper.php::correctUserRightsForPid');
+			throw new \Exception('Problem with uid in tx_piwikintegration_helper.php::correctUserRightsForPid');
 		}
 		$beUserName = $GLOBALS['BE_USER']->user['username'];
 		/**

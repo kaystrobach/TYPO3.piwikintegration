@@ -63,8 +63,8 @@ class tx_piwikintegration_extmgm {
 	 * @return void
 	 */
 	function emSaveConstants($par) {
-		if ($par['extKey'] == 'piwikintegration' && t3lib_div::_POST('submit')) {
-			$newconf = t3lib_div::_POST();
+		if ($par['extKey'] == 'piwikintegration' && \TYPO3\CMS\Core\Utility\GeneralUtility::_POST('submit')) {
+			$newconf = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
 			$newconf = $newconf['data'];
 			//init piwik to get table prefix
 			#$this->initPiwik();
@@ -108,11 +108,11 @@ class tx_piwikintegration_extmgm {
 	 */
 	public function emMakeHeader($params) {
 		$GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/Resources/Private/Language/locallang.xml');
-		$flashMessage = t3lib_div::makeInstance(
+		$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
 			't3lib_FlashMessage',
 			$GLOBALS['LANG']->getLL('extmgm.noticeText'),
 			$GLOBALS['LANG']->getLL('extmgm.noticeHeader'),
-			t3lib_FlashMessage::INFO
+			\TYPO3\CMS\Core\Messaging\FlashMessage::INFO
 		);
 		return $flashMessage->render();
 	} 
