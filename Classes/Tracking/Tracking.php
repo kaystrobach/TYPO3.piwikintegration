@@ -68,7 +68,7 @@ class tx_piwikintegration_tracking {
 			return;
 		}
 
-		$piwikCode = $this->piwikHelper->getPiwikJavaScriptCodeForSite($this->extConf['piwik_idsite']);
+		$piwikCode = $this->getPiwikJavaScriptCodeForSite($this->extConf['piwik_idsite']);
 		$piwikCode = str_replace('&gt;', '>', $piwikCode);
 		$piwikCode = str_replace('&lt;', '<', $piwikCode);
 		$piwikCode = str_replace('&quot;', '"', $piwikCode);
@@ -131,7 +131,8 @@ class tx_piwikintegration_tracking {
 	 */
 	public function getPiwikJavaScriptCodeForSite($siteId) {
 		tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikFrameWork();
-		$content = \Piwik\Piwik::getJavascriptCode($siteId, $this->getPiwikBaseURL());
+		$tracker = new \Piwik\Tracker\TrackerCodeGenerator();
+		$content = $tracker->generate($siteId, $this->getPiwikBaseURL());
 		return $content;
 	}
 
