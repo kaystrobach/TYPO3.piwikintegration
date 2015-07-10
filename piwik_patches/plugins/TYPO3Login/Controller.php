@@ -31,8 +31,6 @@ namespace Piwik\Plugins\TYPO3Login;
  *
  * Authentification controller class
  *
- * $Id: Controller.php 40947 2010-12-08 07:05:46Z kaystrobach $
- *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 /**
@@ -62,6 +60,14 @@ class Controller extends \Piwik\Plugins\Login\Controller
 	function login($messageNoAccess = null, $infoMessage = false)
 	{
 		// Login function
+	}
+
+	/**
+	 * @param null $errorMessage
+	 */
+	 function ajaxNoAccess($errorMessage)
+	{
+		// Ajax function
 	}
 }
 ?>

@@ -22,11 +22,8 @@
  ***************************************************************/
 namespace Piwik\Plugins\TYPO3Login;
 
-	/**
- *  Fix some problems with external DB usage  
- */ 
 /**
- * for version 3.0.9
+ * Fix some problems with external DB usage
  */
 
 	if(!defined('TYPO3_MODE')) {
@@ -104,8 +101,8 @@ class Auth implements \Piwik\Auth
 	}
 
 	/**
-     * Authenticates a user using the login and password set using the setters. Can also authenticate
-     * via token auth if one is set and no password is set.
+	 * Authenticates a user using the login and password set using the setters. Can also authenticate
+	 * via token auth if one is set and no password is set.
 	 *
 	 * @return AuthResult
 	 */
@@ -202,53 +199,53 @@ class Auth implements \Piwik\Auth
 		return $this->login;
 	}
 
-    /**
-     * Sets the login name to authenticate with.
-     *
-     * @param string $login The username.
-     */
+	/**
+	 * Sets the login name to authenticate with.
+	 *
+	 * @param string $login The username.
+	 */
 	public function setLogin($login) {
 		$this->login = $login;
 	}
 
-    /**
-     * Returns the secret used to calculate a user's token auth.
-     *
-     * A users token auth is generated using the user's login and this secret. The secret
-     * should be specific to the user and not easily guessed. Piwik's default Auth implementation
-     * uses an MD5 hash of a user's password.
-     *
-     * @return string
-     * @throws Exception if the token auth secret does not exist or cannot be obtained.
-     */
+	/**
+	 * Returns the secret used to calculate a user's token auth.
+	 *
+	 * A users token auth is generated using the user's login and this secret. The secret
+	 * should be specific to the user and not easily guessed. Piwik's default Auth implementation
+	 * uses an MD5 hash of a user's password.
+	 *
+	 * @return string
+	 * @throws Exception if the token auth secret does not exist or cannot be obtained.
+	 */
 	public function getTokenAuthSecret() {
 		return $this->md5Password;
 	}
 
-    /**
-     * Sets the authentication token to authenticate with.
-     *
-     * @param string $token_auth authentication token
-     */
+	/**
+	 * Sets the authentication token to authenticate with.
+	 *
+	 * @param string $token_auth authentication token
+	 */
 	public function setTokenAuth($token_auth) {
 		$this->token_auth = $token_auth;
 	}
 
-    /**
-     * Sets the password to authenticate with.
-     *
-     * @param string $password Password (not hashed).
-     */
+	/**
+	 * Sets the password to authenticate with.
+	 *
+	 * @param string $password Password (not hashed).
+	 */
 	public function setPassword($password) {
 		$this->md5Password = md5($password);
 	}
 
-    /**
-     * Sets the hash of the password to authenticate with. The hash will be an MD5 hash.
-     *
-     * @param string $passwordHash The hashed password.
-     * @throws Exception if authentication by hashed password is not supported.
-     */
+	/**
+	 * Sets the hash of the password to authenticate with. The hash will be an MD5 hash.
+	 *
+	 * @param string $passwordHash The hashed password.
+	 * @throws Exception if authentication by hashed password is not supported.
+	 */
 	public function setPasswordHash($passwordHash) {
 		if (strlen($passwordHash) != 32) {
 			throw new Exception("Invalid hash: incorrect length " . strlen($passwordHash));
