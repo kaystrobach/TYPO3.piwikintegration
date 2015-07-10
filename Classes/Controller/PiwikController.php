@@ -48,6 +48,9 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 		$this->view->assign('piwikTrackingCode', $tracker->getPiwikJavaScriptCodeForPid($this->id));
 	}
 
+	public function helpAction() {
+
+	}
 	/**
 	 * checks the piwik environment
 	 *

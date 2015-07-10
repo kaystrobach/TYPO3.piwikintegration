@@ -1,0 +1,43 @@
+<f:layout name="Default" />
+
+<f:section name="Content">
+	<h1>
+		Help
+	</h1>
+
+	<p>
+		There are tons of help resources for various kinds of target groups. This is why the resources are grouped by target groups and marked with language flags.
+	</p>
+
+	<h2>
+		Editors
+	</h2>
+
+	<table class="t3-table">
+		<colgroup>
+			<col width="20">
+			<col width="*">
+		</colgroup>
+		<f:render partial="help/manual" arguments="{lang:'gb', title:'Statistics analysis', link:'http://piwik.org/docs/#statistics-analysis', official:1}" />
+		<f:render partial="help/manual" arguments="{lang:'de', title:'Logfileauswertung mit PIWIK', link:'http://www.kogis.bremen.de/sixcms/media.php/13/2012-06-04-Handbuch%20Piwik.pdf'}" />
+		<f:render partial="help/manual" arguments="{lang:'de', title:'Hinweise und Empfehlungen zur Analyse von Internet Angeboten mit „Piwik“', link:'https://www.datenschutzzentrum.de/tracking/piwik/20110315-webanalyse-piwik.pdf'}" />
+		<f:render partial="help/manual" arguments="{lang:'de', title:'Hinweise Datenschutzerklärung', link:'http://rechtsanwalt-schwenke.de/lg-frankfurt-piwik-abmahnung-fehlerhafter-datenschutzerklaerung-erneut-bestaetigt/'}" />
+	</table>
+
+	<h2>
+		Developers
+	</h2>
+
+	<table class="t3-table">
+		<colgroup>
+			<col width="20">
+			<col width="*">
+		</colgroup>
+
+		<f:render partial="help/manual" arguments="{lang:'gb', title:'Manual EXT:piwik', link:'http://docs.typo3.org/typo3cms/extensions/piwik/'}" />
+		<f:render partial="help/manual" arguments="{lang:'gb', title:'Manual EXT:piwikintegration', link:'http://docs.typo3.org/typo3cms/extensions/piwikintegration/'}" />
+		<f:render partial="help/manual" arguments="{lang:'gb', title:'Github project EXT:piwik', link:'https://github.com/kaystrobach/TYPO3.piwik'}" />
+		<f:render partial="help/manual" arguments="{lang:'gb', title:'Github project EXT:piwikintegration', link:'https://github.com/kaystrobach/TYPO3.piwikintegration'}" />
+
+	</table>
+</f:section>

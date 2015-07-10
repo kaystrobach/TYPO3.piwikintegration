@@ -1,0 +1,14 @@
+{namespace cms=TYPO3\CMS\Reports\ViewHelpers}
+<tr>
+	<td>
+		<span class="t3-icon t3-icon-flags t3-icon-flags-{lang} t3-icon-{lang}" title="{title}"></span>
+	</td>
+	<td>
+		<a href="{link}" target="_blank">
+			<f:if condition="{official}">
+				[OFFICIAL]
+			</f:if>
+			{title}
+		</a>
+	</td>
+</tr>

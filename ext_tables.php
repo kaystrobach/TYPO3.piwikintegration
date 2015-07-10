@@ -48,7 +48,7 @@ if (!defined ('TYPO3_MODE')) {
 			'mod2',         // Name of the module
 			'',             // Position of the module
 			array(          // Allowed controller action combinations
-				'Piwik'             => 'index,apiCode',
+				'Piwik'             => 'index,apiCode,help',
 				'PiwikInstallation' => 'index,download,patch,configure',
 			),
 			array(          // Additional configuration
