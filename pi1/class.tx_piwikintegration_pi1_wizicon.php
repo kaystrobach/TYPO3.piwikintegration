@@ -46,7 +46,7 @@ class tx_piwikintegration_pi1_wizicon {
 		global $LANG;
 
 		$wizardItems['plugins_tx_piwikintegration_pi1'] = array(
-			'icon'        => t3lib_extMgm::extRelPath('piwikintegration').'pi1/ce_wiz.gif',
+			'icon'        => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('piwikintegration').'pi1/ce_wiz.gif',
 			'title'       => 'LLL:EXT:piwikintegration/pi1/locallang.xml:pi1_wizard_title',
 			'description' => 'LLL:EXT:piwikintegration/pi1/locallang.xml:pi1_wizard_description',
 			'params'      => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=piwikintegration_pi1'
@@ -55,11 +55,3 @@ class tx_piwikintegration_pi1_wizicon {
 		return $wizardItems;
 	}
 }
-
-
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/piwikintegration/pi1/class.tx_piwikintegration_pi1_wizicon.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/piwikintegration/pi1/class.tx_piwikintegration_pi1_wizicon.php']);
-}
-
-?>
