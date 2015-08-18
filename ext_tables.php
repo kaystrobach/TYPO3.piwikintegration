@@ -42,8 +42,8 @@ if (!defined ('TYPO3_MODE')) {
  * Add Backend Module and Ext.Direct for it
  */ 
 	if (TYPO3_MODE == 'BE') {
-		Tx_Extbase_Utility_Extension::registerModule(
-			$_EXTKEY,
+		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+			'KayStrobach.' . $_EXTKEY,
 			'web',          // Main area
 			'mod2',         // Name of the module
 			'',             // Position of the module
@@ -62,7 +62,7 @@ if (!defined ('TYPO3_MODE')) {
 /*******************************************************************************
  * Static file
  */ 
-t3lib_extMgm::addStaticFile($_EXTKEY,'Configuration/TypoScript/', 'Piwik Integration');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY,'Configuration/TypoScript/', 'Piwik Integration');
 
 $tempColumns = array (
 	'tx_piwikintegration_api_code' => array (		
@@ -77,24 +77,24 @@ $tempColumns = array (
 );
 
 
-t3lib_extMgm::addTCAcolumns('be_users',$tempColumns);
-t3lib_extMgm::addToAllTCAtypes('be_users','tx_piwikintegration_api_code;;;;1-1-1');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('be_users',$tempColumns);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('be_users','tx_piwikintegration_api_code;;;;1-1-1');
 
 //add flexform to pi1
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1'] = 'pi_flexform';
 $TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi1'] = 'layout,select_key,pages,recursive';
-t3lib_extMgm::addPiFlexFormValue($_EXTKEY .'_pi1', 'FILE:EXT:piwikintegration/pi1/flexform_ds.xml');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($_EXTKEY .'_pi1', 'FILE:EXT:piwikintegration/pi1/flexform_ds.xml');
 
 //add pi1 plugin
-t3lib_extMgm::addPlugin(
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
 	array(
 		'LLL:EXT:piwikintegration/pi1/locallang.xml:piwikintegration_pi1',
 		$_EXTKEY.'_pi1'
 	)
 );
 if (TYPO3_MODE=="BE")    {
-	$TBE_MODULES_EXT["xMOD_db_new_content_el"]["addElClasses"]["tx_piwikintegration_pi1_wizicon"] = 
-	t3lib_extMgm::extPath($_EXTKEY)."pi1/class.tx_piwikintegration_pi1_wizicon.php";
+	$TBE_MODULES_EXT["xMOD_db_new_content_el"]["addElClasses"]["tx_piwikintegration_pi1_wizicon"] =
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY)."pi1/class.tx_piwikintegration_pi1_wizicon.php";
 }
 
 

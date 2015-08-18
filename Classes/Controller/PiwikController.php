@@ -1,13 +1,15 @@
 <?php
 
+namespace KayStrobach\Piwikintegration\Controller;
+
 /**
  * Class Tx_Piwikintegration_Controller_PiwikController
  *
  * is the backend controller
  */
-class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	/**
-	 * @var tx_piwikintegration_div
+	 * @var \tx_piwikintegration_div
 	 */
 	protected $piwikHelper = NULL;
 
@@ -43,7 +45,7 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 	 */
 	public function apiCodeAction() {
 		$this->view->assign('piwikApiCode', $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code']);
-		$tracker = new tx_piwikintegration_tracking();
+		$tracker = new \tx_piwikintegration_tracking();
 		$this->view->assign('piwikBaseUri', $tracker->getPiwikBaseURL());
 		$this->view->assign('piwikTrackingCode', $tracker->getPiwikJavaScriptCodeForPid($this->id));
 	}
@@ -59,9 +61,9 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 	 */
 	protected function checkPiwikEnvironment() {
 		// check if piwik is installed
-		if (!tx_piwikintegration_install::getInstaller()->checkInstallation()) {
-			tx_piwikintegration_install::getInstaller()->installPiwik();
-			if (tx_piwikintegration_install::getInstaller()->checkInstallation()) {
+		if (!\tx_piwikintegration_install::getInstaller()->checkInstallation()) {
+			\tx_piwikintegration_install::getInstaller()->installPiwik();
+			if (\tx_piwikintegration_install::getInstaller()->checkInstallation()) {
 				$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
 					't3lib_FlashMessage',
 					'Piwik installed',
@@ -108,12 +110,12 @@ class Tx_Piwikintegration_Controller_PiwikController extends \TYPO3\CMS\Extbase\
 		}
 		unset($t);
 		// check if patch level is correct
-		if (!tx_piwikintegration_install::getInstaller()->checkPiwikPatched()) {
+		if (!\tx_piwikintegration_install::getInstaller()->checkPiwikPatched()) {
 			//prevent lost configuration and so the forced repair.
 			$exclude = array(
 				'config/config.ini.php',
 			);
-			tx_piwikintegration_install::getInstaller()->patchPiwik($exclude);
+			\tx_piwikintegration_install::getInstaller()->patchPiwik($exclude);
 		}
 		return TRUE;
 	}

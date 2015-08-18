@@ -1,11 +1,13 @@
 <?php
 
+namespace KayStrobach\Piwikintegration\Hooks;
+
 /**
  * Class tx_piwikintegration_Hooks_BeUserProcessing
  *
  * renews the be user api token after changing the password
  */
-class tx_piwikintegration_Hooks_BeUserProcessing {
+class BeUserProcessing {
 	/**
 	 * Process changes to a backendusers password to generate a new API key for
 	 * piwik

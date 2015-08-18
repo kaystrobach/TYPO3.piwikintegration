@@ -1,11 +1,13 @@
 <?php
 
+namespace KayStrobach\Piwikintegration\Controller;
+
 /**
  * Class Tx_Piwikintegration_Controller_PiwikInstallationController
  *
  * controller to run the installation of piwik in several seperated steps to avoid timeouts
  */
-class Tx_Piwikintegration_Controller_PiwikInstallationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class PiwikInstallationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	/**
 	 * @var int
 	 */
