@@ -248,7 +248,7 @@ class Auth implements \Piwik\Auth
 	 */
 	public function setPasswordHash($passwordHash) {
 		if (strlen($passwordHash) != 32) {
-			throw new Exception("Invalid hash: incorrect length " . strlen($passwordHash));
+			throw new \Exception("Invalid hash: incorrect length " . strlen($passwordHash));
 		}
 
 		$this->md5Password = $passwordHash;
