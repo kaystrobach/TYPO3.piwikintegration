@@ -69,7 +69,7 @@ class tx_piwikintegration_install {
 			$this->checkInstallation();
 		} catch (Exception $e) {
 			$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-				't3lib_FlashMessage',
+				'TYPO3\\CMS\\Core\Messaging\\FlashMessage',
 				$e->getMessage(),
 				'There was a Problem',
 				\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
@@ -100,7 +100,7 @@ class tx_piwikintegration_install {
 			$this->configureDownloadedPiwik();
 		} catch (\Exception $e) {
 			$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-				't3lib_FlashMessage',
+				'TYPO3\\CMS\\Core\Messaging\\FlashMessage',
 				$e->getMessage(),
 				'There was a Problem',
 				\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR

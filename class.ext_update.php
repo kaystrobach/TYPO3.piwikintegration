@@ -48,10 +48,10 @@ class ext_update {
 			if (method_exists($this, $func)) {
 				try {
 					$result = $this->$func();
-					$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_FlashMessage', $result, '', t3lib_FlashMessage::OK);
+					$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $result, '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
 				} catch (Exception $e) {
 					$result = $e->getMessage();
-					$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_FlashMessage', $result, '', t3lib_FlashMessage::ERROR);
+					$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $result, '', \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 				}
 				$buffer.= $flashMessage->render();
 			} else {
@@ -63,7 +63,7 @@ class ext_update {
 			tx_piwikintegration_install::getInstaller()->getConfigObject();
 		} catch (Exception $e) {
 			$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-					't3lib_FlashMessage', $LANG->getLL('installedPiwikNeeded'), '', t3lib_FlashMessage::INFO
+					'TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $LANG->getLL('installedPiwikNeeded'), '', \TYPO3\CMS\Core\Messaging\FlashMessage::INFO
 			);
 			$buffer.= $flashMessage->render();
 		}
