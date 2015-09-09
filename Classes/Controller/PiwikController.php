@@ -64,48 +64,40 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		if (!\tx_piwikintegration_install::getInstaller()->checkInstallation()) {
 			\tx_piwikintegration_install::getInstaller()->installPiwik();
 			if (\tx_piwikintegration_install::getInstaller()->checkInstallation()) {
-				$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-					't3lib_FlashMessage',
+				$this->addFlashMessage(
 					'Piwik installed',
 					'Piwik is now installed / upgraded, wait a moment, reload the page ;) <meta http-equiv="refresh" content="2; URL=mod.php?M=web_txpiwikintegrationM1&uid=' . $this->id  . '#reload">',
 					\TYPO3\CMS\Core\Messaging\FlashMessage::OK
 				);
-				\TYPO3\CMS\Core\Messaging\FlashMessageQueue::addMessage($flashMessage);
 			}
 			return FALSE;
 		}
 		// check whether a page is selected
 		if (!$this->id) {
-			$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-				't3lib_FlashMessage',
+			$this->addFlashMessage(
 				'Please select a page in the pagetree',
 				'',
 				\TYPO3\CMS\Core\Messaging\FlashMessage::NOTICE
 			);
-			\TYPO3\CMS\Core\Messaging\FlashMessageQueue::addMessage($flashMessage);
 			return FALSE;
 		}
 		$t = $this->piwikHelper->getPiwikConfigArray($this->id);
 		// check whether a configured page is selected
 		if (!isset($t['piwik_idsite']) || !$this->piwikHelper->getPiwikSiteIdForPid($this->id)) {
-			$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-				't3lib_FlashMessage',
+			$this->addFlashMessage(
 				'Page is not configured. Did you include the Typoscript template?',
 				'',
 				\TYPO3\CMS\Core\Messaging\FlashMessage::NOTICE
 			);
-			\TYPO3\CMS\Core\Messaging\FlashMessageQueue::addMessage($flashMessage);
 			return FALSE;
 		}
 		// check whether piwik_host is correct
 		if (($t['piwik_host'] !== 'typo3conf/piwik/piwik/') && ($t['piwik_host'] !== '/typo3conf/piwik/piwik/')) {
-			$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-				't3lib_FlashMessage',
+			$this->addFlashMessage(
 				'Piwik host is not set correctly',
 				'',
 				\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
 			);
-			\TYPO3\CMS\Core\Messaging\FlashMessageQueue::addMessage($flashMessage);
 			return FALSE;
 		}
 		unset($t);
