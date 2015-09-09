@@ -86,7 +86,7 @@ class tx_piwikintegration_pi1 extends tslib_pibase {
 		unset($this->extConf['widget']['action']);
 		
 		$content = '<div id="widgetIframe"><iframe width="100%" height="'.intval($this->extConf['height']).'" src="';
-		$content.= tx_piwikintegration_install::getInstaller()->getBaseUrl().'index.php?module=Widgetize&action=iframe'.t3lib_div::implodeArrayForUrl('',$this->extConf['widget']);
+		$content.= tx_piwikintegration_install::getInstaller()->getBaseUrl().'index.php?module=Widgetize&action=iframe'.\TYPO3\CMS\Core\Utility\GeneralUtility::implodeArrayForUrl('',$this->extConf['widget']);
 		$content.= '&disableLink=1" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe></div>';
 
 		return $content;
