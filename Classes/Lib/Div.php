@@ -102,7 +102,7 @@ class tx_piwikintegration_div {
 
 			$tplRow = $tmpl->ext_getFirstTemplate($uid,$template_uid);
 			if (is_array($tplRow) || 1)	{	// IF there was a template...
-				$sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("t3lib_pageSelect");
+				$sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
 				$rootLine = $sys_page->getRootLine($uid);
 				$tmpl->runThroughTemplates($rootLine);	// This generates the constants/config + hierarchy info for the template.
 				$tmpl->generateConfig();
