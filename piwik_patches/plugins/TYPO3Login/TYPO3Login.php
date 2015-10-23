@@ -74,9 +74,6 @@ class TYPO3Login extends \Piwik\Plugin
 	public function configureTopMenu(MenuTop $menu)
 	{
 		// Remove logout link from top-menu
-		//Params of $menu->remove($menuName, $subMenuName): 
-		//$menuName (string) — The menu's category name. Can be a translation token.
-		//$subMenuName (bool|string) — The menu item's name. Can be a translation token.
 		$menu->remove('General_Logout');
 	}
 
