@@ -65,9 +65,16 @@ class TYPO3Login extends \Piwik\Plugin
 			'Request.initAuthenticationObject'	    => 'initAuthenticationObject',
 			'User.isNotAuthorized'	            => 'noAccess',
 			'API.Request.authenticate'                      => 'ApiRequestAuthenticate',
+			'Menu.Add' => 'configureTopMenu',
 			'AssetManager.getJavaScriptFiles'  => 'getJsFiles'
 		);
 		return $hooks;
+	}
+
+	public function configureTopMenu(MenuTop $menu)
+	{
+		// Remove logout link from top-menu
+		$menu->remove('General_Logout');
 	}
 
 	public function getJsFiles(&$jsFiles)
