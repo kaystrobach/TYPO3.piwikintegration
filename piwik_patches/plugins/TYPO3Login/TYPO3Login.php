@@ -37,6 +37,7 @@ use Exception;
 use Piwik\Common;
 use Piwik\Container\StaticContainer;
 use Piwik\FrontController;
+use Piwik\Piwik;
 
 require PIWIK_INCLUDE_PATH.'/plugins/TYPO3Login/Auth.php';
 
@@ -58,7 +59,7 @@ class TYPO3Login extends \Piwik\Plugin
 	 *
 	 * @return	array		array of hooks
 	 */
-	function getListHooksRegistered()
+	function registerEvents()
 	{
 		$hooks = array(
 			'Request.initAuthenticationObject'	    => 'initAuthenticationObject',
@@ -82,11 +83,10 @@ class TYPO3Login extends \Piwik\Plugin
 	{
 		$frontController = FrontController::getInstance();
 		if (Common::isXmlHttpRequest()) {
-			echo $frontController->dispatch('TYPO3Login', 'ajaxNoAccess', array($exception->getMessage()));
+			echo $frontController->dispatch(Piwik::getLoginPluginName(), 'ajaxNoAccess', array($exception->getMessage()));
 			return;
 		}
-
-		echo $frontController->dispatch('TYPO3Login', 'login', array($exception->getMessage()));
+		echo $frontController->dispatch(Piwik::getLoginPluginName(), 'login', array($exception->getMessage()));
 	}
 	/**
 	 * init the authentification object
@@ -96,13 +96,10 @@ class TYPO3Login extends \Piwik\Plugin
 	function initAuthenticationObject()
 	{
 		$config = \Piwik\Config::getInstance();
-		
-		$auth = new \Piwik\Plugins\TYPO3Login\Auth();
-		StaticContainer::getContainer()->set('Piwik\Auth', $auth);
+		$auth = StaticContainer::getContainer()->get('Piwik\Auth');
 
-     	$action = \Piwik\Piwik::getAction();
-		if(\Piwik\Piwik::getModule() === 'API'
-			&& (empty($action) || $action == 'index'))
+		if(Piwik::getModule() === 'API'
+			&& (Piwik::getAction() == '' || Piwik::getAction() == 'index'))
 		{
 			return;
 		}
