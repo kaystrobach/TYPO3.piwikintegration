@@ -96,13 +96,13 @@ class tx_piwikintegration_div {
 		}
 		//parse ts template
 			$template_uid = 0;
-			$tmpl = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("t3lib_tsparser_ext");	// Defined global here!
+			$tmpl = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\TypoScript\\ExtendedTemplateService');	// Defined global here!
 			$tmpl->tt_track = 0;	// Do not log time-performance information
 			$tmpl->init();
 
 			$tplRow = $tmpl->ext_getFirstTemplate($uid,$template_uid);
 			if (is_array($tplRow) || 1)	{	// IF there was a template...
-				$sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance("t3lib_pageSelect");
+				$sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
 				$rootLine = $sys_page->getRootLine($uid);
 				$tmpl->runThroughTemplates($rootLine);	// This generates the constants/config + hierarchy info for the template.
 				$tmpl->generateConfig();

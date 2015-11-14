@@ -69,7 +69,7 @@ class tx_piwikintegration_install {
 			$this->checkInstallation();
 		} catch (Exception $e) {
 			$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-				't3lib_FlashMessage',
+				'TYPO3\\CMS\\Core\Messaging\\FlashMessage',
 				$e->getMessage(),
 				'There was a Problem',
 				\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
@@ -100,7 +100,7 @@ class tx_piwikintegration_install {
 			$this->configureDownloadedPiwik();
 		} catch (\Exception $e) {
 			$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-				't3lib_FlashMessage',
+				'TYPO3\\CMS\\Core\Messaging\\FlashMessage',
 				$e->getMessage(),
 				'There was a Problem',
 				\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
@@ -145,7 +145,7 @@ class tx_piwikintegration_install {
 
 		//download piwik into typo3temp
 		$zipArchivePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('typo3temp/piwiklatest.zip');
-		\TYPO3\CMS\Core\Utility\GeneralUtility::writeFileToTypo3tempDir($zipArchivePath,t3lib_div::getURL($downloadSource));
+		\TYPO3\CMS\Core\Utility\GeneralUtility::writeFileToTypo3tempDir($zipArchivePath,\TYPO3\CMS\Core\Utility\GeneralUtility::getURL($downloadSource));
 		if (@filesize($zipArchivePath) === FALSE) {
 			throw new \Exception('Installation invalid, typo3temp ' . $zipArchivePath . ' can´t be created for some reason');
 		}

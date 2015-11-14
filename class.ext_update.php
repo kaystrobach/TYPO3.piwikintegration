@@ -42,16 +42,16 @@ class ext_update {
 	function main() {
 		global $LANG;
 		$LANG->includeLLFile('EXT:piwikintegration/Resources/Private/Language/locallang.xml');
-		$func = trim(t3lib_div::_GP('func'));
+		$func = trim(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('func'));
 		$buffer = '';
-		if(t3lib_div::_GP('do_update')) {
+		if(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('do_update')) {
 			if (method_exists($this, $func)) {
 				try {
 					$result = $this->$func();
-					$flashMessage = t3lib_div::makeInstance('t3lib_FlashMessage', $result, '', t3lib_FlashMessage::OK);
+					$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $result, '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
 				} catch (Exception $e) {
 					$result = $e->getMessage();
-					$flashMessage = t3lib_div::makeInstance('t3lib_FlashMessage', $result, '', t3lib_FlashMessage::ERROR);
+					$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $result, '', \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 				}
 				$buffer.= $flashMessage->render();
 			} else {
@@ -62,8 +62,8 @@ class ext_update {
 		try {
 			tx_piwikintegration_install::getInstaller()->getConfigObject();
 		} catch (Exception $e) {
-			$flashMessage = t3lib_div::makeInstance(
-					't3lib_FlashMessage', $LANG->getLL('installedPiwikNeeded'), '', t3lib_FlashMessage::INFO
+			$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+					'TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $LANG->getLL('installedPiwikNeeded'), '', \TYPO3\CMS\Core\Messaging\FlashMessage::INFO
 			);
 			$buffer.= $flashMessage->render();
 		}
@@ -103,7 +103,7 @@ class ext_update {
 	function getButton($func,$piwikNeeded=true) {
 		global $LANG;
 		$params = array('do_update' => 1, 'func' => $func);
-		$onClick = "document.location='" . t3lib_div::linkThisScript($params) . "'; return false;";
+		$onClick = "document.location='" . \TYPO3\CMS\Core\Utility\GeneralUtility::linkThisScript($params) . "'; return false;";
 
 		$button = '<tr class="db_list_normal">';
 		$button.= '<td>';

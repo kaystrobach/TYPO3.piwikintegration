@@ -37,7 +37,7 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  */
 
-require_once(t3lib_extMgm::extPath('piwikintegration').'Classes/Lib/Div.php');
+require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('piwikintegration').'Classes/Lib/Div.php');
 
 /**
  * Renders the preview in templavoila
@@ -60,7 +60,7 @@ class tx_piwikintegration_pi1_templavoila_preview {
 		if(($row['CType'] == 'list') && ($row['list_type'] == 'piwikintegration_pi1')) {
 			$content = '<strong>Piwik in FE</strong>';
 			$content = $reference->link_edit($content, $table, $row['uid']);
-			$piFlexForm = t3lib_div::xml2array($row['pi_flexform']);
+			$piFlexForm = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($row['pi_flexform']);
 			foreach ( $piFlexForm['data'] as $sheet => $data ) {
 			   foreach ( $data as $lang => $value ) {
 			       foreach ( $value as $key => $val ) {
@@ -84,7 +84,7 @@ class tx_piwikintegration_pi1_templavoila_preview {
 
 			#$helper = new tx_piwikintegration_helper();
 			$obj.= '<div style="width:'.$this->extConf['height'].'px;"><object width="100%" type="text/html" height="'.intval($this->extConf['height']).'" data="';
-			$obj.= '../../../../typo3conf/piwik/piwik/index.php?module=Widgetize&action=iframe'.t3lib_div::implodeArrayForUrl('',$this->extConf['widget']);
+			$obj.= '../../../../typo3conf/piwik/piwik/index.php?module=Widgetize&action=iframe'.\TYPO3\CMS\Core\Utility\GeneralUtility::implodeArrayForUrl('',$this->extConf['widget']);
 			$obj.= '&disableLink=1"></object></div>';
 
 			$content.=$obj;
