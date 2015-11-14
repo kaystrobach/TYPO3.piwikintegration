@@ -41,7 +41,7 @@
  * @link http://kay-strobach.de
  * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  */
-class tx_piwikintegration_pi1 extends tslib_pibase {
+class tx_piwikintegration_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	var $prefixId      = 'tx_piwikintegration_pi1';		// Same as class name
 	var $scriptRelPath = 'pi1/class.tx_piwikintegration_pi1.php';	// Path to this script relative to the extension dir.
 	var $extKey        = 'tx_piwikintegration_pi1';	// The extension key.
