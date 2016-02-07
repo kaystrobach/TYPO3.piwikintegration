@@ -44,7 +44,7 @@ require PIWIK_INCLUDE_PATH.'/plugins/TYPO3Login/Auth.php';
 
 /**
  * Class for authentification plugin
- * 
+ *
  * @author  Kay Strobach <typo3@kay-strobach.de>
  * @link http://kay-strobach.de
  * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
@@ -128,13 +128,14 @@ class TYPO3Login extends \Piwik\Plugin
 	function initSession($notification)
 	{
 		$config = \Piwik\Config::getInstance();
-		
+
 		$info = $notification->getNotificationObject();
 		$login = $info['login'];
-		$md5Password = $info['md5Password'];
-		
-		$tokenAuth = \Piwik\Plugins\TYPO3Login\Auth::getTokenAuth($login, $md5Password);
-	
+		// @todo: After renaming variables from $md5Password to $hashPassword, has the array key changed (and need renaming) as well?
+		$hashPassword = $info['md5Password'];
+
+		$tokenAuth = \Piwik\Plugins\TYPO3Login\Auth::getTokenAuth($login, $hashPassword);
+
 		$auth = \Zend_Registry::get('auth');
 		$auth->setLogin($login);
 		$auth->setTokenAuth($tokenAuth);
