@@ -149,10 +149,17 @@ class tx_piwikintegration_config {
 
 		//set Plugins
 		$this->disablePlugin('ExampleAPI');
+		$this->disablePlugin('ExampleCommand');
 		$this->disablePlugin('ExamplePlugin');
+		$this->disablePlugin('ExampleReport');
 		$this->disablePlugin('ExampleRssWidget');
+		$this->disablePlugin('ExampleSettingsPlugin');
+		$this->disablePlugin('ExampleTheme');
+		$this->disablePlugin('ExampleTracker');
 		$this->disablePlugin('ExampleUI');
+		$this->disablePlugin('ExampleVisualization');
 		$this->disablePlugin('Login');
+		$this->disablePlugin('PiwikPro');
 		$this->enableSuggestedPlugins();
 
 		//create PiwikTables, check wether base tables already exist
@@ -176,7 +183,6 @@ class tx_piwikintegration_config {
 			'Goals',
 			'ImageGraph',
 			'Insights',
-			'LeftMenu',
 			'Live',
 			'MobileMessaging',
 			'MultiSites',
@@ -190,13 +196,11 @@ class tx_piwikintegration_config {
 			'Transitions',
 			'UserCountry',
 			'UserCountryMap',
-			'UserSettings',
 			'VisitFrequency',
 			'VisitorInterest',
 			'VisitsSummary',
 			'VisitTime',
-			'Widgetize',
-			'ZenMode'
+			'Widgetize'
 		);
 
 		foreach($pluginsToActivate as $plugin) {
@@ -238,7 +242,7 @@ class tx_piwikintegration_config {
 		$beUserName = $GLOBALS['BE_USER']->user['username'];
 		/**
 		 * ensure, that user's right are added to the database
-		 * tx_piwikintegration_access		 
+		 * tx_piwikintegration_access
 		 */
 		if ($GLOBALS['BE_USER']->user['admin'] != 1) {
 			$erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
