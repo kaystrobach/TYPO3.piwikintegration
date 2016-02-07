@@ -56,10 +56,11 @@ class TYPO3Login extends \Piwik\Plugin
 
 	/**
 	 * returns registered hooks
+	 * @see Piwik\Plugin::registerEvents
 	 *
 	 * @return	array		array of hooks
 	 */
-	function registerEvents()
+	public function registerEvents()
 	{
 		$hooks = array(
 			'Request.initAuthenticationObject'	    => 'initAuthenticationObject',
@@ -79,7 +80,7 @@ class TYPO3Login extends \Piwik\Plugin
 	 * Redirects to Login form with error message.
 	 * Listens to User.isNotAuthorized hook.
 	 */
-	function noAccess( Exception $exception )
+	public function noAccess( Exception $exception )
 	{
 		$frontController = FrontController::getInstance();
 		if (Common::isXmlHttpRequest()) {
@@ -88,8 +89,9 @@ class TYPO3Login extends \Piwik\Plugin
 		}
 		echo $frontController->dispatch(Piwik::getLoginPluginName(), 'login', array($exception->getMessage()));
 	}
+
 	/**
-	 * init the authentification object
+	 * Initializes the authentication object.
 	 *
 	 * @return	void
 	 */
@@ -117,6 +119,12 @@ class TYPO3Login extends \Piwik\Plugin
 		$auth->setLogin($defaultLogin);
 		$auth->setTokenAuth($defaultTokenAuth);
 	}
+
+	/**
+	 * @todo: Document me!
+	 *
+	 *
+	 */
 	function initSession($notification)
 	{
 		$config = \Piwik\Config::getInstance();
@@ -151,7 +159,12 @@ class TYPO3Login extends \Piwik\Plugin
 
 		\Zend_Session::regenerateId();
 	}
-	function ApiRequestAuthenticate($tokenAuth)
+
+	/**
+	 * Set login name and authentication token for API request.
+	 * Listens to API.Request.authenticate hook.
+	 */
+	public function ApiRequestAuthenticate($tokenAuth)
 	{
 		/** @var \Piwik\Auth $auth */
 		$auth = StaticContainer::get('Piwik\Auth');

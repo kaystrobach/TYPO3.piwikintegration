@@ -65,9 +65,8 @@ class Controller extends \Piwik\Plugins\Login\Controller
 	/**
 	 * @param null $errorMessage
 	 */
-	 function ajaxNoAccess($errorMessage)
+	public function ajaxNoAccess($errorMessage)
 	{
 		// Ajax function
 	}
 }
-?>
