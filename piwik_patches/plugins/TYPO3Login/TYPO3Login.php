@@ -44,7 +44,7 @@ require PIWIK_INCLUDE_PATH.'/plugins/TYPO3Login/Auth.php';
 
 /**
  * Class for authentification plugin
- * 
+ *
  * @author  Kay Strobach <typo3@kay-strobach.de>
  * @link http://kay-strobach.de
  * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
@@ -56,10 +56,11 @@ class TYPO3Login extends \Piwik\Plugin
 
 	/**
 	 * returns registered hooks
+	 * @see Piwik\Plugin::registerEvents
 	 *
 	 * @return	array		array of hooks
 	 */
-	function registerEvents()
+	public function registerEvents()
 	{
 		$hooks = array(
 			'Request.initAuthenticationObject'	    => 'initAuthenticationObject',
@@ -79,7 +80,7 @@ class TYPO3Login extends \Piwik\Plugin
 	 * Redirects to Login form with error message.
 	 * Listens to User.isNotAuthorized hook.
 	 */
-	function noAccess( Exception $exception )
+	public function noAccess( Exception $exception )
 	{
 		$frontController = FrontController::getInstance();
 		if (Common::isXmlHttpRequest()) {
@@ -88,8 +89,9 @@ class TYPO3Login extends \Piwik\Plugin
 		}
 		echo $frontController->dispatch(Piwik::getLoginPluginName(), 'login', array($exception->getMessage()));
 	}
+
 	/**
-	 * init the authentification object
+	 * Initializes the authentication object.
 	 *
 	 * @return	void
 	 */
@@ -117,16 +119,23 @@ class TYPO3Login extends \Piwik\Plugin
 		$auth->setLogin($defaultLogin);
 		$auth->setTokenAuth($defaultTokenAuth);
 	}
+
+	/**
+	 * @todo: Document me!
+	 *
+	 *
+	 */
 	function initSession($notification)
 	{
 		$config = \Piwik\Config::getInstance();
-		
+
 		$info = $notification->getNotificationObject();
 		$login = $info['login'];
-		$md5Password = $info['md5Password'];
-		
-		$tokenAuth = \Piwik\Plugins\TYPO3Login\Auth::getTokenAuth($login, $md5Password);
-	
+		// @todo: After renaming variables from $md5Password to $hashPassword, has the array key changed (and need renaming) as well?
+		$hashPassword = $info['md5Password'];
+
+		$tokenAuth = \Piwik\Plugins\TYPO3Login\Auth::getTokenAuth($login, $hashPassword);
+
 		$auth = \Zend_Registry::get('auth');
 		$auth->setLogin($login);
 		$auth->setTokenAuth($tokenAuth);
@@ -151,7 +160,12 @@ class TYPO3Login extends \Piwik\Plugin
 
 		\Zend_Session::regenerateId();
 	}
-	function ApiRequestAuthenticate($tokenAuth)
+
+	/**
+	 * Set login name and authentication token for API request.
+	 * Listens to API.Request.authenticate hook.
+	 */
+	public function ApiRequestAuthenticate($tokenAuth)
 	{
 		/** @var \Piwik\Auth $auth */
 		$auth = StaticContainer::get('Piwik\Auth');

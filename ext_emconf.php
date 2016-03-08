@@ -16,25 +16,25 @@ $EM_CONF[$_EXTKEY] = array (
 	'category' => 'module',
 	'version' => '4.3.3',
 	'module' => 'mod1',
-	'state' => 'alpha',
+	'state' => 'beta',
 	'uploadfolder' => 0,
 	'createDirs' => '',
 	'clearcacheonload' => 0,
 	'author' => 'Kay Strobach',
 	'author_email' => 'kay.strobach@typo3.org',
 	'author_company' => '',
-	'constraints' => 
+	'constraints' =>
 	array (
-		'depends' => 
+		'depends' =>
 		array (
 			'php' => '5.2.0-6.0.0',
-			'typo3' => '6.2.5-6.2.99',
+			'typo3' => '6.2.5-7.9.99',
 		),
-		'conflicts' => 
+		'conflicts' =>
 		array (
 			'dbal' => '1.0.0-99.0.0',
 		),
-		'suggests' => 
+		'suggests' =>
 		array (
 			'piwik' => '2.0.0-2.999.0',
 		),

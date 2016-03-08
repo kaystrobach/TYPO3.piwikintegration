@@ -22,6 +22,9 @@
  ***************************************************************/
 namespace Piwik\Plugins\TYPO3Login;
 
+use Piwik\Piwik;
+use Piwik\Plugins\UsersManager\UsersManager;
+
 /**
  * Fix some problems with external DB usage
  */
@@ -213,13 +216,13 @@ class Auth implements \Piwik\Auth
 	 *
 	 * A users token auth is generated using the user's login and this secret. The secret
 	 * should be specific to the user and not easily guessed. Piwik's default Auth implementation
-	 * uses an MD5 hash of a user's password.
+	 * uses a hash of a user's password.
 	 *
 	 * @return string
 	 * @throws Exception if the token auth secret does not exist or cannot be obtained.
 	 */
 	public function getTokenAuthSecret() {
-		return $this->md5Password;
+		return $this->hashPassword;
 	}
 
 	/**
@@ -238,37 +241,37 @@ class Auth implements \Piwik\Auth
 	 */
 	public function setPassword($password) {
 		if (empty($password)) {
-			$this->md5Password = null;
+			$this->hashPassword = null;
 		} else {
-			$this->md5Password = md5($password);
+			$this->hashPassword = UsersManager::getPasswordHash($password);
 		}
 	}
 
 	/**
-	 * Sets the hash of the password to authenticate with. The hash will be an MD5 hash.
+	 * Sets the hash of the password to authenticate with.
 	 *
 	 * @param string $passwordHash The hashed password.
 	 * @throws Exception if authentication by hashed password is not supported.
 	 */
 	public function setPasswordHash($passwordHash) {
 		if ($passwordHash === null) {
-			$this->md5Password = null;
+			$this->hashPassword = null;
 			return;
 		}
 
-		if (strlen($passwordHash) != 32) {
-			throw new \Exception("Invalid hash: incorrect length " . strlen($passwordHash));
-		}
+		// check that the password hash is valid (sanity check)
+		UsersManager::checkPasswordHash($passwordHash, Piwik::translate('Login_ExceptionPasswordMD5HashExpected'));
 
-		$this->md5Password = $passwordHash;
+		$this->hashPassword = $passwordHash;
 	}
 
-	static function getTokenAuth($login, $md5Password) {
+	static function getTokenAuth($login, $hashPassword) {
 		$token = \Piwik\Db::get()->fetchOne(
 						'SELECT ' . self::getTableName('api_code') . ' FROM `be_users` WHERE username = ?',
 						array($login)
 			);
-		if(md5(substr($token,0,6)) == $md5Password) {
+		// @todo: Using substr() that way works as long as MD5 hashes are being used.
+		if(UsersManager::checkPasswordHash(substr($token,0,6)) == $hashPassword) {
 			return $token;
 		} else {
 			return '';
@@ -278,7 +281,7 @@ class Auth implements \Piwik\Auth
 	/**
 	 * Authenticates the user and initializes the session.
 	 */
-	public function initSession($login, $md5Password, $rememberMe) {
+	public function initSession($login, $hashPassword, $rememberMe) {
 		$this->authenticate();
 		// TODO: Implement initSession() method.
 	}
