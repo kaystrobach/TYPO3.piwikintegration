@@ -139,7 +139,7 @@ class tx_piwikintegration_config {
 		//General
 		$this->setOption('General', 'show_website_selector_in_user_interface', 0);
 		$this->setOption('General', 'serve_widget_and_data', 0);
-		$this->setOption('General', 'piwik_pro_ads_enabled', 0);
+		$this->setOption('General', 'piwik_professional_support_ads_enabled', 0);
 
 		//Disable the frame detection of Piwik
 		$this->setOption('General', 'enable_framed_pages', 1);
@@ -160,7 +160,7 @@ class tx_piwikintegration_config {
 		$this->disablePlugin('ExampleUI');
 		$this->disablePlugin('ExampleVisualization');
 		$this->disablePlugin('Login');
-		$this->disablePlugin('PiwikPro');
+		$this->disablePlugin('ProfessionalServices');
 		$this->enableSuggestedPlugins();
 
 		//create PiwikTables, check wether base tables already exist
