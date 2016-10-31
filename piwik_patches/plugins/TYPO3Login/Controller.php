@@ -24,49 +24,51 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+
 namespace Piwik\Plugins\TYPO3Login;
 
 /**
- * piwik_patches/plugins/TYPO3Login/Controller.php
+ * piwik_patches/plugins/TYPO3Login/Controller.php.
  *
  * Authentification controller class
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 /**
- * Controller for TYPO3Login
- * 
+ * Controller for TYPO3Login.
+ *
  * @author  Kay Strobach <typo3@kay-strobach.de>
+ *
  * @link http://kay-strobach.de
+ *
  * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
- * @package Piwik_TYPO3Login
  */
 class Controller extends \Piwik\Plugins\Login\Controller
 {
-	/**
-	 * redirect to dashboard as we have no view
-	 *
-	 * @return	void
-	 */
-	function index()
-	{
-		$this->login();
-	}
+    /**
+     * redirect to dashboard as we have no view.
+     *
+     * @return void
+     */
+    public function index()
+    {
+        $this->login();
+    }
 
-	/**
-	 * @param null $messageNoAccess
-	 * @param bool $infoMessage
-	 */
-	function login($messageNoAccess = null, $infoMessage = false)
-	{
-		// Login function
-	}
+    /**
+     * @param null $messageNoAccess
+     * @param bool $infoMessage
+     */
+    public function login($messageNoAccess = null, $infoMessage = false)
+    {
+        // Login function
+    }
 
-	/**
-	 * @param null $errorMessage
-	 */
-	public function ajaxNoAccess($errorMessage)
-	{
-		// Ajax function
-	}
+    /**
+     * @param null $errorMessage
+     */
+    public function ajaxNoAccess($errorMessage)
+    {
+        // Ajax function
+    }
 }

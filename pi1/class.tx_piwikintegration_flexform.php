@@ -25,7 +25,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 /**
- * pi1/tx_piwikintegration_flexform
+ * pi1/tx_piwikintegration_flexform.
  *
  * helper for the flexform
  *
@@ -33,60 +33,66 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-class tx_piwikintegration_flexform {
-	function init() {
-		$this->tablePrefix = tx_piwikintegration_install::getInstaller()->getConfigObject()->getTablePrefix();
-	}
-	function getSitesForFlexForm(&$PA,&$fobj) {
-		$this->init();
-		//fetch anonymous accessable idsites
-		$erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-			'idsite',
-			tx_piwikintegration_div::getTblName('access'),
-			'login="anonymous"'
-		);
+class tx_piwikintegration_flexform
+{
+    public function init()
+    {
+        $this->tablePrefix = tx_piwikintegration_install::getInstaller()->getConfigObject()->getTablePrefix();
+    }
 
-		//build array for selecting more information
-		$sites = array();
-		foreach($erg as $site) {
-			$sites[] = $site['idsite'];
-		}
-		$accessableSites = implode(',',$sites);
-		$erg = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-			'idsite,name,main_url',
-			tx_piwikintegration_div::getTblName('site'),
-			'idsite IN('.$accessableSites.')',
-			'',
-			'name, main_url, idsite'
-		);
-		$PA['items'] = array();
+    public function getSitesForFlexForm(&$PA, &$fobj)
+    {
+        $this->init();
+        //fetch anonymous accessable idsites
+        $erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+            'idsite',
+            tx_piwikintegration_div::getTblName('access'),
+            'login="anonymous"'
+        );
 
-		//render items
-		while(($site = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($erg)) !== false) {
-			$PA['items'][] = array(
-				$site['idsite'].' : '.($site['name'] ? $site['name'].' : '.$site['main_url'] : $site['main_url']),
-				$site['idsite'],
-				'i/domain.gif',
-			);
-		}
-	}
-	static function getWidgetsForFlexForm(&$PA,&$fobj) {
-		$PA['items'] = array();
-		
-		tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
-		$controller = Piwik_FrontController::getInstance()->init();
-		$_GET['idSite']=1;
-		$widgets = Piwik_GetWidgetsList();
-		
+        //build array for selecting more information
+        $sites = [];
+        foreach ($erg as $site) {
+            $sites[] = $site['idsite'];
+        }
+        $accessableSites = implode(',', $sites);
+        $erg = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+            'idsite,name,main_url',
+            tx_piwikintegration_div::getTblName('site'),
+            'idsite IN('.$accessableSites.')',
+            '',
+            'name, main_url, idsite'
+        );
+        $PA['items'] = [];
 
-		foreach($widgets as $pluginCat => $plugin) {
-			foreach($plugin as $widget) {
-				$PA['items'][] = array(
-					$pluginCat.' : '.$widget['name'],
-					base64_encode(json_encode($widget['parameters'])),
-					'i/catalog.gif'
-				);
-			}
-		}
-	}
+        //render items
+        while (($site = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($erg)) !== false) {
+            $PA['items'][] = [
+                $site['idsite'].' : '.($site['name'] ? $site['name'].' : '.$site['main_url'] : $site['main_url']),
+                $site['idsite'],
+                'i/domain.gif',
+            ];
+        }
+    }
+
+    public static function getWidgetsForFlexForm(&$PA, &$fobj)
+    {
+        $PA['items'] = [];
+
+        tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
+        $controller = Piwik_FrontController::getInstance()->init();
+        $_GET['idSite'] = 1;
+        $widgets = Piwik_GetWidgetsList();
+
+
+        foreach ($widgets as $pluginCat => $plugin) {
+            foreach ($plugin as $widget) {
+                $PA['items'][] = [
+                    $pluginCat.' : '.$widget['name'],
+                    base64_encode(json_encode($widget['parameters'])),
+                    'i/catalog.gif',
+                ];
+            }
+        }
+    }
 }

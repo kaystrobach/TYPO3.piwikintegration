@@ -25,7 +25,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 /**
- * piwik_patches/plugins/TYPO3Login/TYPO3Login.php
+ * piwik_patches/plugins/TYPO3Login/TYPO3Login.php.
  *
  * FE controller class
  *
@@ -43,134 +43,130 @@ require PIWIK_INCLUDE_PATH.'/plugins/TYPO3Login/Auth.php';
 
 
 /**
- * Class for authentification plugin
+ * Class for authentification plugin.
  *
  * @author  Kay Strobach <typo3@kay-strobach.de>
- * @link http://kay-strobach.de
- * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  *
- * @package Piwik_TYPO3Login
+ * @link http://kay-strobach.de
+ *
+ * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  */
 class TYPO3Login extends \Piwik\Plugin
 {
+    /**
+     * returns registered hooks.
+     *
+     * @see Piwik\Plugin::registerEvents
+     *
+     * @return array array of hooks
+     */
+    public function registerEvents()
+    {
+        $hooks = [
+            'Request.initAuthenticationObject'              => 'initAuthenticationObject',
+            'User.isNotAuthorized'                          => 'noAccess',
+            'API.Request.authenticate'                      => 'ApiRequestAuthenticate',
+            'AssetManager.getJavaScriptFiles'               => 'getJsFiles',
+        ];
 
-	/**
-	 * returns registered hooks
-	 * @see Piwik\Plugin::registerEvents
-	 *
-	 * @return	array		array of hooks
-	 */
-	public function registerEvents()
-	{
-		$hooks = array(
-			'Request.initAuthenticationObject'	    => 'initAuthenticationObject',
-			'User.isNotAuthorized'	            => 'noAccess',
-			'API.Request.authenticate'                      => 'ApiRequestAuthenticate',
-			'AssetManager.getJavaScriptFiles'  => 'getJsFiles'
-		);
-		return $hooks;
-	}
+        return $hooks;
+    }
 
-	public function getJsFiles(&$jsFiles)
-	{
-		$jsFiles[] = "plugins/Login/javascripts/login.js";
-	}
+    public function getJsFiles(&$jsFiles)
+    {
+        $jsFiles[] = 'plugins/Login/javascripts/login.js';
+    }
 
-	/**
-	 * Redirects to Login form with error message.
-	 * Listens to User.isNotAuthorized hook.
-	 */
-	public function noAccess( Exception $exception )
-	{
-		$frontController = FrontController::getInstance();
-		if (Common::isXmlHttpRequest()) {
-			echo $frontController->dispatch(Piwik::getLoginPluginName(), 'ajaxNoAccess', array($exception->getMessage()));
-			return;
-		}
-		echo $frontController->dispatch(Piwik::getLoginPluginName(), 'login', array($exception->getMessage()));
-	}
+    /**
+     * Redirects to Login form with error message.
+     * Listens to User.isNotAuthorized hook.
+     */
+    public function noAccess(Exception $exception)
+    {
+        $frontController = FrontController::getInstance();
+        if (Common::isXmlHttpRequest()) {
+            echo $frontController->dispatch(Piwik::getLoginPluginName(), 'ajaxNoAccess', [$exception->getMessage()]);
 
-	/**
-	 * Initializes the authentication object.
-	 *
-	 * @return	void
-	 */
-	function initAuthenticationObject()
-	{
-		$config = \Piwik\Config::getInstance();
-		$auth = StaticContainer::getContainer()->get('Piwik\Auth');
+            return;
+        }
+        echo $frontController->dispatch(Piwik::getLoginPluginName(), 'login', [$exception->getMessage()]);
+    }
 
-		if(Piwik::getModule() === 'API'
-			&& (Piwik::getAction() == '' || Piwik::getAction() == 'index'))
-		{
-			return;
-		}
+    /**
+     * Initializes the authentication object.
+     *
+     * @return void
+     */
+    public function initAuthenticationObject()
+    {
+        $config = \Piwik\Config::getInstance();
+        $auth = StaticContainer::getContainer()->get('Piwik\Auth');
 
-		$authCookieName = $config->General['login_cookie_name'];
-		$authCookieExpiry = time() + $config->General['login_cookie_expire'];
-		$authCookie = new \Piwik\Cookie($authCookieName, $authCookieExpiry);
-		$defaultLogin = 'anonymous';
-		$defaultTokenAuth = 'anonymous';
-		if($authCookie->isCookieFound())
-		{
-			$defaultLogin = $authCookie->get('login');
-			$defaultTokenAuth = $authCookie->get('token_auth');
-		}
-		$auth->setLogin($defaultLogin);
-		$auth->setTokenAuth($defaultTokenAuth);
-	}
+        if (Piwik::getModule() === 'API'
+            && (Piwik::getAction() == '' || Piwik::getAction() == 'index')) {
+            return;
+        }
 
-	/**
-	 * @todo: Document me!
-	 *
-	 *
-	 */
-	function initSession($notification)
-	{
-		$config = \Piwik\Config::getInstance();
+        $authCookieName = $config->General['login_cookie_name'];
+        $authCookieExpiry = time() + $config->General['login_cookie_expire'];
+        $authCookie = new \Piwik\Cookie($authCookieName, $authCookieExpiry);
+        $defaultLogin = 'anonymous';
+        $defaultTokenAuth = 'anonymous';
+        if ($authCookie->isCookieFound()) {
+            $defaultLogin = $authCookie->get('login');
+            $defaultTokenAuth = $authCookie->get('token_auth');
+        }
+        $auth->setLogin($defaultLogin);
+        $auth->setTokenAuth($defaultTokenAuth);
+    }
 
-		$info = $notification->getNotificationObject();
-		$login = $info['login'];
-		// @todo: After renaming variables from $md5Password to $hashPassword, has the array key changed (and need renaming) as well?
-		$hashPassword = $info['md5Password'];
+    /**
+     * @todo: Document me!
+     */
+    public function initSession($notification)
+    {
+        $config = \Piwik\Config::getInstance();
 
-		$tokenAuth = \Piwik\Plugins\TYPO3Login\Auth::getTokenAuth($login, $hashPassword);
+        $info = $notification->getNotificationObject();
+        $login = $info['login'];
+        // @todo: After renaming variables from $md5Password to $hashPassword, has the array key changed (and need renaming) as well?
+        $hashPassword = $info['md5Password'];
 
-		$auth = \Zend_Registry::get('auth');
-		$auth->setLogin($login);
-		$auth->setTokenAuth($tokenAuth);
+        $tokenAuth = \Piwik\Plugins\TYPO3Login\Auth::getTokenAuth($login, $hashPassword);
 
-		$authResult = $auth->authenticate();
+        $auth = \Zend_Registry::get('auth');
+        $auth->setLogin($login);
+        $auth->setTokenAuth($tokenAuth);
 
-		if(!$authResult->isValid())
-		{
-			/** @todo find translator */
-			throw new \Exception('Login_LoginPasswordNotCorrect');
-		}
-		$ns = new \Zend_Session_Namespace('Piwik_Login.referer');
-		unset($ns->referer);
+        $authResult = $auth->authenticate();
 
-		$authCookieName = $config->General['login_cookie_name'];
-		$authCookieExpiry = time() + $config->General['login_cookie_expire'];
-		$authCookiePath = $config->General['login_cookie_path'];
-		$cookie = new \Piwik\Cookie($authCookieName, $authCookieExpiry, $authCookiePath);
-		$cookie->set('login', $login);
-		$cookie->set('token_auth', $tokenAuth);
-		$cookie->save();
+        if (!$authResult->isValid()) {
+            /* @todo find translator */
+            throw new \Exception('Login_LoginPasswordNotCorrect');
+        }
+        $ns = new \Zend_Session_Namespace('Piwik_Login.referer');
+        unset($ns->referer);
 
-		\Zend_Session::regenerateId();
-	}
+        $authCookieName = $config->General['login_cookie_name'];
+        $authCookieExpiry = time() + $config->General['login_cookie_expire'];
+        $authCookiePath = $config->General['login_cookie_path'];
+        $cookie = new \Piwik\Cookie($authCookieName, $authCookieExpiry, $authCookiePath);
+        $cookie->set('login', $login);
+        $cookie->set('token_auth', $tokenAuth);
+        $cookie->save();
 
-	/**
-	 * Set login name and authentication token for API request.
-	 * Listens to API.Request.authenticate hook.
-	 */
-	public function ApiRequestAuthenticate($tokenAuth)
-	{
-		/** @var \Piwik\Auth $auth */
-		$auth = StaticContainer::get('Piwik\Auth');
-		$auth->setLogin($login = null);
-		$auth->setTokenAuth($tokenAuth);
-	}
+        \Zend_Session::regenerateId();
+    }
 
+    /**
+     * Set login name and authentication token for API request.
+     * Listens to API.Request.authenticate hook.
+     */
+    public function ApiRequestAuthenticate($tokenAuth)
+    {
+        /** @var \Piwik\Auth $auth */
+        $auth = StaticContainer::get('Piwik\Auth');
+        $auth->setLogin($login = null);
+        $auth->setTokenAuth($tokenAuth);
+    }
 }

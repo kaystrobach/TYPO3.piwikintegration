@@ -25,7 +25,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 /**
- * pi1/tx_piwikintegration_pi1.php
+ * pi1/tx_piwikintegration_pi1.php.
  *
  * fe module1
  *
@@ -33,73 +33,75 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
- 
+
 /**
- * Frontend plugin for piwikintegration
- * 
+ * Frontend plugin for piwikintegration.
+ *
  * @author  Kay Strobach <typo3@kay-strobach.de>
+ *
  * @link http://kay-strobach.de
+ *
  * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  */
-class tx_piwikintegration_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
-	var $prefixId      = 'tx_piwikintegration_pi1';		// Same as class name
-	var $scriptRelPath = 'pi1/class.tx_piwikintegration_pi1.php';	// Path to this script relative to the extension dir.
-	var $extKey        = 'tx_piwikintegration_pi1';	// The extension key.
-	var $pi_checkCHash = true;
+class tx_piwikintegration_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
+{
+    public $prefixId = 'tx_piwikintegration_pi1';        // Same as class name
+    public $scriptRelPath = 'pi1/class.tx_piwikintegration_pi1.php';    // Path to this script relative to the extension dir.
+    public $extKey = 'tx_piwikintegration_pi1';    // The extension key.
+    public $pi_checkCHash = true;
 
-	/**
-	 * Main function of the module. Write the content to $this->content
-	 *
-     * @param	string	$content: string with current content
-	 * @param	array	$conf: array with configuration
-	 * 	 
-	 * @return	void
-	 */
-	function main($content, $conf) {
-		$content = $this->init($conf);
-		return $this->pi_wrapInBaseClass($content);
-	}
+    /**
+     * Main function of the module. Write the content to $this->content.
+     *
+     * @param string $content: string with current content
+     * @param array  $conf:    array with configuration
+     *
+     * @return void
+     */
+    public function main($content, $conf)
+    {
+        $content = $this->init($conf);
 
-	/**
-	 * initializes the configuration for the plugin and gets the settings from
-	 * the flexform
-	 *
-	 * @param	array	$conf: array with TS configuration
-	 * @return	void
-	 */
-	function init($conf) {
-		$this->conf = $conf;
-		$this->pi_setPiVarDefaults();
-		$this->pi_loadLL();
-		$this->pi_initPIflexForm();
-		
-		
-		$this->extConf['widget']                     = json_decode(base64_decode($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'widget')),true);
-		$this->extConf['widget']['period']           = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'period');
-		$this->extConf['widget']['moduleToWidgetize']= $this->extConf['widget']['module'];
-		$this->extConf['widget']['actionToWidgetize']= $this->extConf['widget']['action'];
-		$this->extConf['widget']['idSite']           = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'idsite');
-		$this->extConf['height']                     = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'div_height');
-		$this->extConf['widget']['date']             = 'yesterday';
-		$this->extConf['widget']['viewDataTable']    = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'viewDataTable');
-		unset($this->extConf['widget']['module']);
-		unset($this->extConf['widget']['action']);
-		
-		$content = '<div id="widgetIframe"><iframe width="100%" height="'.intval($this->extConf['height']).'" src="';
-		$content.= tx_piwikintegration_install::getInstaller()->getBaseUrl().'index.php?module=Widgetize&action=iframe'.\TYPO3\CMS\Core\Utility\GeneralUtility::implodeArrayForUrl('',$this->extConf['widget']);
-		$content.= '&disableLink=1" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe></div>';
+        return $this->pi_wrapInBaseClass($content);
+    }
 
-		return $content;
-	}
+    /**
+     * initializes the configuration for the plugin and gets the settings from
+     * the flexform.
+     *
+     * @param array $conf: array with TS configuration
+     *
+     * @return void
+     */
+    public function init($conf)
+    {
+        $this->conf = $conf;
+        $this->pi_setPiVarDefaults();
+        $this->pi_loadLL();
+        $this->pi_initPIflexForm();
 
 
+        $this->extConf['widget'] = json_decode(base64_decode($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'widget')), true);
+        $this->extConf['widget']['period'] = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'period');
+        $this->extConf['widget']['moduleToWidgetize'] = $this->extConf['widget']['module'];
+        $this->extConf['widget']['actionToWidgetize'] = $this->extConf['widget']['action'];
+        $this->extConf['widget']['idSite'] = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'idsite');
+        $this->extConf['height'] = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'div_height');
+        $this->extConf['widget']['date'] = 'yesterday';
+        $this->extConf['widget']['viewDataTable'] = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'viewDataTable');
+        unset($this->extConf['widget']['module']);
+        unset($this->extConf['widget']['action']);
 
+        $content = '<div id="widgetIframe"><iframe width="100%" height="'.intval($this->extConf['height']).'" src="';
+        $content .= tx_piwikintegration_install::getInstaller()->getBaseUrl().'index.php?module=Widgetize&action=iframe'.\TYPO3\CMS\Core\Utility\GeneralUtility::implodeArrayForUrl('', $this->extConf['widget']);
+        $content .= '&disableLink=1" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe></div>';
+
+        return $content;
+    }
 }
 
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/piwikintegration/pi1/class.tx_piwikintegration_pi1.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/piwikintegration/pi1/class.tx_piwikintegration_pi1.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/piwikintegration/pi1/class.tx_piwikintegration_pi1.php']) {
+    include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/piwikintegration/pi1/class.tx_piwikintegration_pi1.php'];
 }
-
-?>
