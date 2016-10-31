@@ -1,11 +1,6 @@
 language: php
 
 php:
-  - 5.6
-  - 7.0
-  - hhvm
-
-php:
   - 5.3
   - 5.4
   - 5.5
@@ -13,8 +8,22 @@ php:
   - 7
   - hhvm
 
-cache:
-  apt: true
+matrix:
+  exclude:
+    - php: 5.3
+      env: TYPO3_VERSION="^7.6.0"
+    - php: 5.4
+      env: TYPO3_VERSION="^7.6.0"
+    - php: 5.3
+      env: TYPO3_VERSION="dev-master"
+    - php: 5.4
+      env: TYPO3_VERSION="dev-master"
+    - php: 5.5
+      env: TYPO3_VERSION="dev-master"
+    - php: 5.6
+      env: TYPO3_VERSION="dev-master"
+    - php: 7
+      env: TYPO3_VERSION="^6.2.0"
 
 env:
   global:
