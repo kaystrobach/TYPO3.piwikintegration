@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 5.3
   - 5.4
   - 5.5
   - 5.6
@@ -10,8 +9,6 @@ php:
 
 matrix:
   exclude:
-    - php: 5.3
-      env: TYPO3_VERSION="^7.6.0"
     - php: 5.4
       env: TYPO3_VERSION="^7.6.0"
     - php: 5.3
@@ -47,7 +44,7 @@ cache:
 before_install:
   - phpenv config-rm xdebug.ini
   - composer --version
-  - npm install csslint
+  - npm -g install csslint
   - npm -g install jshint
   - composer self-update
 
