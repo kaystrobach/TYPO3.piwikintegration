@@ -24,17 +24,16 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+
 namespace Piwik\Plugins\TYPO3Login;
 
-use Piwik\Piwik;
 use Piwik\Menu\MenuTop;
 
 class Menu extends \Piwik\Plugin\Menu
 {
-	public function configureTopMenu(MenuTop $menu)
-	{
-		// Remove logout link from top menu
-		$menu->remove('General_Logout');
-	}
-
+    public function configureTopMenu(MenuTop $menu)
+    {
+        // Remove logout link from top menu
+        $menu->remove('General_Logout');
+    }
 }

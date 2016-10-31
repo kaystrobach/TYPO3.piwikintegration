@@ -27,93 +27,103 @@
 
 
 /**
- * functions for the extmgm render forms and react on changes
+ * functions for the extmgm render forms and react on changes.
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-class tx_piwikintegration_extmgm {
-	/**
-	 * @param $params
-	 * @return string
-	 */
-	public function emMakeDBList($params) {
-		 if (!tx_piwikintegration_install::getInstaller()->checkInstallation()) {
-		 	return 'Piwik is not installed yet ;) - option is unavailable';
-		 }
-		 /* Pull the current fieldname and value from constants */
-		$fieldName  = $params['fieldName'];
-		$fieldValue = $params['fieldValue'];
-		$dbs        = $GLOBALS['TYPO3_DB']->admin_get_dbs();
-		$buffer ='<select name="'.$fieldName.'">';
-		$buffer.='<option value="'.TYPO3_db.'">---TYPO3DB---</option>';
-		foreach ($dbs as $db) {
-			$buffer.= '<option value="'.htmlspecialchars($db).'"';
-			if ($db == $fieldValue) {
-				$buffer.=' selected="selected"';
-			}
-			$buffer.= '>'.htmlspecialchars($db).'</option>';
-		}
-		$buffer.='</select>';
-		return $buffer;
-	}
+class tx_piwikintegration_extmgm
+{
+    /**
+     * @param $params
+     *
+     * @return string
+     */
+    public function emMakeDBList($params)
+    {
+        if (!tx_piwikintegration_install::getInstaller()->checkInstallation()) {
+            return 'Piwik is not installed yet ;) - option is unavailable';
+        }
+         /* Pull the current fieldname and value from constants */
+        $fieldName = $params['fieldName'];
+        $fieldValue = $params['fieldValue'];
+        $dbs = $GLOBALS['TYPO3_DB']->admin_get_dbs();
+        $buffer = '<select name="'.$fieldName.'">';
+        $buffer .= '<option value="'.TYPO3_db.'">---TYPO3DB---</option>';
+        foreach ($dbs as $db) {
+            $buffer .= '<option value="'.htmlspecialchars($db).'"';
+            if ($db == $fieldValue) {
+                $buffer .= ' selected="selected"';
+            }
+            $buffer .= '>'.htmlspecialchars($db).'</option>';
+        }
+        $buffer .= '</select>';
 
-	/**
-	 * @param $par
-	 * @throws Exception
-	 * @return void
-	 */
-	function emSaveConstants($par) {
-		if ($par['extKey'] == 'piwikintegration' && \TYPO3\CMS\Core\Utility\GeneralUtility::_POST('submit')) {
-			$newconf = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
-			$newconf = $newconf['data'];
-			//init piwik to get table prefix
-			#$this->initPiwik();
-			if (!tx_piwikintegration_install::getInstaller()->checkInstallation()) {
-				return 'Problem moving database, Piwik is not installed ...';
-			}
-			$old_database       = tx_piwikintegration_install::getInstaller()->getConfigObject()->getOption('database','dbname');
-			$new_database       = $newconf['databaseTablePrefix'];
-			$this->table_prefix = tx_piwikintegration_install::getInstaller()->getConfigObject()->getOption('database','table_prefix');
-			//walk through changes
-			if ($old_database!==$new_database) {
-				//create shortVars
-					if($new_database == '') {
-						$new_database = TYPO3_db;
-					}
-				//get tablenames and rename tables
-					$suffix='';
-					if ($old_database!='') {
-						$suffix = ' FROM `'.$old_database.'`';
-					}
-					$erg = $GLOBALS['TYPO3_DB']->admin_query('SHOW TABLES'.$suffix);
-					while (false !==($row=$GLOBALS['TYPO3_DB']->sql_fetch_row($erg))) {
-						if (substr($row[0],0,20)=='tx_piwikintegration_') {
-							$GLOBALS['TYPO3_DB']->admin_query(
-								'RENAME TABLE `'.$old_database.'`.`'.$row[0].'`
+        return $buffer;
+    }
+
+    /**
+     * @param $par
+     *
+     * @throws Exception
+     *
+     * @return void
+     */
+    public function emSaveConstants($par)
+    {
+        if ($par['extKey'] == 'piwikintegration' && \TYPO3\CMS\Core\Utility\GeneralUtility::_POST('submit')) {
+            $newconf = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
+            $newconf = $newconf['data'];
+            //init piwik to get table prefix
+            //$this->initPiwik();
+            if (!tx_piwikintegration_install::getInstaller()->checkInstallation()) {
+                return 'Problem moving database, Piwik is not installed ...';
+            }
+            $old_database = tx_piwikintegration_install::getInstaller()->getConfigObject()->getOption('database', 'dbname');
+            $new_database = $newconf['databaseTablePrefix'];
+            $this->table_prefix = tx_piwikintegration_install::getInstaller()->getConfigObject()->getOption('database', 'table_prefix');
+            //walk through changes
+            if ($old_database !== $new_database) {
+                //create shortVars
+                    if ($new_database == '') {
+                        $new_database = TYPO3_db;
+                    }
+                //get tablenames and rename tables
+                    $suffix = '';
+                if ($old_database != '') {
+                    $suffix = ' FROM `'.$old_database.'`';
+                }
+                $erg = $GLOBALS['TYPO3_DB']->admin_query('SHOW TABLES'.$suffix);
+                while (false !== ($row = $GLOBALS['TYPO3_DB']->sql_fetch_row($erg))) {
+                    if (substr($row[0], 0, 20) == 'tx_piwikintegration_') {
+                        $GLOBALS['TYPO3_DB']->admin_query(
+                                'RENAME TABLE `'.$old_database.'`.`'.$row[0].'`
 								 TO `'.$new_database.'`.`'.$row[0].'`');
-						}
-					}
-				//change config
-					$conf = tx_piwikintegration_install::getInstaller()->getConfigObject();
-					$conf->setOption('database','tables_prefix','tx_piwikintegration_');
-					$conf->setOption('database','dbname'       ,$newconf['databaseTablePrefix']);
-					$conf->setOption('database','t3dbname'     ,TYPO3_db);
-			}
-		}
-	}
+                    }
+                }
+                //change config
+                    $conf = tx_piwikintegration_install::getInstaller()->getConfigObject();
+                $conf->setOption('database', 'tables_prefix', 'tx_piwikintegration_');
+                $conf->setOption('database', 'dbname', $newconf['databaseTablePrefix']);
+                $conf->setOption('database', 't3dbname', TYPO3_db);
+            }
+        }
+    }
 
-	/**
-	 * @param $params
-	 * @return mixed
-	 */
-	public function emMakeHeader($params) {
-		$GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/Resources/Private/Language/locallang.xml');
-		$flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-			'TYPO3\\CMS\\Core\Messaging\\FlashMessage',
-			$GLOBALS['LANG']->getLL('extmgm.noticeText'),
-			$GLOBALS['LANG']->getLL('extmgm.noticeHeader'),
-			\TYPO3\CMS\Core\Messaging\FlashMessage::INFO
-		);
-		return $flashMessage->render();
-	} 
-} 
+    /**
+     * @param $params
+     *
+     * @return mixed
+     */
+    public function emMakeHeader($params)
+    {
+        $GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/Resources/Private/Language/locallang.xml');
+        $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            'TYPO3\\CMS\\Core\Messaging\\FlashMessage',
+            $GLOBALS['LANG']->getLL('extmgm.noticeText'),
+            $GLOBALS['LANG']->getLL('extmgm.noticeHeader'),
+            \TYPO3\CMS\Core\Messaging\FlashMessage::INFO
+        );
+
+        return $flashMessage->render();
+    }
+}

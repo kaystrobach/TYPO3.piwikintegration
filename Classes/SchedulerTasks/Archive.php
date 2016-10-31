@@ -25,7 +25,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 /**
- * lib/class.tx_piwikintegration_scheduler_archive.php
+ * lib/class.tx_piwikintegration_scheduler_archive.php.
  *
  * scheduler task class
  *
@@ -36,127 +36,133 @@
 
 
 /**
- * scheduler task class
+ * scheduler task class.
  *
  * $Id: class.tx_piwikintegration_scheduler_archive.php 43324 2011-02-09 11:47:35Z kaystrobach $
- * 
- * @author  Kay Strobach <typo3@kay-strobach.de>
- * @link http://kay-strobach.de
- * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  *
+ * @author  Kay Strobach <typo3@kay-strobach.de>
+ *
+ * @link http://kay-strobach.de
+ *
+ * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  */
-class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task {
-	/**
-	 * execute the piwik archive task
-	 *
-	 * @return	boolean  always returns true
-	 */
-	public function execute() {
-		//set execution time
-		ini_set('max_execution_time', 0);
-		//find piwik
-		$piwikScriptPath = dirname(dirname(__FILE__)) . '/../../piwik/piwik';
+class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task
+{
+    /**
+     * execute the piwik archive task.
+     *
+     * @return bool always returns true
+     */
+    public function execute()
+    {
+        //set execution time
+        ini_set('max_execution_time', 0);
+        //find piwik
+        $piwikScriptPath = dirname(dirname(__FILE__)).'/../../piwik/piwik';
 
-		file_put_contents('e:\log.txt', $piwikScriptPath);
+        file_put_contents('e:\log.txt', $piwikScriptPath);
 
-		define('PIWIK_INCLUDE_PATH', $piwikScriptPath);
-		define('PIWIK_ENABLE_DISPATCH', FALSE);
-		define('PIWIK_ENABLE_ERROR_HANDLER', FALSE);
-		define('PIWIK_DISPLAY_ERRORS', FALSE);
-		ini_set('display_errors', 0);
-		require_once PIWIK_INCLUDE_PATH . '/index.php';
-		require_once PIWIK_INCLUDE_PATH . '/core/API/Request.php';
+        define('PIWIK_INCLUDE_PATH', $piwikScriptPath);
+        define('PIWIK_ENABLE_DISPATCH', false);
+        define('PIWIK_ENABLE_ERROR_HANDLER', false);
+        define('PIWIK_DISPLAY_ERRORS', false);
+        ini_set('display_errors', 0);
+        require_once PIWIK_INCLUDE_PATH.'/index.php';
+        require_once PIWIK_INCLUDE_PATH.'/core/API/Request.php';
 
-		\Piwik\FrontController::getInstance()->init();
+        \Piwik\FrontController::getInstance()->init();
 
-		$piwikConfig = parse_ini_file($piwikScriptPath . '/config/config.ini.php', TRUE);
+        $piwikConfig = parse_ini_file($piwikScriptPath.'/config/config.ini.php', true);
 
-		//log
-		$this->writeLog(
-			'EXT:piwikintegration cronjob'
-		);
-		//get API key
-		$request = new \Piwik\API\Request('
+        //log
+        $this->writeLog(
+            'EXT:piwikintegration cronjob'
+        );
+        //get API key
+        $request = new \Piwik\API\Request('
 			module=API
 			&method=UsersManager.getTokenAuth
-			&userLogin=' . $piwikConfig['superuser']['login'] . '
-			&md5Password=' . $piwikConfig['superuser']['password'] . '
+			&userLogin='.$piwikConfig['superuser']['login'].'
+			&md5Password='.$piwikConfig['superuser']['password'].'
 			&format=php
 			&serialize=0'
-		);
-		$tokenAuth = $request->process();
+        );
+        $tokenAuth = $request->process();
 
-		//get all piwik siteid's
-		$request = new \Piwik\API\Request('
+        //get all piwik siteid's
+        $request = new \Piwik\API\Request('
 			module=API
 			&method=SitesManager.getSitesWithAdminAccess
-			&token_auth=' . $tokenAuth . '
+			&token_auth='.$tokenAuth.'
 			&format=php
 			&serialize=0'
-		);
-		$piwikSiteIds = $request->process();
+        );
+        $piwikSiteIds = $request->process();
 
-		//log
-		$this->writeLog(
-			'EXT:piwikintegration got ' . count($piwikSiteIds) . ' siteids and piwik token (' . $tokenAuth . '), start archiving '
-		);
-		//create Archive in piwik
-		$periods = array(
-			'day',
-			'week',
-			'month',
-			'year',
-		);
-		//iterate through sites
-		//can be done with allSites, but this cannot create the logentries
-		foreach ($periods as $period) {
-			foreach ($piwikSiteIds as $siteId) {
-				$starttime = microtime(TRUE);
-				$request = new \Piwik\API\Request('
+        //log
+        $this->writeLog(
+            'EXT:piwikintegration got '.count($piwikSiteIds).' siteids and piwik token ('.$tokenAuth.'), start archiving '
+        );
+        //create Archive in piwik
+        $periods = [
+            'day',
+            'week',
+            'month',
+            'year',
+        ];
+        //iterate through sites
+        //can be done with allSites, but this cannot create the logentries
+        foreach ($periods as $period) {
+            foreach ($piwikSiteIds as $siteId) {
+                $starttime = microtime(true);
+                $request = new \Piwik\API\Request('
 				            module=API
 							&method=VisitsSummary.getVisits
-							&idSite=' . intval($siteId['idsite']) . '
-							&period=' . $period . '
+							&idSite='.intval($siteId['idsite']).'
+							&period='.$period.'
 							&date=last52
 							&format=xml
-							&token_auth=' . $tokenAuth . '"
+							&token_auth='.$tokenAuth.'"
 				');
-				$request->process();
-				//log
-				$this->writeLog(
-					'EXT:piwikintegration period ' . $period . ' (' . $siteId['idsite'] . ') ' . $siteId['name'] . ' (' . round(microtime(TRUE) - $starttime, 3) . 's)'
-				);
-			}
-		}
-		//log
-		$this->writeLog(
-			'EXT:piwikintegration cronjob ended'
-		);
-		return TRUE;
-	}
+                $request->process();
+                //log
+                $this->writeLog(
+                    'EXT:piwikintegration period '.$period.' ('.$siteId['idsite'].') '.$siteId['name'].' ('.round(microtime(true) - $starttime, 3).'s)'
+                );
+            }
+        }
+        //log
+        $this->writeLog(
+            'EXT:piwikintegration cronjob ended'
+        );
 
-	/**
-	 * write something into the logfile
-	 *
-	 * @param	string		$message: message for the log
-	 * @param	mixed		$data: mixed data to store in the log
-	 * @return	void
-	 */
-	protected function writeLog($message, $data = '') {
-		if (!array_key_exists('REMOTE_ADDR', $_SERVER)) {
-			$_SERVER['REMOTE_ADDR'] = 'local CLI';
-		}
-		$conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['piwikintegration']);
-		if ($conf['enableSchedulerLogging']) {
-			$GLOBALS['BE_USER']->writeLog(
-				// extension | no categorie | message | messagenumber
-				4,
-				0,
-				0,
-				0,
-				$message,
-				$data
-			);
-		}
-	}
+        return true;
+    }
+
+    /**
+     * write something into the logfile.
+     *
+     * @param string $message: message for the log
+     * @param mixed  $data:    mixed data to store in the log
+     *
+     * @return void
+     */
+    protected function writeLog($message, $data = '')
+    {
+        if (!array_key_exists('REMOTE_ADDR', $_SERVER)) {
+            $_SERVER['REMOTE_ADDR'] = 'local CLI';
+        }
+        $conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['piwikintegration']);
+        if ($conf['enableSchedulerLogging']) {
+            $GLOBALS['BE_USER']->writeLog(
+                // extension | no categorie | message | messagenumber
+                4,
+                0,
+                0,
+                0,
+                $message,
+                $data
+            );
+        }
+    }
 }

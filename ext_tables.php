@@ -25,7 +25,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 /**
- * ext_tables.php
+ * ext_tables.php.
  *
  * Ext Tables configuration
  *
@@ -34,68 +34,64 @@
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 
- 
-if (!defined ('TYPO3_MODE')) {
-	die ('Access denied.');
+if (!defined('TYPO3_MODE')) {
+    die('Access denied.');
 }
 /*******************************************************************************
  * Add Backend Module and Ext.Direct for it
- */ 
-	if (TYPO3_MODE == 'BE') {
-		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-			'KayStrobach.' . $_EXTKEY,
-			'web',          // Main area
-			'mod2',         // Name of the module
-			'',             // Position of the module
-			array(          // Allowed controller action combinations
-				'Piwik'             => 'index,apiCode,help',
-				'PiwikInstallation' => 'index,download,patch,configure',
-			),
-			array(          // Additional configuration
-				'access'    => 'user,group',
-				'icon'      => 'EXT:piwikintegration/Resources/Public/Images/module.png',
-				'labels'    => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
-			)
-		);
-	}
+ */
+    if (TYPO3_MODE == 'BE') {
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+            'KayStrobach.'.$_EXTKEY,
+            'web',          // Main area
+            'mod2',         // Name of the module
+            '',             // Position of the module
+            [          // Allowed controller action combinations
+                'Piwik'             => 'index,apiCode,help',
+                'PiwikInstallation' => 'index,download,patch,configure',
+            ],
+            [          // Additional configuration
+                'access'    => 'user,group',
+                'icon'      => 'EXT:piwikintegration/Resources/Public/Images/module.png',
+                'labels'    => 'LLL:EXT:'.$_EXTKEY.'/Resources/Private/Language/locallang_mod.xml',
+            ]
+        );
+    }
 
 /*******************************************************************************
  * Static file
- */ 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY,'Configuration/TypoScript/', 'Piwik Integration');
+ */
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/', 'Piwik Integration');
 
-$tempColumns = array (
-	'tx_piwikintegration_api_code' => array (		
-		'exclude' => 0,		
-		'label'   => 'LLL:EXT:piwikintegration/Resources/Private/Language/locallang_db.xml:be_users.tx_piwikintegration_api_code',		
-		'config'  => array (
-			'type'    => 'input',
-			'readOnly' => true,
-			'eval'    => 'unique,uniqueInPid',
-		),
-	),
-);
+$tempColumns = [
+    'tx_piwikintegration_api_code' => [
+        'exclude' => 0,
+        'label'   => 'LLL:EXT:piwikintegration/Resources/Private/Language/locallang_db.xml:be_users.tx_piwikintegration_api_code',
+        'config'  => [
+            'type'     => 'input',
+            'readOnly' => true,
+            'eval'     => 'unique,uniqueInPid',
+        ],
+    ],
+];
 
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('be_users',$tempColumns);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('be_users','tx_piwikintegration_api_code;;;;1-1-1');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('be_users', $tempColumns);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('be_users', 'tx_piwikintegration_api_code;;;;1-1-1');
 
 //add flexform to pi1
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1'] = 'pi_flexform';
 $TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi1'] = 'layout,select_key,pages,recursive';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($_EXTKEY .'_pi1', 'FILE:EXT:piwikintegration/pi1/flexform_ds.xml');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($_EXTKEY.'_pi1', 'FILE:EXT:piwikintegration/pi1/flexform_ds.xml');
 
 //add pi1 plugin
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
-	array(
-		'LLL:EXT:piwikintegration/pi1/locallang.xml:piwikintegration_pi1',
-		$_EXTKEY.'_pi1'
-	)
+    [
+        'LLL:EXT:piwikintegration/pi1/locallang.xml:piwikintegration_pi1',
+        $_EXTKEY.'_pi1',
+    ]
 );
-if (TYPO3_MODE=="BE")    {
-	$TBE_MODULES_EXT["xMOD_db_new_content_el"]["addElClasses"]["tx_piwikintegration_pi1_wizicon"] =
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY)."pi1/class.tx_piwikintegration_pi1_wizicon.php";
+if (TYPO3_MODE == 'BE') {
+    $TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_piwikintegration_pi1_wizicon'] =
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY).'pi1/class.tx_piwikintegration_pi1_wizicon.php';
 }
-
-
-?>
