@@ -25,6 +25,13 @@ matrix:
     - php: 7
       env: TYPO3_VERSION="^6.2.0"
 
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - parallel
+      
 env:
   global:
     - EXTENSIONKEY=piwikintegration
