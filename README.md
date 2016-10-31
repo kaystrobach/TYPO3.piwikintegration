@@ -3,6 +3,7 @@
 ## This version of piwikintegration is compatible with Piwik 2.17.
 
 ![Build Status](https://travis-ci.org/kaystrobach/TYPO3.piwikintegration.svg)
+[![StyleCI](https://styleci.io/repos/8537360/shield?branch=master)](https://styleci.io/repos/8537360)
 
 See why the build is currently failing, most of the issues are CGL things, will be fixed soon.
 
