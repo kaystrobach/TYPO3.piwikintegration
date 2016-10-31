@@ -1,6 +1,6 @@
 # Integrates Piwik into the TYPO3 Backend
 
-## This version of piwikintegration is compatible with Piwik 2.16.
+## This version of piwikintegration is compatible with Piwik 2.17.
 
 ![Build Status](https://travis-ci.org/kaystrobach/TYPO3.piwikintegration.svg)
 
