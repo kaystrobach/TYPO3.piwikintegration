@@ -44,8 +44,6 @@ cache:
 before_install:
   - phpenv config-rm xdebug.ini
   - composer --version
-  - npm -g install csslint
-  - npm -g install jshint
   - composer self-update
 
 
@@ -57,22 +55,6 @@ before_script:
   
 script:
   - >
-    echo;
-    echo "Running css lint";
-    /bin/bash -c "
-      if [ -d typo3conf/ext/$EXTENSIONKEY/Resources/Public/Css/ ]; then
-        csslint typo3conf/ext/$EXTENSIONKEY/Resources/Public/Css/
-      fi
-    "
-  - >
-    echo;
-    echo "Running jshint";
-    /bin/bash -c "
-      if [ -d typo3conf/ext/$EXTENSIONKEY/Resources/Public/JavaScript/ ]; then
-        jshint typo3conf/ext/$EXTENSIONKEY/Resources/Public/JavaScript/
-      fi
-    "
-    - >
     echo;
     echo "Running unit tests";
     .Build/bin/phpunit -c .Build/vendor/typo3/cms/typo3/sysext/core/Build/UnitTests.xml Tests/Unit/
