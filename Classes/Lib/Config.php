@@ -1,4 +1,7 @@
 <?php
+
+namespace KayStrobach\Piwikintegration\Lib;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -31,7 +34,7 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-class tx_piwikintegration_config
+class Config
 {
     private static $configObject = null;
     private $installer = null;
@@ -41,12 +44,12 @@ class tx_piwikintegration_config
 
     private function __construct()
     {
-        $this->installer = tx_piwikintegration_install::getInstaller();
+        $this->installer = \KayStrobach\Piwikintegration\Lib\Install::getInstaller();
         $this->initPiwikFrameWork();
     }
 
     /**
-     * @return tx_piwikintegration_config
+     * @return \KayStrobach\Piwikintegration\Lib\Config
      */
     public static function getConfigObject()
     {
@@ -240,17 +243,17 @@ class tx_piwikintegration_config
         }
     }
 
+
     /**
      * This function makes a page statistics accessable for a user
      * call it with $this->pageinfo['uid'] as param from a backend module.
      *
      * @param int $uid : pid for which the user will get access
-     *
-     * @throws Exception
+     * @throws \Exception
      *
      * @return void
      */
-    public function correctUserRightsForPid($uid)
+    public function correctUserRightsForPid($uid = 0)
     {
         $this->initPiwikFrameWork();
         if (($uid <= 0) || ($uid != intval($uid))) {
@@ -264,15 +267,15 @@ class tx_piwikintegration_config
         if ($GLOBALS['BE_USER']->user['admin'] != 1) {
             $erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
                     '*',
-                    tx_piwikintegration_div::getTblName('access'),
-                    'login="'.$beUserName.'" AND idsite='.$this->getPiwikSiteIdForPid($uid),
+                    \KayStrobach\Piwikintegration\Lib\Div::getTblName('access'),
+                    'login="' . $beUserName . '" AND idsite=' . $this->getPiwikSiteIdForPid($uid),
                     '',
                     '',
                     '0,1'
             );
             if (count($erg) === 0) {
                 $GLOBALS['TYPO3_DB']->exec_INSERTquery(
-                    tx_piwikintegration_div::getTblName('access'),
+                    \KayStrobach\Piwikintegration\Lib\Div::getTblName('access'),
                     [
                         'login'  => $beUserName,
                         'idsite' => $this->getPiwikSiteIdForPid($uid),
@@ -352,7 +355,7 @@ class tx_piwikintegration_config
                 \Piwik\Plugin\Manager::getInstance()->loadActivatedPlugins();
                 \Piwik\Plugin\Manager::getInstance()->activatePlugin($plugin);
                 //\Piwik\Plugin\Manager::getInstance()->loadPlugins(\Piwik\Plugin\Manager::getInstance()->getActivatedPlugins());
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
             }
         }
     }
