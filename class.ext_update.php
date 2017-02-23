@@ -62,7 +62,7 @@ class ext_update
         }
 
         try {
-            tx_piwikintegration_install::getInstaller()->getConfigObject();
+            \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject();
         } catch (Exception $e) {
             $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
                     'TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $LANG->getLL('installedPiwikNeeded'), '', \TYPO3\CMS\Core\Messaging\FlashMessage::INFO
@@ -123,7 +123,7 @@ class ext_update
         $button .= '</td><td>';
         try {
             if ($piwikNeeded) {
-                tx_piwikintegration_install::getInstaller()->getConfigObject();
+                \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject();
             }
             if (method_exists($this, $func)) {
                 $button .= '<input type="submit" value="'.$LANG->getLL('button.DoIt').'" onclick="'.htmlspecialchars($onClick).'">';
@@ -142,7 +142,7 @@ class ext_update
 
     public function installPiwik()
     {
-        $installer = tx_piwikintegration_install::getInstaller();
+        $installer = \KayStrobach\Piwikintegration\Lib\Install::getInstaller();
         $installer->installPiwik();
 
         return $GLOBALS['LANG']->getLL('action.installPiwik.success');
@@ -155,7 +155,7 @@ class ext_update
 
     public function removePiwik()
     {
-        $installer = tx_piwikintegration_install::getInstaller();
+        $installer = \KayStrobach\Piwikintegration\Lib\Install::getInstaller();
         if (!$installer->removePiwik()) {
             throw new Exception($GLOBALS['LANG']->getLL('action.removePiwik.error'));
         }
@@ -165,7 +165,7 @@ class ext_update
 
     public function patchPiwik()
     {
-        $installer = tx_piwikintegration_install::getInstaller();
+        $installer = \KayStrobach\Piwikintegration\Lib\Install::getInstaller();
         $exclude = [
             'config/config.ini.php',
         ];
@@ -176,7 +176,7 @@ class ext_update
 
     public function configurePiwik()
     {
-        $installer = tx_piwikintegration_install::getInstaller();
+        $installer = \KayStrobach\Piwikintegration\Lib\Install::getInstaller();
         $installer->getConfigObject()->makePiwikConfigured();
 
         return $GLOBALS['LANG']->getLL('action.configurePiwik.success');
@@ -184,16 +184,16 @@ class ext_update
 
     public function resetUserRights()
     {
-        $installer = tx_piwikintegration_install::getInstaller();
+        $installer = \KayStrobach\Piwikintegration\Lib\Install::getInstaller();
         $installer->getConfigObject();
-        $GLOBALS['TYPO3_DB']->admin_query('TRUNCATE TABLE '.tx_piwikintegration_div::getTblName('access'));
+        $GLOBALS['TYPO3_DB']->admin_query('TRUNCATE TABLE '.\KayStrobach\Piwikintegration\Lib\Div::getTblName('access'));
 
         return $GLOBALS['LANG']->getLL('action.resetUserRights.success');
     }
 
     public function deletePiwikTables()
     {
-        tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
+        \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->initPiwikDatabase();
         $tablesInstalled = \Piwik\DbHelper::getTablesInstalled();
         $buffer = $GLOBALS['LANG']->getLL('action.deletePiwikTables.success');
         foreach ($tablesInstalled as $table) {
@@ -207,14 +207,14 @@ class ext_update
     public function createPiwikTables()
     {
         $this->deletePiwikTables();
-        tx_piwikintegration_install::getInstaller()->getConfigObject()->installDatabase();
+        \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->installDatabase();
 
         return $GLOBALS['LANG']->getLL('action.createPiwikTables.success');
     }
 
     public function showPiwikConfig()
     {
-        $path = tx_piwikintegration_install::getInstaller()->getAbsInstallPath().'piwik/config/config.ini.php';
+        $path = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getAbsInstallPath().'piwik/config/config.ini.php';
         $button = $path;
         $button .= '</b><pre style="width:80%;height:300px;overflow-y:scroll;border:1px solid silver;padding:10px;">';
         $button .= file_get_contents($path);
@@ -225,7 +225,7 @@ class ext_update
 
     public function enableSuggestedPlugins()
     {
-        $config = tx_piwikintegration_install::getInstaller()->getConfigObject();
+        $config = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject();
         $suggestedPlugins = $config->enableSuggestedPlugins();
         $config->disablePlugin('Login');
 
@@ -234,8 +234,8 @@ class ext_update
 
     public function respectGermanDataPrivacyAct()
     {
-        $config = tx_piwikintegration_install::getInstaller()->getConfigObject();
-        tx_piwikintegration_install::getInstaller()->getConfigObject()->enablePlugin('AnonymizeIP');
+        $config = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject();
+        \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->enablePlugin('AnonymizeIP');
         $config->setOption('Tracker', 'ip_address_mask_length', 2);
         $config->setOption('Tracker', 'cookie_expire', 604800);
 
@@ -253,7 +253,7 @@ class ext_update
                 $buffer .= $table['Name'].', ';
             }
         }
-        tx_piwikintegration_install::getInstaller()->getConfigObject()->setOption('database', 'tables_prefix', 'user_piwikintegration_');
+        \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->setOption('database', 'tables_prefix', 'user_piwikintegration_');
 
         return $buffer;
     }
