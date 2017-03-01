@@ -177,10 +177,11 @@ class Install
         return $zipArchivePath;
     }
 
-
     /**
      * @param string $zipArchivePath
+     *
      * @throws \Exception
+     *
      * @return void
      */
     private function extractDownloadedPiwik($zipArchivePath = '')
@@ -258,9 +259,9 @@ class Install
         return true;
     }
 
-
     /**
      * @param array $exclude
+     *
      * @throws \Exception
      */
     public function patchPiwik($exclude = [])
@@ -302,11 +303,10 @@ class Install
         //store information about the last patch process
         $_EXTKEY = 'piwikintegration';
         $EM_CONF = [];
-        @include \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('piwikintegration') . 'ext_emconf.php';
+        @include \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('piwikintegration').'ext_emconf.php';
         $data = '<?php $piwikPatchVersion = "'.$EM_CONF['piwikintegration']['version'].'"; '.chr(63).'>';
         file_put_contents($this->getAbsInstallPath().'piwik/piwikintegration.php', $data);
     }
-
 
     /**
      * @throws \Exception
@@ -316,10 +316,10 @@ class Install
         $this->getConfigObject()->makePiwikConfigured();
     }
 
-
     /**
-     * @return \KayStrobach\Piwikintegration\Lib\Config
      * @throws \Exception
+     *
+     * @return \KayStrobach\Piwikintegration\Lib\Config
      */
     public function getConfigObject()
     {
@@ -339,8 +339,9 @@ class Install
     }
 
     /**
-     * @return string
      * @throws \Exception
+     *
+     * @return string
      */
     public function checkUnzip()
     {

@@ -43,7 +43,6 @@
  *
  * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  */
-
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 
 class tx_piwikintegration_pi1 extends AbstractPlugin
@@ -83,7 +82,6 @@ class tx_piwikintegration_pi1 extends AbstractPlugin
         $this->pi_loadLL();
         $this->pi_initPIflexForm();
 
-
         $this->extConf['widget'] = json_decode(base64_decode($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'widget')), true);
         $this->extConf['widget']['period'] = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'period');
         $this->extConf['widget']['moduleToWidgetize'] = $this->extConf['widget']['module'];
@@ -102,5 +100,3 @@ class tx_piwikintegration_pi1 extends AbstractPlugin
         return $content;
     }
 }
-
-

@@ -66,7 +66,6 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     public function helpAction()
     {
-
     }
 
     /**
