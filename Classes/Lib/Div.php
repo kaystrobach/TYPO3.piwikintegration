@@ -60,7 +60,7 @@ class Div
     }
 
     /**
-     * @param  string $table Piwik tablename without prefix
+     * @param string $table Piwik tablename without prefix
      *
      * @return string Name of the table prefixed with database
      */
@@ -86,15 +86,15 @@ class Div
         return self::getTblName($table);
     }
 
-
-
     /**
      * returns the piwik config for a given page
      * call it with $this->pageinfo['uid'] as param from a backend module.
      *
      * @param int $uid Page ID
-     * @return array piwik config array
+     *
      * @throws \Exception
+     *
+     * @return array piwik config array
      */
     public function getPiwikConfigArray($uid = 0)
     {
@@ -197,7 +197,6 @@ class Div
         }
     }
 
-
     /**
      * @param $uid
      *
@@ -210,14 +209,12 @@ class Div
         $this->correctUserRightsForSiteId($uid);
     }
 
-
-
     /**
-     *
      * This function makes a page statistics accessable for a user
      * call it with $this->pageinfo['uid'] as param from a backend module.
      *
      * @param int $uid siteid for which the user will get access
+     *
      * @throws \Exception
      */
     public function correctUserRightsForSiteId($uid = 0)
