@@ -31,6 +31,7 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
+
 namespace Piwik\Plugins\TYPO3Login;
 
 use Exception;
@@ -40,7 +41,6 @@ use Piwik\FrontController;
 use Piwik\Piwik;
 
 require PIWIK_INCLUDE_PATH.'/plugins/TYPO3Login/Auth.php';
-
 
 /**
  * Class for authentification plugin.

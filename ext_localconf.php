@@ -33,11 +33,9 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-
 if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
-
 
 /*******************************************************************************
  * Hook für templavoilaPreview
@@ -81,7 +79,7 @@ if (TYPO3_MODE == 'FE') {
         $TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-output'][] =
             'KayStrobach\\Piwikintegration\\Tracking\\Tracking->contentPostProc_output';
     }
-    if (!isset($_EXTCONF['disablePiwikIdCreation']) || (bool)$_EXTCONF['disablePiwikIdCreation'] === false) {
+    if (!isset($_EXTCONF['disablePiwikIdCreation']) || (bool) $_EXTCONF['disablePiwikIdCreation'] === false) {
         $TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-all'][] =
             'KayStrobach\\Piwikintegration\\Tracking\\Tracking->contentPostProc_all';
     }

@@ -28,7 +28,6 @@ namespace KayStrobach\Piwikintegration\Lib;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
 /**
  * interact with Piwik core after download and unzip.
  *
@@ -40,7 +39,6 @@ class Config
     private $installer = null;
     private $initPiwikFramework = false;
     private $initPiwikDb = false;
-
 
     private function __construct()
     {
@@ -243,12 +241,12 @@ class Config
         }
     }
 
-
     /**
      * This function makes a page statistics accessable for a user
      * call it with $this->pageinfo['uid'] as param from a backend module.
      *
      * @param int $uid : pid for which the user will get access
+     *
      * @throws \Exception
      *
      * @return void
@@ -268,7 +266,7 @@ class Config
             $erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
                     '*',
                     \KayStrobach\Piwikintegration\Lib\Div::getTblName('access'),
-                    'login="' . $beUserName . '" AND idsite=' . $this->getPiwikSiteIdForPid($uid),
+                    'login="'.$beUserName.'" AND idsite='.$this->getPiwikSiteIdForPid($uid),
                     '',
                     '',
                     '0,1'

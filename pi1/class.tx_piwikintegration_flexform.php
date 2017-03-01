@@ -35,10 +35,7 @@
  */
 class tx_piwikintegration_flexform
 {
-
-    var $tablePrefix = null;
-
-
+    public $tablePrefix = null;
 
     public function init()
     {
@@ -88,7 +85,6 @@ class tx_piwikintegration_flexform
         $controller = Piwik_FrontController::getInstance()->init();
         $_GET['idSite'] = 1;
         $widgets = Piwik_GetWidgetsList();
-
 
         foreach ($widgets as $pluginCat => $plugin) {
             foreach ($plugin as $widget) {

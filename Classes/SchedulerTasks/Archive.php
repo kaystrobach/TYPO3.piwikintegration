@@ -27,7 +27,7 @@ namespace KayStrobach\Piwikintegration\SchedulerTask;
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-/**
+/*
  * lib/class.tx_piwikintegration_scheduler_archive.php.
  *
  * scheduler task class
@@ -37,8 +37,7 @@ namespace KayStrobach\Piwikintegration\SchedulerTask;
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 
-
-/**
+/*
  * scheduler task class.
  *
  * $Id: class.tx_piwikintegration_scheduler_archive.php 43324 2011-02-09 11:47:35Z kaystrobach $

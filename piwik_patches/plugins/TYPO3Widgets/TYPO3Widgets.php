@@ -3,6 +3,7 @@
 /**
  * Add widgets.
  */
+
 namespace Piwik\Plugins\TYPO3Widgets;
 
 class TYPO3Widgets extends \Piwik\Plugin

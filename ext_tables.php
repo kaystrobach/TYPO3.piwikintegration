@@ -33,7 +33,6 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-
 if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
@@ -80,7 +79,6 @@ $tempColumns = [
     ],
 ];
 
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
     'be_users',
     $tempColumns
@@ -89,7 +87,6 @@ $tempColumns = [
     'be_users',
     'tx_piwikintegration_api_code;;;;1-1-1'
 );
-
 
 // remove default plugin fields
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi1'] =
@@ -113,5 +110,5 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi
 );
 if (TYPO3_MODE == 'BE') {
     $TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_piwikintegration_pi1_wizicon'] =
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'pi1/class.tx_piwikintegration_pi1_wizicon.php';
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY).'pi1/class.tx_piwikintegration_pi1_wizicon.php';
 }
