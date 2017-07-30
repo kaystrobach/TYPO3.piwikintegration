@@ -13,7 +13,6 @@ return [
     'tx_piwikintegration_flexform'                => $extensionPath.'pi1/class.tx_piwikintegration_flexform.php',
     'tx_piwikintegration_hooks_beuserprocessing'  => $extensionClassesPath.'Hooks/BeUserProcessing.php',
     'tx_piwikintegration_install'                 => $extensionClassesPath.'Lib/Install.php',
-    'tx_piwikintegration_module1'                 => $extensionPath.'mod1/index.php',
     'tx_piwikintegration_pi1'                     => $extensionPath.'pi1/class.tx_piwikintegration_pi1.php',
     'tx_piwikintegration_pi1_templavoila_preview' => $extensionPath.'pi1/class.tx_piwikintegration_pi1_templavoila_preview.php',
     'tx_piwikintegration_pi1_wizicon'             => $extensionPath.'pi1/class.tx_piwikintegration_pi1_wizicon.php',
