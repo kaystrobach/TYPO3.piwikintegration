@@ -34,7 +34,6 @@
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 
-
 /**
  * scheduler task class.
  *

@@ -84,7 +84,6 @@ class tx_piwikintegration_flexform
         $_GET['idSite'] = 1;
         $widgets = Piwik_GetWidgetsList();
 
-
         foreach ($widgets as $pluginCat => $plugin) {
             foreach ($plugin as $widget) {
                 $PA['items'][] = [

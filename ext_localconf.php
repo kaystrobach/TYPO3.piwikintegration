@@ -33,7 +33,6 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-
 if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
@@ -49,7 +48,7 @@ if (!defined('TYPO3_MODE')) {
 /*******************************************************************************
  * Save hook für table be_users
  */
-    $GLOBALS ['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'KayStrobach\Piwikintegration\Hooks\BeUserProcessing';
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'KayStrobach\Piwikintegration\Hooks\BeUserProcessing';
 
 /*******************************************************************************
  * unserialize extConf
@@ -89,4 +88,4 @@ if (!defined('TYPO3_MODE')) {
                 #'additionalFields' => 'tx_piwikintegration_piwikArchiveTask_AdditionalFieldProvider',
         );
         require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('piwikintegration', 'Classes/SchedulerTasks/Archive.php'));
-    }*/;
+    }*/
