@@ -80,7 +80,6 @@ class tx_piwikintegration_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         $this->pi_loadLL();
         $this->pi_initPIflexForm();
 
-
         $this->extConf['widget'] = json_decode(base64_decode($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'widget')), true);
         $this->extConf['widget']['period'] = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'period');
         $this->extConf['widget']['moduleToWidgetize'] = $this->extConf['widget']['module'];
@@ -99,8 +98,6 @@ class tx_piwikintegration_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         return $content;
     }
 }
-
-
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/piwikintegration/pi1/class.tx_piwikintegration_pi1.php']) {
     include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/piwikintegration/pi1/class.tx_piwikintegration_pi1.php'];

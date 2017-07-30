@@ -25,7 +25,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
 /**
  * interact with Piwik core after download and unzip.
  *
@@ -37,7 +36,6 @@ class tx_piwikintegration_config
     private $installer = null;
     private $initPiwikFramework = false;
     private $initPiwikDb = false;
-
 
     private function __construct()
     {

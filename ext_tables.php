@@ -33,7 +33,6 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-
 if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
@@ -74,7 +73,6 @@ $tempColumns = [
         ],
     ],
 ];
-
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('be_users', $tempColumns);
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('be_users', 'tx_piwikintegration_api_code;;;;1-1-1');
