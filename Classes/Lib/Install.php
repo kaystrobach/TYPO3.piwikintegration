@@ -238,6 +238,7 @@ class Install
                 $buffer .= ' -> please manually extract piwik and copy it to typo3conf/piwik/piwik and use the extmgm update script to patch and configure piwik';
                 $buffer .= ' -> take a look in your manual for more information or use an environment with a working zip class';
             }
+
             throw new \Exception($buffer);
         }
     }

@@ -45,7 +45,7 @@ class Extmgm
         if (!\KayStrobach\Piwikintegration\Lib\Install::getInstaller()->checkInstallation()) {
             return 'Piwik is not installed yet ;) - option is unavailable';
         }
-         /* Pull the current fieldname and value from constants */
+        /* Pull the current fieldname and value from constants */
         $fieldName = $params['fieldName'];
         $fieldValue = $params['fieldValue'];
         $dbs = $GLOBALS['TYPO3_DB']->admin_get_dbs();
@@ -88,11 +88,11 @@ class Extmgm
             //walk through changes
             if ($old_database !== $new_database) {
                 //create shortVars
-                    if ($new_database == '') {
-                        $new_database = TYPO3_db;
-                    }
+                if ($new_database == '') {
+                    $new_database = TYPO3_db;
+                }
                 //get tablenames and rename tables
-                    $suffix = '';
+                $suffix = '';
                 if ($old_database != '') {
                     $suffix = ' FROM `'.$old_database.'`';
                 }
@@ -105,7 +105,7 @@ class Extmgm
                     }
                 }
                 //change config
-                    $conf = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject();
+                $conf = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject();
                 $conf->setOption('database', 'tables_prefix', 'tx_piwikintegration_');
                 $conf->setOption('database', 'dbname', $newconf['databaseTablePrefix']);
                 $conf->setOption('database', 't3dbname', TYPO3_db);

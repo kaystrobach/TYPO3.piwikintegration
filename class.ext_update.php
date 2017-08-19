@@ -121,6 +121,7 @@ class ext_update
         $button .= '<b style="float:left;">'.$LANG->getLL('action.'.$func).'</b><br>';
         $button .= '<p>'.$LANG->getLL('desc.'.$func).'</p>';
         $button .= '</td><td>';
+
         try {
             if ($piwikNeeded) {
                 \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject();
