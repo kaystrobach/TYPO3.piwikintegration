@@ -163,7 +163,6 @@ class Config
         $this->disablePlugin('ExampleCommand');
         $this->disablePlugin('ExamplePlugin');
         $this->disablePlugin('ExampleReport');
-        $this->disablePlugin('ExampleRssWidget');
         $this->disablePlugin('ExampleSettingsPlugin');
         $this->disablePlugin('ExampleTheme');
         $this->disablePlugin('ExampleTracker');
