@@ -52,7 +52,7 @@ if (!defined('TYPO3_MODE')) {
             ],
             [          // Additional configuration
                 'access'    => 'user,group',
-                'icon'      => 'EXT:piwikintegration/Resources/Public/Images/module.png',
+                'icon'      => 'EXT:piwikintegration/Resources/Public/Images/module.svg',
                 'labels'    => 'LLL:EXT:'.$_EXTKEY.'/Resources/Private/Language/locallang_mod.xml',
             ]
         );
