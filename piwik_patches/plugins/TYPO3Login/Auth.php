@@ -119,12 +119,12 @@ class Auth implements \Piwik\Auth
         /***********************************************************************
          * authenticate against the piwik configuration file for emergency access or installer or cronjob!
          */
-            $rootLogin = \Piwik\Config::getInstance()->superuser['login'];
+        $rootLogin = \Piwik\Config::getInstance()->superuser['login'];
         $rootPassword = \Piwik\Config::getInstance()->superuser['password'];
         /*
          * Fix http://forge.typo3.org/issues/37167
          */
-            $userManager = \Piwik\Plugins\UsersManager\API::getInstance();
+        $userManager = \Piwik\Plugins\UsersManager\API::getInstance();
         $rootToken = $userManager->getTokenAuth($rootLogin, $rootPassword);
 
         if ($this->login == $rootLogin
@@ -138,63 +138,63 @@ class Auth implements \Piwik\Auth
         /***********************************************************************
          * Handle login types
          */
-            $beUserId = false;
-            //catch normal logins (login form)
-            if ((array_key_exists('token_auth', $_REQUEST)) && ($_REQUEST['token_auth'] != '')) {
-                // fetch UserId, if token is set
-                $beUserId = \Piwik\Db::get()->fetchOne(
+        $beUserId = false;
+        //catch normal logins (login form)
+        if ((array_key_exists('token_auth', $_REQUEST)) && ($_REQUEST['token_auth'] != '')) {
+            // fetch UserId, if token is set
+            $beUserId = \Piwik\Db::get()->fetchOne(
                             'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
                             [$_REQUEST['token_auth']]
                 );
-                //print_r($beUserId);
+            //print_r($beUserId);
             //catch typo3 logins
-            } elseif (array_key_exists('be_typo_user', $_COOKIE)) {
-                $beUserCookie = $_COOKIE['be_typo_user'];
-                $beUserId = \Piwik\Db::get()->fetchOne(
+        } elseif (array_key_exists('be_typo_user', $_COOKIE)) {
+            $beUserCookie = $_COOKIE['be_typo_user'];
+            $beUserId = \Piwik\Db::get()->fetchOne(
                             'SELECT ses_userid FROM '.$this->getTableName('be_sessions').' WHERE ses_id = ?',
                             [$beUserCookie]
                 );
             //catch apikey logins
-            } elseif ($this->token_auth && $this->token_auth != 'anonymous') {
-                $beUserId = \Piwik\Db::get()->fetchOne(
+        } elseif ($this->token_auth && $this->token_auth != 'anonymous') {
+            $beUserId = \Piwik\Db::get()->fetchOne(
                         'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
                         [$this->token_auth]
                 );
-            } else {
-                $beUserId = false;
-            }
+        } else {
+            $beUserId = false;
+        }
         /***********************************************************************
          * init user from db
          */
-            if ($beUserId !== false) {
-                // getUserName
-                $beUserName = \Piwik\Db::get()->fetchOne(
+        if ($beUserId !== false) {
+            // getUserName
+            $beUserName = \Piwik\Db::get()->fetchOne(
                             'SELECT username FROM '.$this->getTableName('be_users').' WHERE uid = ?',
                             [$beUserId]
                 );
-                // get isAdmin
-                $beUserIsAdmin = \Piwik\Db::get()->fetchOne(
+            // get isAdmin
+            $beUserIsAdmin = \Piwik\Db::get()->fetchOne(
                             'SELECT admin FROM '.$this->getTableName('be_users').' WHERE uid = ?',
                             [$beUserId]
                 );
-                // is superuser?
-                if ($beUserIsAdmin == 1) {
-                    return new \Piwik\AuthResult(\Piwik\AuthResult::SUCCESS_SUPERUSER_AUTH_CODE, $beUserName, null);
-                }
-                //normal user?
-                return new \Piwik\AuthResult(\Piwik\AuthResult::SUCCESS, $beUserName, null);
+            // is superuser?
+            if ($beUserIsAdmin == 1) {
+                return new \Piwik\AuthResult(\Piwik\AuthResult::SUCCESS_SUPERUSER_AUTH_CODE, $beUserName, null);
             }
+            //normal user?
+            return new \Piwik\AuthResult(\Piwik\AuthResult::SUCCESS, $beUserName, null);
+        }
 
         /***********************************************************************
          * authenticate anonymous user
          */
-            if ($this->login == 'anonymous') {
-                return new \Piwik\AuthResult(\Piwik\AuthResult::SUCCESS, 'anonymous', null);
-            }
+        if ($this->login == 'anonymous') {
+            return new \Piwik\AuthResult(\Piwik\AuthResult::SUCCESS, 'anonymous', null);
+        }
         /***********************************************************************
          * no valid user
          */
-            return new \Piwik\AuthResult(\Piwik\AuthResult::FAILURE, $this->login, $this->token_auth);
+        return new \Piwik\AuthResult(\Piwik\AuthResult::FAILURE, $this->login, $this->token_auth);
     }
 
     /**
