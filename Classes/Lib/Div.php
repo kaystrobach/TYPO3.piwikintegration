@@ -1,4 +1,7 @@
 <?php
+
+namespace KayStrobach\Piwikintegration\Lib;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -30,7 +33,7 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-class tx_piwikintegration_div
+class Div
 {
     /**
      * @param $uid
@@ -57,15 +60,15 @@ class tx_piwikintegration_div
     }
 
     /**
-     * @param  $table piwik tablename without prefix
+     * @param string $table Piwik tablename without prefix
      *
-     * @return string name of the table prefixed with database
+     * @return string Name of the table prefixed with database
      */
-    public static function getTblName($table)
+    public static function getTblName($table = '')
     {
-        tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikFrameWork();
-        $database = tx_piwikintegration_install::getInstaller()->getConfigObject()->getDBName();
-        $tablePrefix = tx_piwikintegration_install::getInstaller()->getConfigObject()->getTablePrefix();
+        \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->initPiwikFrameWork();
+        $database = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->getDBName();
+        $tablePrefix = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->getTablePrefix();
         if ($database != '') {
             $database = '`'.$database.'`.';
         }
@@ -87,15 +90,15 @@ class tx_piwikintegration_div
      * returns the piwik config for a given page
      * call it with $this->pageinfo['uid'] as param from a backend module.
      *
-     * @param int $uid : Page ID
+     * @param int $uid Page ID
      *
-     * @throws Exception
+     * @throws \Exception
      *
      * @return array piwik config array
      */
-    public function getPiwikConfigArray($uid)
+    public function getPiwikConfigArray($uid = 0)
     {
-        $path = tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
+        $path = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->initPiwikDatabase();
 
         if ($uid <= 0 || $uid != intval($uid)) {
             throw new \Exception('Problem with uid in tx_piwikintegration_helper.php::getPiwikSiteIdForPid');
@@ -197,26 +200,24 @@ class tx_piwikintegration_div
     /**
      * @param $uid
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function correctUserRightsForPid($uid)
     {
         $uid = $this->getPiwikSiteIdForPid($uid);
 
-        return $this->correctUserRightsForSiteId($uid);
+        $this->correctUserRightsForSiteId($uid);
     }
 
     /**
      * This function makes a page statistics accessable for a user
      * call it with $this->pageinfo['uid'] as param from a backend module.
      *
-     * @param int $uid : siteid for which the user will get access
+     * @param int $uid siteid for which the user will get access
      *
-     * @throws Exception
-     *
-     * @return void
+     * @throws \Exception
      */
-    public function correctUserRightsForSiteId($uid)
+    public function correctUserRightsForSiteId($uid = 0)
     {
         if ($uid <= 0 || $uid != intval($uid)) {
             throw new \Exception('Problem with uid in tx_piwikintegration_helper.php::correctUserRightsForPid');

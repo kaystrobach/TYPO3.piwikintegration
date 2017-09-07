@@ -1,4 +1,7 @@
 <?php
+
+namespace KayStrobach\Piwikintegration\Lib;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -32,7 +35,7 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-class tx_piwikintegration_install
+class Install
 {
     /**
      * cache for checking if piwik is installed, as many functions require
@@ -46,7 +49,7 @@ class tx_piwikintegration_install
     protected $installPath = 'typo3conf/piwik/';
 
     /**
-     * @var tx_piwikintegration_install
+     * @var \KayStrobach\Piwikintegration\Lib\Install
      */
     private static $installer = null;
 
@@ -55,7 +58,7 @@ class tx_piwikintegration_install
      *
      * @static
      *
-     * @return tx_piwikintegration_install
+     * @return \KayStrobach\Piwikintegration\Lib\Install
      */
     public static function getInstaller()
     {
@@ -73,7 +76,7 @@ class tx_piwikintegration_install
     {
         try {
             $this->checkInstallation();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
                 'TYPO3\\CMS\\Core\Messaging\\FlashMessage',
                 $e->getMessage(),
@@ -85,7 +88,7 @@ class tx_piwikintegration_install
     }
 
     /**
-     * @return boolen
+     * @return bool
      */
     public function checkInstallation()
     {
@@ -143,7 +146,7 @@ class tx_piwikintegration_install
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      *
      * @return string
      */
@@ -159,7 +162,11 @@ class tx_piwikintegration_install
 
         //download piwik into typo3temp
         $zipArchivePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('typo3temp/piwiklatest.zip');
-        \TYPO3\CMS\Core\Utility\GeneralUtility::writeFileToTypo3tempDir($zipArchivePath, \TYPO3\CMS\Core\Utility\GeneralUtility::getURL($downloadSource));
+        \TYPO3\CMS\Core\Utility\GeneralUtility::writeFileToTypo3tempDir(
+            $zipArchivePath,
+            \TYPO3\CMS\Core\Utility\GeneralUtility::getURL($downloadSource)
+        );
+
         if (@filesize($zipArchivePath) === false) {
             throw new \Exception('Installation invalid, typo3temp '.$zipArchivePath.' can´t be created for some reason');
         }
@@ -171,54 +178,56 @@ class tx_piwikintegration_install
     }
 
     /**
-     * @param $zipArchivePath
+     * @param string $zipArchivePath
      *
-     * @throws Exception
+     * @throws \Exception
      *
      * @return void
      */
-    private function extractDownloadedPiwik($zipArchivePath)
+    private function extractDownloadedPiwik($zipArchivePath = '')
     {
         //make dir for extraction
-            \TYPO3\CMS\Core\Utility\GeneralUtility::mkdir_deep(PATH_site, $this->installPath);
+        \TYPO3\CMS\Core\Utility\GeneralUtility::mkdir_deep(PATH_site, $this->installPath);
         if (!is_writable(PATH_site.$this->installPath)) {
             throw new \Exception($this->installPath.' must be writeable');
         }
+
         //extract archive
-            switch ($this->checkUnzip()) {
-                case 'clsZipArchive':
-                    $zip = new \ZipArchive();
-                    $zip->open($zipArchivePath);
-                    $zip->extractTo($this->getAbsInstallPath());
-                    $zip->close();
-                    unset($zip);
-                    break;
-                case 'cmd':
-                    $cmd = $GLOBALS['TYPO3_CONF_VARS']['BE']['unzip_path'].'unzip -qq "'.$zipArchivePath.'" -d "'.$this->getAbsInstallPath().'"';
-                    exec($cmd);
-                    break;
-                case 'zlib':
-                    try {
-                        //up to 4.4.4
-                        $emUnzipFile = PATH_typo3.'/mod/tools/em/class.em_unzip.php';
-                        if (file_exists($emUnzipFile)) {
-                            require_once $emUnzipFile;
-                        }
-                        $zlibObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('em_unzip', $zipArchivePath);
-                    } catch (\Exception $e) {
-                        //from 4.5.0b2
-                        $zlibObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_em_Tools_Unzip', $zipArchivePath);
+        switch ($this->checkUnzip()) {
+            case 'clsZipArchive':
+                $zip = new \ZipArchive();
+                $zip->open($zipArchivePath);
+                $zip->extractTo($this->getAbsInstallPath());
+                $zip->close();
+                unset($zip);
+                break;
+            case 'cmd':
+                $cmd = $GLOBALS['TYPO3_CONF_VARS']['BE']['unzip_path'].'unzip -qq "'.$zipArchivePath.'" -d "'.$this->getAbsInstallPath().'"';
+                exec($cmd);
+                break;
+            case 'zlib':
+                try {
+                    //up to 4.4.4
+                    $emUnzipFile = PATH_typo3.'/mod/tools/em/class.em_unzip.php';
+                    if (file_exists($emUnzipFile)) {
+                        require_once $emUnzipFile;
                     }
-                    $zlibObj->extract([
-                        'add_path' => $this->getAbsInstallPath(),
-                    ]);
-                    break;
-                default:
-                    throw new \Exception('There is no valid unzip wrapper, i need either the class ZipArchiv from php or a *nix system with unzip path set.');
-                    break;
-            }
+                    $zlibObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('em_unzip', $zipArchivePath);
+                } catch (\Exception $e) {
+                    //from 4.5.0b2
+                    $zlibObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_em_Tools_Unzip', $zipArchivePath);
+                }
+                $zlibObj->extract([
+                    'add_path' => $this->getAbsInstallPath(),
+                ]);
+                break;
+            default:
+                throw new \Exception('There is no valid unzip wrapper, i need either the class ZipArchiv from php or a *nix system with unzip path set.');
+                break;
+        }
         //unlink archiv to save space in typo3temp ;)
-            \TYPO3\CMS\Core\Utility\GeneralUtility::unlink_tempfile($zipArchivePath);
+        \TYPO3\CMS\Core\Utility\GeneralUtility::unlink_tempfile($zipArchivePath);
+
         if (!$this->checkInstallation()) {
             $buffer = 'No files has been extracted!';
             if (!class_exists('ZipArchive')) {
@@ -253,7 +262,7 @@ class tx_piwikintegration_install
     /**
      * @param array $exclude
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function patchPiwik($exclude = [])
     {
@@ -299,30 +308,41 @@ class tx_piwikintegration_install
         file_put_contents($this->getAbsInstallPath().'piwik/piwikintegration.php', $data);
     }
 
+    /**
+     * @throws \Exception
+     */
     private function configureDownloadedPiwik()
     {
         $this->getConfigObject()->makePiwikConfigured();
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      *
-     * @return tx_piwikintegration_config
+     * @return \KayStrobach\Piwikintegration\Lib\Config
      */
     public function getConfigObject()
     {
         if ($this->checkInstallation()) {
-            return tx_piwikintegration_config::getConfigObject();
+            return \KayStrobach\Piwikintegration\Lib\Config::getConfigObject();
         } else {
             throw new \Exception('Piwik is not installed!');
         }
     }
 
+    /**
+     * @return bool
+     */
     public function removePiwik()
     {
         return \TYPO3\CMS\Core\Utility\GeneralUtility::rmdir($this->getAbsInstallPath(), true);
     }
 
+    /**
+     * @throws \Exception
+     *
+     * @return string
+     */
     public function checkUnzip()
     {
         if (class_exists('ZipArchive')) {

@@ -1,4 +1,7 @@
 <?php
+
+namespace KayStrobach\Piwikintegration\Lib;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -25,13 +28,12 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
 /**
  * functions for the extmgm render forms and react on changes.
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-class tx_piwikintegration_extmgm
+class Extmgm
 {
     /**
      * @param $params
@@ -40,7 +42,7 @@ class tx_piwikintegration_extmgm
      */
     public function emMakeDBList($params)
     {
-        if (!tx_piwikintegration_install::getInstaller()->checkInstallation()) {
+        if (!\KayStrobach\Piwikintegration\Lib\Install::getInstaller()->checkInstallation()) {
             return 'Piwik is not installed yet ;) - option is unavailable';
         }
          /* Pull the current fieldname and value from constants */
@@ -66,7 +68,7 @@ class tx_piwikintegration_extmgm
      *
      * @throws Exception
      *
-     * @return void
+     * @return mixed
      */
     public function emSaveConstants($par)
     {
@@ -75,12 +77,14 @@ class tx_piwikintegration_extmgm
             $newconf = $newconf['data'];
             //init piwik to get table prefix
             //$this->initPiwik();
-            if (!tx_piwikintegration_install::getInstaller()->checkInstallation()) {
+
+            if (!\KayStrobach\Piwikintegration\Lib\Install::getInstaller()->checkInstallation()) {
                 return 'Problem moving database, Piwik is not installed ...';
             }
-            $old_database = tx_piwikintegration_install::getInstaller()->getConfigObject()->getOption('database', 'dbname');
+
+            $old_database = Install::getInstaller()->getConfigObject()->getOption('database', 'dbname');
             $new_database = $newconf['databaseTablePrefix'];
-            $this->table_prefix = tx_piwikintegration_install::getInstaller()->getConfigObject()->getOption('database', 'table_prefix');
+            $this->table_prefix = Install::getInstaller()->getConfigObject()->getOption('database', 'table_prefix');
             //walk through changes
             if ($old_database !== $new_database) {
                 //create shortVars
@@ -101,7 +105,7 @@ class tx_piwikintegration_extmgm
                     }
                 }
                 //change config
-                    $conf = tx_piwikintegration_install::getInstaller()->getConfigObject();
+                    $conf = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject();
                 $conf->setOption('database', 'tables_prefix', 'tx_piwikintegration_');
                 $conf->setOption('database', 'dbname', $newconf['databaseTablePrefix']);
                 $conf->setOption('database', 't3dbname', TYPO3_db);

@@ -33,10 +33,10 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-
 if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
+
 /*******************************************************************************
  * Add Backend Module and Ext.Direct for it
  */
@@ -61,7 +61,11 @@ if (!defined('TYPO3_MODE')) {
 /*******************************************************************************
  * Static file
  */
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/', 'Piwik Integration');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+    $_EXTKEY,
+    'Configuration/TypoScript/',
+    'Piwik Integration'
+);
 
 $tempColumns = [
     'tx_piwikintegration_api_code' => [
@@ -75,14 +79,27 @@ $tempColumns = [
     ],
 ];
 
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
+    'be_users',
+    $tempColumns
+);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+    'be_users',
+    'tx_piwikintegration_api_code;;;;1-1-1'
+);
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('be_users', $tempColumns);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('be_users', 'tx_piwikintegration_api_code;;;;1-1-1');
+// remove default plugin fields
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi1'] =
+    'layout,select_key,pages,recursive';
 
 //add flexform to pi1
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1'] = 'pi_flexform';
-$TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi1'] = 'layout,select_key,pages,recursive';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($_EXTKEY.'_pi1', 'FILE:EXT:piwikintegration/pi1/flexform_ds.xml');
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1'] =
+    'pi_flexform';
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+    $_EXTKEY.'_pi1',
+    'FILE:EXT:piwikintegration/pi1/flexform_ds.xml'
+);
 
 //add pi1 plugin
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
