@@ -31,7 +31,8 @@
     "autoload": {
         "psr-4": {
             "KayStrobach\\Piwikintegration\\": "Classes"
-        }
+        },
+        "classmap": ["Classes/"]
     },
     "autoload-dev": {
         "psr-4": {
