@@ -63,6 +63,8 @@
 
 			<label index="button.DoIt">Do it</label>
 			<label index="installedPiwikNeeded">Piwik is not installed yet. Install it to access all other actions.</label>
+
+			<label index="desc.selectPage">Please select a page in the pagetree.</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="piwikArchiveTask.name">Piwik Archivierungs-Cronjob</label>
@@ -122,6 +124,8 @@
 
 			<label index="button.DoIt">Ausführen</label>
 			<label index="installedPiwikNeeded">Piwik ist noch nicht installiert. Installieren Sie es, um auf alle anderen Aktionen zugreifen zu können.</label>
+
+			<label index="desc.selectPage">Bitte wählen Sie eine Seite aus dem Seitenbaum.</label>
 		</languageKey>
 
 	</data>

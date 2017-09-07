@@ -1,4 +1,7 @@
 <?php
+
+namespace KayStrobach\Piwikintegration\SchedulerTask;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -24,7 +27,7 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-/**
+/*
  * lib/class.tx_piwikintegration_scheduler_archive.php.
  *
  * scheduler task class
@@ -34,8 +37,7 @@
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 
-
-/**
+/*
  * scheduler task class.
  *
  * $Id: class.tx_piwikintegration_scheduler_archive.php 43324 2011-02-09 11:47:35Z kaystrobach $
@@ -46,7 +48,10 @@
  *
  * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  */
-class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task
+
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
+
+class Archive extends AbstractTask
 {
     /**
      * execute the piwik archive task.
@@ -57,6 +62,7 @@ class tx_piwikintegration_scheduler_archive extends tx_scheduler_Task
     {
         //set execution time
         ini_set('max_execution_time', 0);
+
         //find piwik
         $piwikScriptPath = dirname(dirname(__FILE__)).'/../../piwik/piwik';
 

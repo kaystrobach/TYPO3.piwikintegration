@@ -43,7 +43,9 @@
  *
  * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  */
-class tx_piwikintegration_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
+use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
+
+class tx_piwikintegration_pi1 extends AbstractPlugin
 {
     public $prefixId = 'tx_piwikintegration_pi1';        // Same as class name
     public $scriptRelPath = 'pi1/class.tx_piwikintegration_pi1.php';    // Path to this script relative to the extension dir.
@@ -71,7 +73,7 @@ class tx_piwikintegration_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      *
      * @param array $conf: array with TS configuration
      *
-     * @return void
+     * @return string $content
      */
     public function init($conf)
     {
@@ -79,7 +81,6 @@ class tx_piwikintegration_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         $this->pi_setPiVarDefaults();
         $this->pi_loadLL();
         $this->pi_initPIflexForm();
-
 
         $this->extConf['widget'] = json_decode(base64_decode($this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'widget')), true);
         $this->extConf['widget']['period'] = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'period');
@@ -93,15 +94,9 @@ class tx_piwikintegration_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         unset($this->extConf['widget']['action']);
 
         $content = '<div id="widgetIframe"><iframe width="100%" height="'.intval($this->extConf['height']).'" src="';
-        $content .= tx_piwikintegration_install::getInstaller()->getBaseUrl().'index.php?module=Widgetize&action=iframe'.\TYPO3\CMS\Core\Utility\GeneralUtility::implodeArrayForUrl('', $this->extConf['widget']);
+        $content .= \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getBaseUrl().'index.php?module=Widgetize&action=iframe'.\TYPO3\CMS\Core\Utility\GeneralUtility::implodeArrayForUrl('', $this->extConf['widget']);
         $content .= '&disableLink=1" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe></div>';
 
         return $content;
     }
-}
-
-
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/piwikintegration/pi1/class.tx_piwikintegration_pi1.php']) {
-    include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/piwikintegration/pi1/class.tx_piwikintegration_pi1.php'];
 }

@@ -1,4 +1,7 @@
 <?php
+
+namespace KayStrobach\Piwikintegration\Tracking;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -25,13 +28,12 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-
 /**
  * tools to get tracking code.
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-class tx_piwikintegration_tracking
+class Tracking
 {
     /**
      * @param $params
@@ -102,7 +104,7 @@ class tx_piwikintegration_tracking
         if ($this->extConf['piwik_idsite'] != 0) {
             $erg = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
                 '*',
-                tx_piwikintegration_div::getTblName('site'),
+                \KayStrobach\Piwikintegration\Lib\Div::getTblName('site'),
                 'idsite='.intval($this->extConf['piwik_idsite'])
             );
             $numRows = $GLOBALS['TYPO3_DB']->sql_num_rows($erg);
@@ -115,7 +117,7 @@ class tx_piwikintegration_tracking
                 // $timezone = Piwik_GetOption('SitesManager_DefaultTimezone') ? Piwik_GetOption('SitesManager_DefaultTimezone') : 'UTC';
 
                 $GLOBALS['TYPO3_DB']->exec_INSERTquery(
-                    tx_piwikintegration_div::getTblName('site'),
+                    \KayStrobach\Piwikintegration\Lib\Div::getTblName('site'),
                     [
                         'idsite'   => intval($this->extConf['piwik_idsite']),
                         'name'     => 'ID '.intval($this->extConf['piwik_idsite']),
@@ -142,7 +144,7 @@ class tx_piwikintegration_tracking
      */
     public function getPiwikJavaScriptCodeForSite($siteId)
     {
-        tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikFrameWork();
+        \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->initPiwikFrameWork();
         $tracker = new \Piwik\Tracker\TrackerCodeGenerator();
         $content = $tracker->generate($siteId, $this->getPiwikBaseURL());
 
@@ -169,7 +171,7 @@ class tx_piwikintegration_tracking
     public function getPiwikBaseURL()
     {
         if (TYPO3_MODE == 'BE') {
-            tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikFrameWork();
+            \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->initPiwikFrameWork();
             $path = \Piwik\Url::getCurrentUrlWithoutFileName();
             $path = dirname($path);
             $path .= '/typo3conf/piwik/piwik/';

@@ -2,6 +2,8 @@
 
 namespace KayStrobach\Piwikintegration\Controller;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Class Tx_Piwikintegration_Controller_PiwikController.
  *
@@ -10,7 +12,7 @@ namespace KayStrobach\Piwikintegration\Controller;
 class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
-     * @var \tx_piwikintegration_div
+     * @var \KayStrobach\Piwikintegration\Lib\
      */
     protected $piwikHelper = null;
 
@@ -24,8 +26,11 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function initializeAction()
     {
+        $GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/Resources/Private/Language/locallang.xml');
         $this->id = (int) \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
-        $this->piwikHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_piwikintegration_div');
+        $this->piwikHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            'KayStrobach\\Piwikintegration\\Lib\\Div'
+        );
     }
 
     /**
@@ -51,7 +56,11 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function apiCodeAction()
     {
         $this->view->assign('piwikApiCode', $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code']);
-        $tracker = new \tx_piwikintegration_tracking();
+
+        $tracker = GeneralUtility::makeInstance(
+            'KayStrobach\\Piwikintegration\\Tracking\\Tracking'
+        );
+
         $this->view->assign('piwikBaseUri', $tracker->getPiwikBaseURL());
         $this->view->assign('piwikTrackingCode', $tracker->getPiwikJavaScriptCodeForPid($this->id));
     }
@@ -70,9 +79,9 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected function checkPiwikEnvironment()
     {
         // check if piwik is installed
-        if (!\tx_piwikintegration_install::getInstaller()->checkInstallation()) {
-            \tx_piwikintegration_install::getInstaller()->installPiwik();
-            if (\tx_piwikintegration_install::getInstaller()->checkInstallation()) {
+        if (!\KayStrobach\Piwikintegration\Lib\Install::getInstaller()->checkInstallation()) {
+            \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->installPiwik();
+            if (\KayStrobach\Piwikintegration\Lib\Install::getInstaller()->checkInstallation()) {
                 $this->addFlashMessage(
                     'Piwik installed',
                     'Piwik is now installed / upgraded, wait a moment, reload the page ;) <meta http-equiv="refresh" content="2; URL=mod.php?M=web_txpiwikintegrationM1&uid='.$this->id.'#reload">',
@@ -85,7 +94,7 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         // check whether a page is selected
         if (!$this->id) {
             $this->addFlashMessage(
-                'Please select a page in the pagetree',
+                $GLOBALS['LANG']->getLL('desc.selectPage'),
                 '',
                 \TYPO3\CMS\Core\Messaging\FlashMessage::NOTICE
             );
@@ -115,12 +124,12 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
         unset($t);
         // check if patch level is correct
-        if (!\tx_piwikintegration_install::getInstaller()->checkPiwikPatched()) {
+        if (!\KayStrobach\Piwikintegration\Lib\Install::getInstaller()->checkPiwikPatched()) {
             //prevent lost configuration and so the forced repair.
             $exclude = [
                 'config/config.ini.php',
             ];
-            \tx_piwikintegration_install::getInstaller()->patchPiwik($exclude);
+            \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->patchPiwik($exclude);
         }
 
         return true;

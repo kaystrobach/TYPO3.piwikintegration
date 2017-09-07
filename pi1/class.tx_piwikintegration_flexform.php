@@ -35,9 +35,11 @@
  */
 class tx_piwikintegration_flexform
 {
+    public $tablePrefix = null;
+
     public function init()
     {
-        $this->tablePrefix = tx_piwikintegration_install::getInstaller()->getConfigObject()->getTablePrefix();
+        $this->tablePrefix = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->getTablePrefix();
     }
 
     public function getSitesForFlexForm(&$PA, &$fobj)
@@ -46,7 +48,7 @@ class tx_piwikintegration_flexform
         //fetch anonymous accessable idsites
         $erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
             'idsite',
-            tx_piwikintegration_div::getTblName('access'),
+            \KayStrobach\Piwikintegration\Lib\Div::getTblName('access'),
             'login="anonymous"'
         );
 
@@ -58,7 +60,7 @@ class tx_piwikintegration_flexform
         $accessableSites = implode(',', $sites);
         $erg = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
             'idsite,name,main_url',
-            tx_piwikintegration_div::getTblName('site'),
+            \KayStrobach\Piwikintegration\Lib\Div::getTblName('site'),
             'idsite IN('.$accessableSites.')',
             '',
             'name, main_url, idsite'
@@ -79,11 +81,10 @@ class tx_piwikintegration_flexform
     {
         $PA['items'] = [];
 
-        tx_piwikintegration_install::getInstaller()->getConfigObject()->initPiwikDatabase();
+        \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->initPiwikDatabase();
         $controller = Piwik_FrontController::getInstance()->init();
         $_GET['idSite'] = 1;
         $widgets = Piwik_GetWidgetsList();
-
 
         foreach ($widgets as $pluginCat => $plugin) {
             foreach ($plugin as $widget) {
