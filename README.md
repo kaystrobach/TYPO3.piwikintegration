@@ -9,6 +9,15 @@ See why the build is currently failing, most of the issues are CGL things, will 
 
 https://travis-ci.org/kaystrobach/TYPO3.piwikintegration/
 
+# Plan for the future development of this extension
+
+* remove the piwik installer from the extension source
+* use piwik api to connect to piwik instances 
+* provide an easy to use "dashboard"-like view in the TYPO3 backend, which shows the most important values from piwik
+* maybe allow some kind of single-sign-on from TYPO3 to piwik with standard plugins like saml or openid
+
+if you are interested in these changes, please contact me, we are currently collecting sponsors for that development.
+
 # Updating piwikintegration
 
 ## to 5.x future
