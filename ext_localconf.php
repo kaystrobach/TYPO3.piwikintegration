@@ -85,6 +85,16 @@ if (TYPO3_MODE == 'FE') {
     }
 }
 
+/*******************************************************************************
+ * Register icon
+ */
+$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+$iconRegistry->registerIcon(
+    'piwikintegration-icon',
+    \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+    ['source' => 'EXT:piwikintegration/pi1/ce_wiz.gif']
+);
+
 /******************************************************************************
  * load scheduler class if scheduler is installed
  */
