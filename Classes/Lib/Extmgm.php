@@ -121,13 +121,15 @@ class Extmgm
     public function emMakeHeader($params)
     {
         $GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/Resources/Private/Language/locallang.xml');
-        $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+        $flashMessage[] = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
             'TYPO3\\CMS\\Core\Messaging\\FlashMessage',
             $GLOBALS['LANG']->getLL('extmgm.noticeText'),
             $GLOBALS['LANG']->getLL('extmgm.noticeHeader'),
             \TYPO3\CMS\Core\Messaging\FlashMessage::INFO
         );
 
-        return $flashMessage->render();
+        return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessageRendererResolver')
+            ->resolve()
+            ->render($flashMessage);
     }
 }
