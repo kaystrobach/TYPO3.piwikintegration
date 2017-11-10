@@ -50,12 +50,14 @@ class ext_update
             if (method_exists($this, $func)) {
                 try {
                     $result = $this->$func();
-                    $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $result, '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+                    $flashMessage[] = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $result, '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
                 } catch (Exception $e) {
                     $result = $e->getMessage();
-                    $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $result, '', \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+                    $flashMessage[] = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $result, '', \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
                 }
-                $buffer .= $flashMessage->render();
+                $buffer .= \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessageRendererResolver')
+                        ->resolve()
+                        ->render($flashMessage);
             } else {
                 $buffer .= $LANG->getLL('methodNotFound');
             }
@@ -64,10 +66,12 @@ class ext_update
         try {
             \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject();
         } catch (Exception $e) {
-            $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            $flashMessage[] = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
                     'TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $LANG->getLL('installedPiwikNeeded'), '', \TYPO3\CMS\Core\Messaging\FlashMessage::INFO
             );
-            $buffer .= $flashMessage->render();
+            $buffer .= \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessageRendererResolver')
+                        ->resolve()
+                        ->render($flashMessage);
         }
 
         $buffer .= $this->getHeader($LANG->getLL('header.installation'));
