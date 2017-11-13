@@ -48,10 +48,10 @@ class tx_piwikintegration_pi1_wizicon
         global $LANG;
 
         $wizardItems['plugins_tx_piwikintegration_pi1'] = [
-            'icon'        => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('piwikintegration').'pi1/ce_wiz.gif',
-            'title'       => 'LLL:EXT:piwikintegration/pi1/locallang.xml:pi1_wizard_title',
-            'description' => 'LLL:EXT:piwikintegration/pi1/locallang.xml:pi1_wizard_description',
-            'params'      => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=piwikintegration_pi1',
+            'iconIdentifier' => 'piwikintegration-icon',
+            'title'          => 'LLL:EXT:piwikintegration/pi1/locallang.xml:pi1_wizard_title',
+            'description'    => 'LLL:EXT:piwikintegration/pi1/locallang.xml:pi1_wizard_description',
+            'params'         => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=piwikintegration_pi1',
         ];
 
         return $wizardItems;
