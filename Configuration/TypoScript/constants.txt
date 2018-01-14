@@ -6,9 +6,9 @@
 # - if customerRootPid is set, it's seen as static value  
 
 config.tx_piwik {
-	# cat=plugin.tx_piwik; type=input; label= path to piwik
+	# cat=plugin.tx_piwik; type=input; label= path to Matomo
 		piwik_host      = typo3conf/piwik/piwik/
-	# cat=plugin.tx_piwik; type=input; label= idsite inside piwik
+	# cat=plugin.tx_piwik; type=input; label= idsite inside Matomo
 		piwik_idsite    = 1	
 	# cat=plugin.tx_piwik; type=input; label= customername regex
 		customerName    = customer %pid% %uid% %siteid% %title%

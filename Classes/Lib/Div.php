@@ -29,7 +29,7 @@ namespace KayStrobach\Piwikintegration\Lib;
 ***************************************************************/
 
 /**
- * div functions to handle piwik stuff.
+ * div functions to handle Matomo stuff.
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
@@ -77,7 +77,7 @@ class Div
     }
 
     /**
-     * @param  $table string piwik tablename without prefix
+     * @param  $table string Matomo tablename without prefix
      *
      * @return string name of the table prefixed with database
      */
@@ -87,14 +87,14 @@ class Div
     }
 
     /**
-     * returns the piwik config for a given page
+     * returns the Matomo config for a given page
      * call it with $this->pageinfo['uid'] as param from a backend module.
      *
      * @param int $uid Page ID
      *
      * @throws \Exception
      *
-     * @return array piwik config array
+     * @return array Matomo config array
      */
     public function getPiwikConfigArray($uid = 0)
     {
@@ -134,12 +134,12 @@ class Div
     }
 
     /**
-     * returns the piwik site id for a given page
+     * returns the Matomo site id for a given page
      * call it with $this->pageinfo['uid'] as param from a backend module.
      *
      * @param int $uid: Page ID
      *
-     * @return int piwik site id
+     * @return int Matomo site id
      */
     public function getPiwikSiteIdForPid($uid)
     {
@@ -150,20 +150,20 @@ class Div
         } else {
             $id = 0;
         }
-        //check wether site already exists in piwik db
+        //check wether site already exists in Matomo db
         $this->makePiwikSiteExisting($id);
         //return
         return $id;
     }
 
     /**
-     * creates piwik site, if not existing.
+     * creates Matomo site, if not existing.
      *
      * @param $id
      *
      * @internal param int $siteid : Piwik ID
      *
-     * @return int piwik site id
+     * @return int Matomo site id
      */
     public function makePiwikSiteExisting($id)
     {

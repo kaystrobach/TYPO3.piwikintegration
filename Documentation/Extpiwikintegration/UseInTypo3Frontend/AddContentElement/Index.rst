@@ -29,7 +29,7 @@ Options
 
 |img-9|
 
-The first one is the site id of piwik.
+The first one is the site id of Matomo.
 
 The second one lets you select the widget you want to display.
 

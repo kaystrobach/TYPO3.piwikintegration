@@ -38,13 +38,13 @@ namespace KayStrobach\Piwikintegration\Lib;
 class Install
 {
     /**
-     * cache for checking if piwik is installed, as many functions require
+     * cache for checking if Matomo is installed, as many functions require
      * a valid installation, otherwise problems will occur.
      */
     protected $installed = null;
 
     /**
-     * path were piwik will be installed.
+     * path were Matomo will be installed.
      */
     protected $installPath = 'typo3conf/piwik/';
 
@@ -152,15 +152,15 @@ class Install
      */
     private function downloadLatestPiwik()
     {
-        // tell installer where to grab piwik
+        // tell installer where to grab Matomo
         $settings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['piwikintegration']);
         if (array_key_exists('piwikDownloadSource', $settings) && $settings['piwikDownloadSource'] != '') {
             $downloadSource = $settings['piwikDownloadSource'];
         } else {
-            $downloadSource = 'http://builds.piwik.org/latest.zip';
+            $downloadSource = 'https://builds.piwik.org/latest.zip';
         }
 
-        //download piwik into typo3temp
+        //download Matomo into typo3temp
         $zipArchivePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('typo3temp/piwiklatest.zip');
         \TYPO3\CMS\Core\Utility\GeneralUtility::writeFileToTypo3tempDir(
             $zipArchivePath,
@@ -235,7 +235,7 @@ class Install
             }
             if ((!(TYPO3_OS == 'WIN' || $GLOBALS['TYPO3_CONF_VARS']['BE']['disable_exec_function']))) {
                 $buffer .= ' -> used TYPO3 cmd line function to extract files, if you use solaris this may be the problem.';
-                $buffer .= ' -> please manually extract piwik and copy it to typo3conf/piwik/piwik and use the extmgm update script to patch and configure piwik';
+                $buffer .= ' -> please manually extract Matomo and copy it to typo3conf/piwik/piwik and use the extmgm update script to patch and configure piwik';
                 $buffer .= ' -> take a look in your manual for more information or use an environment with a working zip class';
             }
 

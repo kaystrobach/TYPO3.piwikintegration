@@ -26,14 +26,14 @@ this:
 If you select the Piwik task and hit Execute selected tasks, you do
 not need to wait to see the statistics.
 
-Have a look on http://piwik.org/docs/setup-auto-archiving/ to get more
-information on speeding up piwik. (ignore the cronjob, as this is
+Have a look on https://matomo.org/docs/setup-auto-archiving/ to get more
+information on speeding up Matomo. (ignore the cronjob, as this is
 executed by the Scheduler).
 
 Please have a look on these options in the Piwik configuration, with
-the following setting you force piwik to create the statistics with
+the following setting you force Matomo to create the statistics with
 the cronjob and not while opening Piwik in the browser, that will
-speedup using piwik.
+speedup using Matomo.
 
 :code:`[General]time\_before\_today\_archive\_considered\_outdated =
 3600enable\_browser\_archiving\_triggering = false`

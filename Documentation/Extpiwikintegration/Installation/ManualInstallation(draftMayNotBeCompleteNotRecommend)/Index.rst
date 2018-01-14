@@ -15,7 +15,7 @@ Manual installation (draft may not be complete, not recommend)
 To integrate piwikintegration into your TYPO3 installation follow
 these steps:
 
-#. Install the extension via TER, piwik is not included!
+#. Install the extension via TER, Matomo is not included!
 
 #. Install and enable the EXT:piwik which is suggested, to get the
    Trackingcode automatically.You do not need to configure EXT:piwik it's

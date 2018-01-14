@@ -75,7 +75,7 @@ class Extmgm
         if ($par['extKey'] == 'piwikintegration' && \TYPO3\CMS\Core\Utility\GeneralUtility::_POST('submit')) {
             $newconf = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
             $newconf = $newconf['data'];
-            //init piwik to get table prefix
+            //init Matomo to get table prefix
             //$this->initPiwik();
 
             if (!\KayStrobach\Piwikintegration\Lib\Install::getInstaller()->checkInstallation()) {

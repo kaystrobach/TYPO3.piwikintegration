@@ -1,9 +1,9 @@
 config.tx_piwik {
   	############################################################################
-	# location of piwik
+	# location of Matomo
 	  	piwik_host       = {$config.tx_piwik.piwik_host}
   	############################################################################
-	# idsite inside piwik
+	# idsite inside Matomo
 		piwik_idsite     = {$config.tx_piwik.piwik_idsite}
 	############################################################################
   	# automatic customer name handling

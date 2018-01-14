@@ -27,7 +27,7 @@ use Piwik\Piwik;
 use Piwik\Plugins\UsersManager\UsersManager;
 
 /**
- * Provide authentification service against TYPO3 for piwik.
+ * Provide authentification service against TYPO3 for Matomo.
  *
  * @author  Kay Strobach <typo3@kay-strobach.de>
  *
@@ -90,7 +90,7 @@ class Auth implements \Piwik\Auth
     public function authenticate()
     {
         /***********************************************************************
-         * authenticate against the piwik configuration file for emergency access or installer or cronjob!
+         * authenticate against the Matomo configuration file for emergency access or installer or cronjob!
          */
         $rootLogin = \Piwik\Config::getInstance()->superuser['login'];
         $rootPassword = \Piwik\Config::getInstance()->superuser['password'];

@@ -22,6 +22,6 @@ translations to the EXT:piwikintegration developer team.
 - German
 
 To get the full list of available languages for the original Piwik
-application, please look into the official piwik blog at
-`http://piwik.org/translations/ <http://piwik.org/translations/>`_ .
+application, please look into the official Matomo blog at
+`https://matomo.org/translations/ <https://matomo.org/translations/>`_ .
 

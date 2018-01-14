@@ -69,7 +69,7 @@ class Config
             return;
         }
 
-        //load files from piwik
+        //load files from Matomo
         if (!defined('PIWIK_INCLUDE_PATH')) {
             define('PIWIK_INCLUDE_PATH', PATH_site.'typo3conf/piwik/piwik/');
             define('PIWIK_USER_PATH', PATH_site.'typo3conf/piwik/piwik/');

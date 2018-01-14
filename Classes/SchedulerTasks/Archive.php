@@ -27,7 +27,7 @@ namespace KayStrobach\Piwikintegration\SchedulerTask;
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-/*
+/**
  * lib/class.tx_piwikintegration_scheduler_archive.php.
  *
  * scheduler task class
@@ -37,24 +37,12 @@ namespace KayStrobach\Piwikintegration\SchedulerTask;
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 
-/*
- * scheduler task class.
- *
- * $Id: class.tx_piwikintegration_scheduler_archive.php 43324 2011-02-09 11:47:35Z kaystrobach $
- *
- * @author  Kay Strobach <typo3@kay-strobach.de>
- *
- * @link http://kay-strobach.de
- *
- * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
- */
-
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 class Archive extends AbstractTask
 {
     /**
-     * execute the piwik archive task.
+     * execute the Matomo archive task.
      *
      * @return bool always returns true
      */
@@ -63,7 +51,7 @@ class Archive extends AbstractTask
         //set execution time
         ini_set('max_execution_time', 0);
 
-        //find piwik
+        //find Matomo
         $piwikScriptPath = dirname(dirname(__FILE__)).'/../../piwik/piwik';
 
         file_put_contents('e:\log.txt', $piwikScriptPath);
@@ -95,7 +83,7 @@ class Archive extends AbstractTask
         );
         $tokenAuth = $request->process();
 
-        //get all piwik siteid's
+        //get all Matomo siteid's
         $request = new \Piwik\API\Request('
 			module=API
 			&method=SitesManager.getSitesWithAdminAccess
@@ -107,9 +95,9 @@ class Archive extends AbstractTask
 
         //log
         $this->writeLog(
-            'EXT:piwikintegration got '.count($piwikSiteIds).' siteids and piwik token ('.$tokenAuth.'), start archiving '
+            'EXT:piwikintegration got '.count($piwikSiteIds).' siteids and Matomo token ('.$tokenAuth.'), start archiving '
         );
-        //create Archive in piwik
+        //create Archive in Matomo
         $periods = [
             'day',
             'week',

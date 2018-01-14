@@ -44,8 +44,8 @@ be provided later.
 
 .. _what-to-do-if-piwik-can-t-update:
 
-What to do if Piwik can't update?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+What to do if Matomo can't update?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There are 2 possible solutions
 

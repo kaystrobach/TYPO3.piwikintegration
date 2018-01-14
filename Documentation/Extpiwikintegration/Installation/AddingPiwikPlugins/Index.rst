@@ -9,8 +9,8 @@
 
 .. _adding-piwik-plugins:
 
-Adding Piwik plugins
-^^^^^^^^^^^^^^^^^^^^
+Adding Matomo plugins
+^^^^^^^^°^^^^^^^^^^^^
 
 Adding pluging to Piwik is as easy as extracting zip files to the
 plugins folder in the folder typo3conf/piwik/piwik.

@@ -8,7 +8,7 @@
 		<languageKey index="default" type="array">
 			<label index="piwikintegration_pi1">Piwik Widgetize</label>
 			<label index="pi1_wizard_title">Piwik Widgetize</label>
-			<label index="pi1_wizard_description">Add a widget from piwik to the frontend</label>
+			<label index="pi1_wizard_description">Add a widget from Matomo to the frontend</label>
 			<label index="flexform_idsite_selection">Select Site (you will see only pages with anonymous access enabled)</label>
 			<label index="flexform_widget_selection">Select Widget</label>
 			<label index="flexform_sheet_sDef">Piwik Widget Options</label>

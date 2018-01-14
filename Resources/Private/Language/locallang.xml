@@ -80,7 +80,7 @@
 			<label index="extmgm.disablePiwikIdCreation">Piwik ID Erstellung deaktivieren: Wenn diese Einstellung aktiv ist, dann wird nicht mehr versucht, die Piwik Site-ID automatisch während Frontend-Aufrufen anzulegen.</label>
 			<label index="extmgm.enableSchedulerTask">EXPERIMENTAL Scheduler-Task: Aktiviere Scheduler-Task-Integration, nicht für TYPO 4.3 oder früher aktivieren</label>
 			<label index="extmgm.enableSchedulerLogging">Scheduler-Task debuggen: Aktiviere aggressives Loggen, nicht für TYPO 4.3 oder früher aktivieren</label>
-			<label index="extmgm.piwikDownloadSource">Alternative Download-URL: Geben Sie eine alternative URL zum Piwik-Download an. (Standard ist http://builds.piwik.org/latest.zip)</label>
+			<label index="extmgm.piwikDownloadSource">Alternative Download-URL: Geben Sie eine alternative URL zum Piwik-Download an. (Standard ist https://builds.piwik.org/latest.zip)</label>
 
 			<label index="header.installation">Installation</label>
 			<label index="header.configuration">Konfiguration</label>
