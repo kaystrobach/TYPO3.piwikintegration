@@ -6,12 +6,12 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="piwikintegration_pi1">Piwik Widgetize</label>
-			<label index="pi1_wizard_title">Piwik Widgetize</label>
+			<label index="piwikintegration_pi1">Matomo Widgetize</label>
+			<label index="pi1_wizard_title">Matomo Widgetize</label>
 			<label index="pi1_wizard_description">Add a widget from Matomo to the frontend</label>
 			<label index="flexform_idsite_selection">Select Site (you will see only pages with anonymous access enabled)</label>
 			<label index="flexform_widget_selection">Select Widget</label>
-			<label index="flexform_sheet_sDef">Piwik Widget Options</label>
+			<label index="flexform_sheet_sDef">Matomo Widget Options</label>
 			<label index="flexform_div_height">Height of the div in FE</label>
 			<label index="flexform_viewDataTable">initial chart type displayed</label>
 			
@@ -34,11 +34,11 @@
 			
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="piwikintegration_pi1">Piwik Widgets</label>
-			<label index="pi1_wizard_title">Piwik Widgets</label>
-			<label index="pi1_wizard_description">Fügt einen Widget von Piwik in die Webseite ein.</label>
+			<label index="piwikintegration_pi1">Matomo Widgets</label>
+			<label index="pi1_wizard_title">Matomo Widgets</label>
+			<label index="pi1_wizard_description">Fügt einen Widget von Matomo in die Webseite ein.</label>
 
-			<label index="flexform_sheet_sDef">Piwik Widget Einstellungen</label>
+			<label index="flexform_sheet_sDef">Matomo Widget Einstellungen</label>
 
 			<label index="flexform_period_day">Tag</label>
 			<label index="flexform_period_week">Woche</label>

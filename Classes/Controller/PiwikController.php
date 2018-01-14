@@ -115,7 +115,7 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         // check whether piwik_host is correct
         if (($t['piwik_host'] !== 'typo3conf/piwik/piwik/') && ($t['piwik_host'] !== '/typo3conf/piwik/piwik/')) {
             $this->addFlashMessage(
-                'Piwik host is not set correctly',
+                'Matomo host is not set correctly',
                 '',
                 \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
             );

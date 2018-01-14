@@ -36,13 +36,13 @@ these steps:
 #. Open the statistik module (Web -> Statistics ) and click on the page,
    or a subpage, where you added the static template:
    
-   #. The backendmodule now recognizes, that Piwik is not installed (by
+   #. The backendmodule now recognizes, that Matomo is not installed (by
       checking, if the config file exists).
    
    #. The backendmodule will now download, extract and install the latest
-      Piwik release into typo3conf/piwik. This could take a while.
+      Matomo release into typo3conf/piwik. This could take a while.
    
-   #. The backendmodule will now reload and you will now able to use Piwik
+   #. The backendmodule will now reload and you will now able to use Matomo
       via the Direct Statistics Access dropdown box.
 
 #. (If you like to use GeoIPDatabase use the admin functions of the

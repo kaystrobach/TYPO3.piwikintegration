@@ -60,7 +60,7 @@ class Div
     }
 
     /**
-     * @param string $table Piwik tablename without prefix
+     * @param string $table Matomo tablename without prefix
      *
      * @return string Name of the table prefixed with database
      */
@@ -161,7 +161,7 @@ class Div
      *
      * @param $id
      *
-     * @internal param int $siteid : Piwik ID
+     * @internal param int $siteid : Matomo ID
      *
      * @return int Matomo site id
      */
@@ -177,9 +177,9 @@ class Div
                 '0,1'
             );
             if (count($erg) == 0) {
-                //FIX currency for current Piwik version, since 0.6.3
+                //FIX currency for current Matomo version, since 0.6.3
                 $currency = \Piwik\Option::get('SitesManager_DefaultCurrency') ? \Piwik\Option::get('SitesManager_DefaultCurrency') : 'USD';
-                //FIX timezone for current Piwik version, since 0.6.3
+                //FIX timezone for current Matomo version, since 0.6.3
                 $timezone = \Piwik\Option::get('SitesManager_DefaultTimezone') ? \Piwik\Option::get('SitesManager_DefaultTimezone') : 'UTC';
 
                 $GLOBALS['TYPO3_DB']->exec_INSERTquery(

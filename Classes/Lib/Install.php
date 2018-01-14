@@ -327,7 +327,7 @@ class Install
         if ($this->checkInstallation()) {
             return \KayStrobach\Piwikintegration\Lib\Config::getConfigObject();
         } else {
-            throw new \Exception('Piwik is not installed!');
+            throw new \Exception('Matomo is not installed!');
         }
     }
 

@@ -132,7 +132,7 @@ class ext_update
                 $button .= '<input type="submit" value="'.$LANG->getLL('button.DoIt').'" onclick="'.htmlspecialchars($onClick).'" disabled="disabled" title="Method not implemented!">';
             }
         } catch (Exception $e) {
-            $button .= '<input type="submit" value="'.$LANG->getLL('button.DoIt').'" onclick="'.htmlspecialchars($onClick).'" disabled="disabled" title="Piwik not installed!">';
+            $button .= '<input type="submit" value="'.$LANG->getLL('button.DoIt').'" onclick="'.htmlspecialchars($onClick).'" disabled="disabled" title="Matomo not installed!">';
         }
 
         $button .= '</td>';

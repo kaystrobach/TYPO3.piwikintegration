@@ -12,12 +12,12 @@
 What does it do |img-3|
 -----------------------
 
-This extension implements Piwik tracking in TYPO3-based websites.
+This extension implements Matomo tracking in TYPO3-based websites.
 
-Piwik is a new open source (GPL license) web analytics product. It
+Matomo is a new open source (GPL license) web analytics product. It
 gives interesting reports on your website visitors, your popular
 pages, the search engines keywords they used, the language they speak…
-and so much more. To learn more about Piwik, go to
+and so much more. To learn more about Matomo, go to
 `https://www.matomo.org <https://www.matomo.org/>`_ .
 
 This extension is an addon to the extension of EXT:piwik which

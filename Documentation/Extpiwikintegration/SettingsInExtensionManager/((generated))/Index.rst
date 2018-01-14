@@ -28,7 +28,7 @@ EXPERIMENTAL scheduler task [enableSchedulerTask]
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 This option installs a Scheduler task that speeds up rendering of
-Piwik, as the statistics are build before viewing them in the browser.
+Matomo, as the statistics are build before viewing them in the browser.
 See related chapter of this document to get more information how to
 use this feature
 

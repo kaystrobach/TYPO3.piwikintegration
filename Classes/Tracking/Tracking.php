@@ -111,9 +111,9 @@ class Tracking
             //check wether siteid exists
             if ($numRows === 0) {
                 //if not -> create
-                //FIX currency for current Piwik version, since 0.6.3
+                //FIX currency for current Matomo version, since 0.6.3
                 // $currency = Piwik_GetOption('SitesManager_DefaultCurrency') ? Piwik_GetOption('SitesManager_DefaultCurrency') : 'USD';
-                //FIX timezone for current Piwik version, since 0.6.3
+                //FIX timezone for current Matomo version, since 0.6.3
                 // $timezone = Piwik_GetOption('SitesManager_DefaultTimezone') ? Piwik_GetOption('SitesManager_DefaultTimezone') : 'UTC';
 
                 $GLOBALS['TYPO3_DB']->exec_INSERTquery(

@@ -52,5 +52,5 @@ There are 2 possible solutions
 #. Manually unpack the archive into typo3conf/piwik
 
 #. Make a list of installed plugins and settings, delete the
-   typo3conf/piwik directory, make a clean install and reconfigure Piwik
+   typo3conf/piwik directory, make a clean install and reconfigure Matomo
 

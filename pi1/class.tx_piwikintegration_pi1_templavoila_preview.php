@@ -62,7 +62,7 @@ class tx_piwikintegration_pi1_templavoila_preview
     public function renderPreviewContent_preProcess($row, $table, &$alreadyRendered, &$reference)
     {
         if (($row['CType'] == 'list') && ($row['list_type'] == 'piwikintegration_pi1')) {
-            $content = '<strong>Piwik in FE</strong>';
+            $content = '<strong>Matomo in FE</strong>';
             $content = $reference->link_edit($content, $table, $row['uid']);
             $piFlexForm = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($row['pi_flexform']);
             foreach ($piFlexForm['data'] as $sheet => $data) {

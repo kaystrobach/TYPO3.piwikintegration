@@ -194,7 +194,7 @@ class Auth implements \Piwik\Auth
      * Returns the secret used to calculate a user's token auth.
      *
      * A users token auth is generated using the user's login and this secret. The secret
-     * should be specific to the user and not easily guessed. Piwik's default Auth implementation
+     * should be specific to the user and not easily guessed. Matomo's default Auth implementation
      * uses a hash of a user's password.
      *
      * @throws Exception if the token auth secret does not exist or cannot be obtained.

@@ -10,16 +10,16 @@
 .. _adding-piwik-plugins:
 
 Adding Matomo plugins
-^^^^^^^^°^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
 
-Adding pluging to Piwik is as easy as extracting zip files to the
+Adding pluging to Matomo is as easy as extracting zip files to the
 plugins folder in the folder typo3conf/piwik/piwik.
 
 I suggest to install EXT:t3extplorer and use the upload vie URL
 functionality of this extensions as here it is also possible to
 extract the files directly on the server.
 
-Usefull plugins for Piwik:
+Useful plugins for Matomo:
 
 - AnonymizeIP for shortening Ip'sincluded
 

@@ -6,7 +6,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="be_users.tx_piwikintegration_api_code">Piwik API Code</label>
+			<label index="be_users.tx_piwikintegration_api_code">Matomo API Code</label>
 		</languageKey>
 	</data>
 </T3locallang>

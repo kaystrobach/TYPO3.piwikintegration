@@ -12,7 +12,7 @@
 Supported languages for BE module
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Currently the Piwik integration BE module supports the following
+Currently the Matomo integration BE module supports the following
 languages. You can translate this extension yourself via normal TYPO3
 translation system (II-XML translation). Please provide your
 translations to the EXT:piwikintegration developer team.
@@ -21,7 +21,7 @@ translations to the EXT:piwikintegration developer team.
 
 - German
 
-To get the full list of available languages for the original Piwik
+To get the full list of available languages for the original Matomo
 application, please look into the official Matomo blog at
 `https://matomo.org/translations/ <https://matomo.org/translations/>`_ .
 

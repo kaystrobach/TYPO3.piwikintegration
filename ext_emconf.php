@@ -11,8 +11,8 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = [
-    'title'            => 'Piwik Backend integration',
-    'description'      => 'Uses EXT:piwik to inserts Data in the HTML header and gives BE-Users the right to see the data for their sites. Autoupdate of Piwik will work as TYPO3-Admin!',
+    'title'            => 'Matomo Backend integration',
+    'description'      => 'Uses EXT:piwik to inserts Data in the HTML header and gives BE-Users the right to see the data for their sites. Autoupdate of Matomo will work as TYPO3-Admin!',
     'category'         => 'module',
     'version'          => '4.4.0',
     'module'           => 'mod1',

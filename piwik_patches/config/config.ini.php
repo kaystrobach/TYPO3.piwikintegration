@@ -1,5 +1,5 @@
 ; <?php exit; ?> DO NOT REMOVE THIS LINE
-; file automatically generated or modified by Piwik; you can manually override the default values in global.ini.php by redefining them in this file.
+; file automatically generated or modified by Matomo; you can manually override the default values in global.ini.php by redefining them in this file.
 [superuser]
 login = "497ee6d41df1a6e6bbcda59270ea4643"
 password = "02ee87cc26fce572e309a1a411be563d"
