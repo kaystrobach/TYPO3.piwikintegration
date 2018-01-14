@@ -119,7 +119,7 @@ class Auth implements \Piwik\Auth
                             'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
                             [$_REQUEST['token_auth']]
                 );
-            //print_r($beUserId);
+        //print_r($beUserId);
             //catch typo3 logins
         } elseif (array_key_exists('be_typo_user', $_COOKIE)) {
             $beUserCookie = $_COOKIE['be_typo_user'];
@@ -127,7 +127,7 @@ class Auth implements \Piwik\Auth
                             'SELECT ses_userid FROM '.$this->getTableName('be_sessions').' WHERE ses_id = ?',
                             [$beUserCookie]
                 );
-            //catch apikey logins
+        //catch apikey logins
         } elseif ($this->token_auth && $this->token_auth != 'anonymous') {
             $beUserId = \Piwik\Db::get()->fetchOne(
                         'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
