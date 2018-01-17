@@ -28,7 +28,7 @@ EXPERIMENTAL scheduler task [enableSchedulerTask]
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 This option installs a Scheduler task that speeds up rendering of
-Piwik, as the statistics are build before viewing them in the browser.
+Matomo, as the statistics are build before viewing them in the browser.
 See related chapter of this document to get more information how to
 use this feature
 
@@ -39,9 +39,9 @@ Debugging of scheduler task [enableSchedulerLoging]
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
 As described in the extension manager this flag enables detailed
-logging for the piwik cronjob in the sys\_log table.
+logging for the Matomo cronjob in the sys\_log table.
 
-Enable heavy logging for the piwik cronjob, should be off in
+Enable heavy logging for the Matomo cronjob, should be off in
 production environments as this can result in very large tables.
 Please use this function for debugging only.
 

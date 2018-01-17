@@ -5,7 +5,7 @@ namespace KayStrobach\Piwikintegration\Controller;
 /**
  * Class Tx_Piwikintegration_Controller_PiwikInstallationController.
  *
- * controller to run the installation of piwik in several seperated steps to avoid timeouts
+ * controller to run the installation of Matomo in several seperated steps to avoid timeouts
  */
 class PiwikInstallationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {

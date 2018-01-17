@@ -70,7 +70,7 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * checks the piwik environment.
+     * checks the Matomo environment.
      *
      * @throws Exception
      *
@@ -78,13 +78,13 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected function checkPiwikEnvironment()
     {
-        // check if piwik is installed
+        // check if Matomo is installed
         if (!\KayStrobach\Piwikintegration\Lib\Install::getInstaller()->checkInstallation()) {
             \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->installPiwik();
             if (\KayStrobach\Piwikintegration\Lib\Install::getInstaller()->checkInstallation()) {
                 $this->addFlashMessage(
-                    'Piwik installed',
-                    'Piwik is now installed / upgraded, wait a moment, reload the page ;) <meta http-equiv="refresh" content="2; URL=mod.php?M=web_txpiwikintegrationM1&uid='.$this->id.'#reload">',
+                    'Matomo installed',
+                    'Matomo is now installed / upgraded, wait a moment, reload the page ;) <meta http-equiv="refresh" content="2; URL=mod.php?M=web_txpiwikintegrationM1&uid='.$this->id.'#reload">',
                     \TYPO3\CMS\Core\Messaging\FlashMessage::OK
                 );
             }
@@ -115,7 +115,7 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         // check whether piwik_host is correct
         if (($t['piwik_host'] !== 'typo3conf/piwik/piwik/') && ($t['piwik_host'] !== '/typo3conf/piwik/piwik/')) {
             $this->addFlashMessage(
-                'Piwik host is not set correctly',
+                'Matomo host is not set correctly',
                 '',
                 \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
             );

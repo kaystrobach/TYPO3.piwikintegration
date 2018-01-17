@@ -29,7 +29,7 @@ namespace KayStrobach\Piwikintegration\Lib;
 ***************************************************************/
 
 /**
- * div functions to handle piwik stuff.
+ * div functions to handle Matomo stuff.
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
@@ -60,7 +60,7 @@ class Div
     }
 
     /**
-     * @param string $table Piwik tablename without prefix
+     * @param string $table Matomo tablename without prefix
      *
      * @return string Name of the table prefixed with database
      */
@@ -77,7 +77,7 @@ class Div
     }
 
     /**
-     * @param  $table string piwik tablename without prefix
+     * @param  $table string Matomo tablename without prefix
      *
      * @return string name of the table prefixed with database
      */
@@ -87,14 +87,14 @@ class Div
     }
 
     /**
-     * returns the piwik config for a given page
+     * returns the Matomo config for a given page
      * call it with $this->pageinfo['uid'] as param from a backend module.
      *
      * @param int $uid Page ID
      *
      * @throws \Exception
      *
-     * @return array piwik config array
+     * @return array Matomo config array
      */
     public function getPiwikConfigArray($uid = 0)
     {
@@ -134,12 +134,12 @@ class Div
     }
 
     /**
-     * returns the piwik site id for a given page
+     * returns the Matomo site id for a given page
      * call it with $this->pageinfo['uid'] as param from a backend module.
      *
      * @param int $uid: Page ID
      *
-     * @return int piwik site id
+     * @return int Matomo site id
      */
     public function getPiwikSiteIdForPid($uid)
     {
@@ -150,20 +150,20 @@ class Div
         } else {
             $id = 0;
         }
-        //check wether site already exists in piwik db
+        //check wether site already exists in Matomo db
         $this->makePiwikSiteExisting($id);
         //return
         return $id;
     }
 
     /**
-     * creates piwik site, if not existing.
+     * creates Matomo site, if not existing.
      *
      * @param $id
      *
-     * @internal param int $siteid : Piwik ID
+     * @internal param int $siteid : Matomo ID
      *
-     * @return int piwik site id
+     * @return int Matomo site id
      */
     public function makePiwikSiteExisting($id)
     {
@@ -177,9 +177,9 @@ class Div
                 '0,1'
             );
             if (count($erg) == 0) {
-                //FIX currency for current Piwik version, since 0.6.3
+                //FIX currency for current Matomo version, since 0.6.3
                 $currency = \Piwik\Option::get('SitesManager_DefaultCurrency') ? \Piwik\Option::get('SitesManager_DefaultCurrency') : 'USD';
-                //FIX timezone for current Piwik version, since 0.6.3
+                //FIX timezone for current Matomo version, since 0.6.3
                 $timezone = \Piwik\Option::get('SitesManager_DefaultTimezone') ? \Piwik\Option::get('SitesManager_DefaultTimezone') : 'UTC';
 
                 $GLOBALS['TYPO3_DB']->exec_INSERTquery(

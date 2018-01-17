@@ -29,7 +29,7 @@ namespace KayStrobach\Piwikintegration\Lib;
 ***************************************************************/
 
 /**
- * interact with Piwik core after download and unzip.
+ * interact with Matomo core after download and unzip.
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
@@ -69,7 +69,7 @@ class Config
             return;
         }
 
-        //load files from piwik
+        //load files from Matomo
         if (!defined('PIWIK_INCLUDE_PATH')) {
             define('PIWIK_INCLUDE_PATH', PATH_site.'typo3conf/piwik/piwik/');
             define('PIWIK_USER_PATH', PATH_site.'typo3conf/piwik/piwik/');
@@ -151,7 +151,7 @@ class Config
         $this->setOption('General', 'serve_widget_and_data', 0);
         $this->setOption('General', 'piwik_professional_support_ads_enabled', 0);
 
-        //Disable the frame detection of Piwik
+        //Disable the frame detection of Matomo
         $this->setOption('General', 'enable_framed_pages', 1);
         $this->setOption('General', 'enable_framed_logins', 1);
         $this->setOption('General', 'enable_framed_settings', 1);
@@ -172,7 +172,7 @@ class Config
         $this->disablePlugin('ProfessionalServices');
         $this->enableSuggestedPlugins();
 
-        //create PiwikTables, check wether base tables already exist
+        //create Matomo tables, check wether base tables already exist
         $this->installDatabase();
     }
 
@@ -223,7 +223,7 @@ class Config
     }
 
     /**
-     * inits the Piwik DB.
+     * inits the Matomo DB.
      *
      * @return void
      */
@@ -235,7 +235,7 @@ class Config
             \Piwik\DbHelper::createTables();
             \Piwik\DbHelper::createAnonymousUser();
             $updater = new \Piwik\Updater();
-            //set Piwikversion
+            //set Matomo version
             $updater->recordComponentSuccessfullyUpdated('core', \Piwik\Version::VERSION);
         }
     }

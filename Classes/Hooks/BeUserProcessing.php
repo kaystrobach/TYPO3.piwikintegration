@@ -11,7 +11,7 @@ class BeUserProcessing
 {
     /**
      * Process changes to a backendusers password to generate a new API key for
-     * piwik.
+     * Matomo.
      *
      * @return void
      */

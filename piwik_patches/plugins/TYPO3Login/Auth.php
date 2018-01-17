@@ -27,7 +27,7 @@ use Piwik\Piwik;
 use Piwik\Plugins\UsersManager\UsersManager;
 
 /**
- * Provide authentification service against TYPO3 for piwik.
+ * Provide authentification service against TYPO3 for Matomo.
  *
  * @author  Kay Strobach <typo3@kay-strobach.de>
  *
@@ -90,7 +90,7 @@ class Auth implements \Piwik\Auth
     public function authenticate()
     {
         /***********************************************************************
-         * authenticate against the piwik configuration file for emergency access or installer or cronjob!
+         * authenticate against the Matomo configuration file for emergency access or installer or cronjob!
          */
         $rootLogin = \Piwik\Config::getInstance()->superuser['login'];
         $rootPassword = \Piwik\Config::getInstance()->superuser['password'];
@@ -119,7 +119,7 @@ class Auth implements \Piwik\Auth
                             'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
                             [$_REQUEST['token_auth']]
                 );
-            //print_r($beUserId);
+        //print_r($beUserId);
             //catch typo3 logins
         } elseif (array_key_exists('be_typo_user', $_COOKIE)) {
             $beUserCookie = $_COOKIE['be_typo_user'];
@@ -127,7 +127,7 @@ class Auth implements \Piwik\Auth
                             'SELECT ses_userid FROM '.$this->getTableName('be_sessions').' WHERE ses_id = ?',
                             [$beUserCookie]
                 );
-            //catch apikey logins
+        //catch apikey logins
         } elseif ($this->token_auth && $this->token_auth != 'anonymous') {
             $beUserId = \Piwik\Db::get()->fetchOne(
                         'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
@@ -194,7 +194,7 @@ class Auth implements \Piwik\Auth
      * Returns the secret used to calculate a user's token auth.
      *
      * A users token auth is generated using the user's login and this secret. The secret
-     * should be specific to the user and not easily guessed. Piwik's default Auth implementation
+     * should be specific to the user and not easily guessed. Matomo's default Auth implementation
      * uses a hash of a user's password.
      *
      * @throws Exception if the token auth secret does not exist or cannot be obtained.

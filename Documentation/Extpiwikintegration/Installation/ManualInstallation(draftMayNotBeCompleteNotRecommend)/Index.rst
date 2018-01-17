@@ -15,7 +15,7 @@ Manual installation (draft may not be complete, not recommend)
 To integrate piwikintegration into your TYPO3 installation follow
 these steps:
 
-#. Install the extension via TER, piwik is not included!
+#. Install the extension via TER, Matomo is not included!
 
 #. Install and enable the EXT:piwik which is suggested, to get the
    Trackingcode automatically.You do not need to configure EXT:piwik it's
@@ -34,19 +34,19 @@ these steps:
 
 #. Install and enable the plugin EXT:piwikintegration.
 
-#. Copy Piwik in typo3conf/piwik/piwik so that the index.php is
+#. Copy Matomo in typo3conf/piwik/piwik so that the index.php is
    accessable via typo3conf/piwik/piwik/index.php
 
-#. Setup Piwik with the same database parameters as you use for your
+#. Setup Matomo with the same database parameters as you use for your
    TYPO3 installation. You need to set the prefix to
    “tx\_piwikintegration\_“ as this is required for EXT:piwikintegration.
 
 #. Open the statistik module, click on the page, or a subpage, where you
    have added the static template. The backendmodule should now recognize
-   that Piwik is correctly installed (by checking if the config file
+   that Matomo is correctly installed (by checking if the config file
    exists). This will show the overview page.
 
-#. Don't forget to install the TYPO3\* plugins in Piwik application (Web
+#. Don't forget to install the TYPO3\* plugins in Matomo application (Web
    -> Statistics -> Direct Statistics Access -> Admin -> Plugins),
    especially the TYPO3Auth plugin is mandatory for authentification
    against the TYPO3 session. If this works you can disable the Login

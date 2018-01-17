@@ -15,8 +15,8 @@ Screenshots
 
 .. _piwik-in-backend:
 
-Piwik in Backend
-""""""""""""""""
+Matomo in Backend
+"""""""""""""""""
 
 
 .. _module-without-the-skin-extension:
@@ -29,8 +29,8 @@ Module without the skin extension
 
 .. _module-with-piwik-skin-extension-typo3menu-default-in-automatic-installation:
 
-Module with Piwik skin extension TYPO3Menu (default in automatic installation)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Module with Matomo skin extension TYPO3Menu (default in automatic installation)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 |img-5|
 
@@ -45,8 +45,8 @@ EXT:templavoila with preview
 
 .. _piwik-wiget-in-typo3-frontend:
 
-Piwik wiget in TYPO3 frontend
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Matomo wiget in TYPO3 frontend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 |img-7|
 

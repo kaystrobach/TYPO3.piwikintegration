@@ -9,9 +9,9 @@
 
 .. _modifying-piwik-settings:
 
-Modifying Piwik settings
-^^^^^^^^^^^^^^^^^^^^^^^^
+Modifying Matomo settings
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Read the correspondng articles on piwik.org. You will find the
+Read the corresponding articles on matomo.org. You will find the
 configuration and all the needed files below typo3conf/piwik/piwik.
 

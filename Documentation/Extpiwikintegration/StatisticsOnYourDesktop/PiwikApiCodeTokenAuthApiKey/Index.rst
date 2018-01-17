@@ -9,8 +9,8 @@
 
 .. _piwik-api-code-token-auth-api-key:
 
-Piwik API Code / token\_auth / API Key
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Matomo API Code / token\_auth / API Key
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Is supported, please change the beuser password (either in Tools >
 Useror via the Usersettings).

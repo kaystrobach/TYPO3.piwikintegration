@@ -50,7 +50,7 @@ class Tracking
     }
 
     /**
-     * handler for non cached output processing to insert piwik tracking code
+     * handler for non cached output processing to insert Matomo tracking code
      * if in independent mode.
      *
      * @param $params
@@ -91,7 +91,7 @@ class Tracking
 
     /**
      * handler for cached output processing to assure that the siteid is created
-     * in piwik.
+     * in Matomo.
      *
      * @param pointer $$params:   passed params from the hook
      * @param pointer $reference: to the parent object
@@ -111,9 +111,9 @@ class Tracking
             //check wether siteid exists
             if ($numRows === 0) {
                 //if not -> create
-                //FIX currency for current Piwik version, since 0.6.3
+                //FIX currency for current Matomo version, since 0.6.3
                 // $currency = Piwik_GetOption('SitesManager_DefaultCurrency') ? Piwik_GetOption('SitesManager_DefaultCurrency') : 'USD';
-                //FIX timezone for current Piwik version, since 0.6.3
+                //FIX timezone for current Matomo version, since 0.6.3
                 // $timezone = Piwik_GetOption('SitesManager_DefaultTimezone') ? Piwik_GetOption('SitesManager_DefaultTimezone') : 'UTC';
 
                 $GLOBALS['TYPO3_DB']->exec_INSERTquery(
@@ -129,7 +129,7 @@ class Tracking
                 );
             } elseif ($numRows > 1) {
                 //more than once -> error
-                die('piwik idsite table is inconsistent, please contact server administrator');
+                die('Matomo idsite table is inconsistent, please contact server administrator');
             }
         }
     }
@@ -137,7 +137,7 @@ class Tracking
     /**
      * returns js trackingcode for a given idsite.
      *
-     * @param int $siteId: idsite of piwik
+     * @param int $siteId: idsite of Matomo
      *
      * @return string trackingcode
      * @return string

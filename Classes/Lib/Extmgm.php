@@ -43,7 +43,7 @@ class Extmgm
     public function emMakeDBList($params)
     {
         if (!\KayStrobach\Piwikintegration\Lib\Install::getInstaller()->checkInstallation()) {
-            return 'Piwik is not installed yet ;) - option is unavailable';
+            return 'Matomo is not installed yet ;) - option is unavailable';
         }
         /* Pull the current fieldname and value from constants */
         $fieldName = $params['fieldName'];
@@ -75,11 +75,11 @@ class Extmgm
         if ($par['extKey'] == 'piwikintegration' && \TYPO3\CMS\Core\Utility\GeneralUtility::_POST('submit')) {
             $newconf = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
             $newconf = $newconf['data'];
-            //init piwik to get table prefix
+            //init Matomo to get table prefix
             //$this->initPiwik();
 
             if (!\KayStrobach\Piwikintegration\Lib\Install::getInstaller()->checkInstallation()) {
-                return 'Problem moving database, Piwik is not installed ...';
+                return 'Problem moving database, Matomo is not installed ...';
             }
 
             $old_database = Install::getInstaller()->getConfigObject()->getOption('database', 'dbname');

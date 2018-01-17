@@ -16,7 +16,7 @@ Extension Key: piwikintegration
 
 Language: en
 
-Keywords: piwik integration statistics
+Keywords: Matomo integration statistics
 
 Copyright 2000-2010, Kay Strobach, <typo3@kay-strobach.de>
 
