@@ -1,15 +1,19 @@
 language: php
 
 php:
-  - 5.6
   - 7
   - 7.1
+  - 7.2
 
 matrix:
   exclude:
-    - php: 5.6
-      env: TYPO3_VERSION="^8.7.0"
-    - php: 5.6
+    - php: 7
+      env: TYPO3_VERSION="^9.5.0"
+    - php: 7.1
+      env: TYPO3_VERSION="^9.5.0"
+    - php: 7
+      env: TYPO3_VERSION="dev-master"
+    - php: 7.1
       env: TYPO3_VERSION="dev-master"
 
 sudo: false
@@ -23,8 +27,8 @@ env:
   global:
     - EXTENSIONKEY=piwikintegration
   matrix:
-    - TYPO3_VERSION="^7.6.0"
     - TYPO3_VERSION="^8.7.0"
+    - TYPO3_VERSION="^9.5.0"
     #- TYPO3_VERSION="dev-master"
 
 cache:
@@ -38,7 +42,7 @@ before_install:
 
 
 before_script:
-  - composer require typo3/cms="$TYPO3_VERSION"
+  - composer require typo3/minimal="$TYPO3_VERSION"
   # Restore composer.json
   - git checkout composer.json
   - export TYPO3_PATH_WEB=$PWD/.Build/Web

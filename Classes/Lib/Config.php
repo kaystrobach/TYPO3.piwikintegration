@@ -132,17 +132,14 @@ class Config
         $this->setOption('superuser', 'email', $GLOBALS['BE_USER']->user['email']);
 
         //Database
-        $hostAndPort = explode(':', TYPO3_db_host);
-        if (count($hostAndPort) == 2) {
-            $this->setOption('database', 'host', $hostAndPort[0]);
-            $this->setOption('database', 'port', $hostAndPort[1]);
-        } else {
-            $this->setOption('database', 'host', TYPO3_db_host);
+        $this->setOption('database', 'host', $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host']);
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['port'])) {
+            $this->setOption('database', 'port', $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['port']);
         }
 
-        $this->setOption('database', 'username', TYPO3_db_username);
-        $this->setOption('database', 'password', TYPO3_db_password);
-        $this->setOption('database', 'dbname', TYPO3_db);
+        $this->setOption('database', 'username', $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['user']);
+        $this->setOption('database', 'password', $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password']);
+        $this->setOption('database', 'dbname', $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname']);
         $this->setOption('database', 'tables_prefix', 'user_piwikintegration_');
         $this->setOption('database', 'adapter', 'PDO_MYSQL');
 
