@@ -28,6 +28,8 @@ namespace KayStrobach\Piwikintegration\Lib;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+use TYPO3\CMS\Core\Core\Environment;
+
 /**
  * interact with Matomo core after download and unzip.
  *
@@ -71,8 +73,8 @@ class Config
 
         //load files from Matomo
         if (!defined('PIWIK_INCLUDE_PATH')) {
-            define('PIWIK_INCLUDE_PATH', PATH_site.'typo3conf/piwik/piwik/');
-            define('PIWIK_USER_PATH', PATH_site.'typo3conf/piwik/piwik/');
+            define('PIWIK_INCLUDE_PATH', Environment::getPublicPath().'/typo3conf/piwik/piwik/');
+            define('PIWIK_USER_PATH', Environment::getPublicPath().'/typo3conf/piwik/piwik/');
         }
         if (!defined('PIWIK_INCLUDE_SEARCH_PATH')) {
             define('PIWIK_INCLUDE_SEARCH_PATH',

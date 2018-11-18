@@ -28,6 +28,8 @@ namespace KayStrobach\Piwikintegration\Lib;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+use TYPO3\CMS\Core\Core\Environment;
+
 /**
  * Handles the first steps of install and returns config object for next steps.
  *
@@ -187,8 +189,8 @@ class Install
     private function extractDownloadedPiwik($zipArchivePath = '')
     {
         //make dir for extraction
-        \TYPO3\CMS\Core\Utility\GeneralUtility::mkdir_deep(PATH_site, $this->installPath);
-        if (!is_writable(PATH_site.$this->installPath)) {
+        \TYPO3\CMS\Core\Utility\GeneralUtility::mkdir_deep(Environment::getPublicPath().'/', $this->installPath);
+        if (!is_writable(Environment::getPublicPath().'/'.$this->installPath)) {
             throw new \Exception($this->installPath.' must be writeable');
         }
 
@@ -206,17 +208,7 @@ class Install
                 exec($cmd);
                 break;
             case 'zlib':
-                try {
-                    //up to 4.4.4
-                    $emUnzipFile = PATH_typo3.'/mod/tools/em/class.em_unzip.php';
-                    if (file_exists($emUnzipFile)) {
-                        require_once $emUnzipFile;
-                    }
-                    $zlibObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('em_unzip', $zipArchivePath);
-                } catch (\Exception $e) {
-                    //from 4.5.0b2
-                    $zlibObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_em_Tools_Unzip', $zipArchivePath);
-                }
+                $zlibObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_em_Tools_Unzip', $zipArchivePath);
                 $zlibObj->extract([
                     'add_path' => $this->getAbsInstallPath(),
                 ]);
