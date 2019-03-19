@@ -28,6 +28,9 @@ namespace KayStrobach\Piwikintegration\Lib;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * functions for the extmgm render forms and react on changes.
  *
@@ -128,6 +131,10 @@ class Extmgm
             \TYPO3\CMS\Core\Messaging\FlashMessage::INFO
         );
 
-        return $flashMessage->render();
+        $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+        $defaultFlashMessageQueue = $flashMessageService->getMessageQueueByIdentifier();
+        $defaultFlashMessageQueue->enqueue($flashMessage);
+
+        return $defaultFlashMessageQueue->renderFlashMessages();
     }
 }
