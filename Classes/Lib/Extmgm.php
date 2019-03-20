@@ -53,7 +53,7 @@ class Extmgm
         $fieldValue = $params['fieldValue'];
         $dbs = $GLOBALS['TYPO3_DB']->admin_get_dbs();
         $buffer = '<select name="'.$fieldName.'">';
-        $buffer .= '<option value="'.TYPO3_db.'">---TYPO3DB---</option>';
+        $buffer .= '<option value="'.$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'].'">---TYPO3DB---</option>';
         foreach ($dbs as $db) {
             $buffer .= '<option value="'.htmlspecialchars($db).'"';
             if ($db == $fieldValue) {
@@ -92,7 +92,7 @@ class Extmgm
             if ($old_database !== $new_database) {
                 //create shortVars
                 if ($new_database == '') {
-                    $new_database = TYPO3_db;
+                    $new_database = $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'];
                 }
                 //get tablenames and rename tables
                 $suffix = '';
@@ -111,7 +111,7 @@ class Extmgm
                 $conf = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject();
                 $conf->setOption('database', 'tables_prefix', 'tx_piwikintegration_');
                 $conf->setOption('database', 'dbname', $newconf['databaseTablePrefix']);
-                $conf->setOption('database', 't3dbname', TYPO3_db);
+                $conf->setOption('database', 't3dbname', $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname']);
             }
         }
     }
