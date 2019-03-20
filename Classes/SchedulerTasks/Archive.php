@@ -37,8 +37,8 @@ namespace KayStrobach\Piwikintegration\SchedulerTask;
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 class Archive extends AbstractTask
