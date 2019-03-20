@@ -29,6 +29,8 @@ namespace KayStrobach\Piwikintegration\Lib;
 ***************************************************************/
 
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 
 /**
  * Handles the first steps of install and returns config object for next steps.
@@ -155,7 +157,7 @@ class Install
     private function downloadLatestPiwik()
     {
         // tell installer where to grab Matomo
-        $settings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['piwikintegration']);
+        $settings = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('piwikintegration');
         if (array_key_exists('piwikDownloadSource', $settings) && $settings['piwikDownloadSource'] != '') {
             $downloadSource = $settings['piwikDownloadSource'];
         } else {
