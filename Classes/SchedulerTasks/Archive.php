@@ -37,6 +37,8 @@ namespace KayStrobach\Piwikintegration\SchedulerTask;
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 class Archive extends AbstractTask
@@ -146,7 +148,7 @@ class Archive extends AbstractTask
         if (!array_key_exists('REMOTE_ADDR', $_SERVER)) {
             $_SERVER['REMOTE_ADDR'] = 'local CLI';
         }
-        $conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['piwikintegration']);
+        $conf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('piwikintegration');
         if ($conf['enableSchedulerLogging']) {
             $GLOBALS['BE_USER']->writeLog(
                 // extension | no categorie | message | messagenumber
