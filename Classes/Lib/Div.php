@@ -109,9 +109,8 @@ class Div
         }
         //parse ts template
         $template_uid = 0;
-        $tmpl = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\TypoScript\\ExtendedTemplateService');    // Defined global here!
-            $tmpl->tt_track = 0;    // Do not log time-performance information
-            $tmpl->__construct();   // Anyway...
+        $tmpl = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\ExtendedTemplateService::class);    // Defined global here!
+        $tmpl->tt_track = 0;    // Do not log time-performance information
 
         $tplRow = $tmpl->ext_getFirstTemplate($uid, $template_uid);
         if (is_array($tplRow) || 1) {    // IF there was a template...
