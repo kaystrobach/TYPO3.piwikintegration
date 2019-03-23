@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2015 Christopher Stelmaszyk
+*  (c) 2015-2019 Christopher Stelmaszyk
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,7 +27,9 @@
 
 namespace Piwik\Plugins\TYPO3Login;
 
+use Piwik\Menu\MenuAdmin;
 use Piwik\Menu\MenuTop;
+use Piwik\Piwik;
 
 class Menu extends \Piwik\Plugin\Menu
 {
@@ -35,5 +37,14 @@ class Menu extends \Piwik\Plugin\Menu
     {
         // Remove logout link from top menu
         $menu->remove('General_Logout');
+    }
+
+    public function configureAdminMenu(MenuAdmin $menu)
+    {
+        if (\Piwik\Plugin\Manager::getInstance()->isPluginActivated('Login')) {
+            if (Piwik::hasUserSuperUserAccess()) {
+                $menu->addDiagnosticItem('Login_BruteForceLog', $this->urlForAction('bruteForceLog'), $orderId = 30);
+            }
+        }
     }
 }

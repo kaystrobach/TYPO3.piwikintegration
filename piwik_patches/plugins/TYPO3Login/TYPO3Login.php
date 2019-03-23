@@ -56,7 +56,7 @@ class TYPO3Login extends \Piwik\Plugin
     /**
      * returns registered hooks.
      *
-     * @see Piwik\Plugin::registerEvents
+     * @see \Piwik\Plugin::registerEvents
      *
      * @return array array of hooks
      */

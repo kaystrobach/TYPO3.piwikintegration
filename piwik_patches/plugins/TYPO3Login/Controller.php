@@ -43,7 +43,7 @@ namespace Piwik\Plugins\TYPO3Login;
  *
  * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  */
-class Controller extends \Piwik\Plugins\Login\Controller
+class Controller extends \Piwik\Plugins\Login\ControllerAdmin
 {
     /**
      * redirect to dashboard as we have no view.
