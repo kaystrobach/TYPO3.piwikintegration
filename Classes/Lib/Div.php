@@ -28,6 +28,9 @@ namespace KayStrobach\Piwikintegration\Lib;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * div functions to handle Matomo stuff.
  *
@@ -62,7 +65,26 @@ class Div
     /**
      * @param string $table Matomo tablename without prefix
      *
+     * @return string Name of the table with table prefix and prefixed with database
+     */
+    public static function getDBandTableName($table = '')
+    {
+        \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->initPiwikFrameWork();
+        $database = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->getDBName();
+        $tablePrefix = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->getTablePrefix();
+        if ($database != '') {
+            $database = $database.'.';
+        }
+
+        return $database.$tablePrefix.$table;
+    }
+
+    /**
+     * @param string $table Matomo tablename without prefix
+     *
      * @return string Name of the table prefixed with database
+     *
+     * @deprecated Will be removed soon, use getDBandTableName() instead.
      */
     public static function getTblName($table = '')
     {
@@ -165,14 +187,17 @@ class Div
     public function makePiwikSiteExisting($id)
     {
         if ($id !== 0) {
-            $erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-                '*',
-                self::getTblName('site'),
-                'idsite = '.intval($id),
-                '',
-                '',
-                '0,1'
-            );
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getQueryBuilderForTable($this->getDBandTableName('site'));
+            $erg = $queryBuilder
+                    ->select('*')
+                    ->from($this->getDBandTableName('site'))
+                    ->where(
+                        $queryBuilder->expr()->eq('idsite', (int) $id)
+                    )
+                    ->setMaxResults(1)
+                    ->execute()
+                    ->fetchAll();
             if (count($erg) == 0) {
                 //FIX currency for current Matomo version, since 0.6.3
                 $currency = \Piwik\Option::get('SitesManager_DefaultCurrency') ? \Piwik\Option::get('SitesManager_DefaultCurrency') : 'USD';
@@ -226,14 +251,17 @@ class Div
          * tx_piwikintegration_user
          */
 
-        $erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-            '*',
-            $this->tblNm('user'),
-            'login="'.$beUserName.'"',
-            '',
-            '',
-            '0,1'
-            );
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable($this->getDBandTableName('user'));
+        $erg = $queryBuilder
+                ->select('*')
+                ->from($this->getDBandTableName('user'))
+                ->where(
+                    $queryBuilder->expr()->eq('login', $queryBuilder->createNamedParameter($beUserName))
+                )
+                ->setMaxResults(1)
+                ->execute()
+                ->fetchAll();
         if ($GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'] === '' || $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'] === null) {
             $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'] = md5(microtime(true));
             $GLOBALS['TYPO3_DB']->exec_Updatequery(
@@ -274,14 +302,20 @@ class Div
          * tx_piwikintegration_access
          */
         if ($GLOBALS['BE_USER']->user['admin'] != 1) {
-            $erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-                    '*',
-                    $this->tblNm('access'),
-                    'login="'.$beUserName.'" AND idsite='.$uid,
-                    '',
-                    '',
-                    '0,1'
-            );
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getQueryBuilderForTable($this->getDBandTableName('access'));
+            $erg = $queryBuilder
+                    ->select('*')
+                    ->from($this->getDBandTableName('access'))
+                    ->where(
+                        $queryBuilder->expr()->eq('login', $queryBuilder->createNamedParameter($beUserName))
+                    )
+                    ->andWhere(
+                        $queryBuilder->expr()->eq('idsite', (int) $uid)
+                    )
+                    ->setMaxResults(1)
+                    ->execute()
+                    ->fetchAll();
             if (count($erg) == 0) {
                 $GLOBALS['TYPO3_DB']->exec_INSERTquery(
                     $this->tblNm('access'),

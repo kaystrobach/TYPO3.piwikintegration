@@ -24,6 +24,10 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * pi1/tx_piwikintegration_flexform.
  *
@@ -46,11 +50,15 @@ class tx_piwikintegration_flexform
     {
         $this->init();
         //fetch anonymous accessable idsites
-        $erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-            'idsite',
-            \KayStrobach\Piwikintegration\Lib\Div::getTblName('access'),
-            'login="anonymous"'
-        );
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('access'));
+        $erg = $queryBuilder
+            ->select('idsite')
+            ->from(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('access'))
+            ->where(
+                $queryBuilder->expr()->eq('login', $queryBuilder->createNamedParameter('anonymous'))
+            )
+            ->execute()
+            ->fetchAll();
 
         //build array for selecting more information
         $sites = [];

@@ -2,6 +2,9 @@
 
 namespace KayStrobach\Piwikintegration\Hooks;
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Class tx_piwikintegration_Hooks_BeUserProcessing.
  *
@@ -19,11 +22,16 @@ class BeUserProcessing
     {
         if ($table == 'be_users') {
             if (array_key_exists('password', $status)) {
-                $users = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-                    'username,pid',
-                    'be_users',
-                    'uid='.intval($id)
-                );
+                $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                    ->getQueryBuilderForTable('be_users');
+                $users = $queryBuilder
+                    ->select('username', 'pid')
+                    ->from('be_users')
+                    ->where(
+                        $queryBuilder->expr()->eq('uid', (int) $id)
+                    )
+                    ->execute()
+                    ->fetchAll();
                 $username = $users[0]['username'];
                 $status['tx_piwikintegration_api_code'] = md5($username.$status['password']);
             }
