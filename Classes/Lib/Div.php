@@ -59,10 +59,28 @@ class Div
         }
     }
 
+   /**
+     * @param string $table Matomo tablename without prefix
+     *
+     * @return string Name of the table with table prefix and prefixed with database
+     */
+    public static function getDBandTableName($table = '')
+    {
+        \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->initPiwikFrameWork();
+        $database = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->getDBName();
+        $tablePrefix = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->getTablePrefix();
+        if ($database != '') {
+            $database = $database.'.';
+        }
+
+        return $database.$tablePrefix.$table;
+    }
+
     /**
      * @param string $table Matomo tablename without prefix
      *
      * @return string Name of the table prefixed with database
+     * @deprecated Will be removed soon, use getDBandTableName() instead.
      */
     public static function getTblName($table = '')
     {
