@@ -62,7 +62,7 @@ class Div
         }
     }
 
-   /**
+    /**
      * @param string $table Matomo tablename without prefix
      *
      * @return string Name of the table with table prefix and prefixed with database
@@ -83,6 +83,7 @@ class Div
      * @param string $table Matomo tablename without prefix
      *
      * @return string Name of the table prefixed with database
+     *
      * @deprecated Will be removed soon, use getDBandTableName() instead.
      */
     public static function getTblName($table = '')
@@ -192,7 +193,7 @@ class Div
                     ->select('*')
                     ->from($this->getDBandTableName('site'))
                     ->where(
-                        $queryBuilder->expr()->eq('idsite', (int)$id)
+                        $queryBuilder->expr()->eq('idsite', (int) $id)
                     )
                     ->setMaxResults(1)
                     ->execute()
@@ -310,7 +311,7 @@ class Div
                         $queryBuilder->expr()->eq('login', $queryBuilder->createNamedParameter($beUserName))
                     )
                     ->andWhere(
-                        $queryBuilder->expr()->eq('idsite', (int)$uid)
+                        $queryBuilder->expr()->eq('idsite', (int) $uid)
                     )
                     ->setMaxResults(1)
                     ->execute()
