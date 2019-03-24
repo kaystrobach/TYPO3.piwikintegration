@@ -278,14 +278,16 @@ class Config
                     ->execute()
                     ->fetchAll();
             if (count($erg) === 0) {
-                $GLOBALS['TYPO3_DB']->exec_INSERTquery(
-                    \KayStrobach\Piwikintegration\Lib\Div::getTblName('access'),
-                    [
+                $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                    ->getConnectionForTable(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('access'))->createQueryBuilder();
+                $queryBuilder
+                    ->insert(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('access'))
+                    ->values([
                         'login'  => $beUserName,
                         'idsite' => $this->getPiwikSiteIdForPid($uid),
                         'access' => 'view',
-                    ]
-                );
+                    ])
+                    ->execute();
             }
         }
     }
