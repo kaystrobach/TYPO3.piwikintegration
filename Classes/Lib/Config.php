@@ -29,6 +29,8 @@ namespace KayStrobach\Piwikintegration\Lib;
 ***************************************************************/
 
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * interact with Matomo core after download and unzip.
@@ -261,14 +263,20 @@ class Config
          * tx_piwikintegration_access
          */
         if ($GLOBALS['BE_USER']->user['admin'] != 1) {
-            $erg = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-                    '*',
-                    \KayStrobach\Piwikintegration\Lib\Div::getTblName('access'),
-                    'login="'.$beUserName.'" AND idsite='.$this->getPiwikSiteIdForPid($uid),
-                    '',
-                    '',
-                    '0,1'
-            );
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getQueryBuilderForTable(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('access'));
+            $erg = $queryBuilder
+                    ->select('*')
+                    ->from(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('access'))
+                    ->where(
+                        $queryBuilder->expr()->eq('login', $queryBuilder->createNamedParameter($beUserName))
+                    )
+                    ->andWhere(
+                        $queryBuilder->expr()->eq('idsite', (int) $this->getPiwikSiteIdForPid($uid))
+                    )
+                    ->setMaxResults(1)
+                    ->execute()
+                    ->fetchAll();
             if (count($erg) === 0) {
                 $GLOBALS['TYPO3_DB']->exec_INSERTquery(
                     \KayStrobach\Piwikintegration\Lib\Div::getTblName('access'),
