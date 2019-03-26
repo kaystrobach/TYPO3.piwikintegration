@@ -4,7 +4,6 @@ stages:
   - dast
 
 include:
-  - local: '.gitlab/ci/pages.yaml'
   - template: Container-Scanning.gitlab-ci.yml
   - template: DAST.gitlab-ci.yml
   - template: Dependency-Scanning.gitlab-ci.yml
