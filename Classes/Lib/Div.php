@@ -52,13 +52,13 @@ class Div
             foreach ($page as $key => $value) {
                 $newName = str_replace('%'.$key.'%', $value, $newName);
             }
-            $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-                $this->tblNm('site'),
-                'idsite='.intval($siteid),
-                [
-                    'name' => $newName,
-                ]
-            );
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getConnectionForTable($this->getDBandTableName('site'))->createQueryBuilder();
+            $queryBuilder
+                ->update($this->getDBandTableName('site'))
+                ->where($queryBuilder->expr()->eq('idsite', intval($siteid)))
+                ->set('name', $newName)
+                ->execute();
         }
     }
 
@@ -264,13 +264,13 @@ class Div
                 ->fetchAll();
         if ($GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'] === '' || $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'] === null) {
             $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'] = md5(microtime(true));
-            $GLOBALS['TYPO3_DB']->exec_Updatequery(
-                'be_users',
-                'username = '.$GLOBALS['TYPO3_DB']->fullQuoteStr($beUserName, 'be_users').'',
-                [
-                    'tx_piwikintegration_api_code' => $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'],
-                ]
-            );
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getConnectionForTable('be_users')->createQueryBuilder();
+            $queryBuilder
+                ->update('be_users')
+                ->where($queryBuilder->expr()->eq('username', $queryBuilder->createNamedParameter($beUserName)))
+                ->set('tx_piwikintegration_api_code', $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'])
+                ->execute();
         }
 
         if (count($erg) != 1) {
@@ -286,16 +286,16 @@ class Div
                     ]
                 );
         } else {
-            $GLOBALS['TYPO3_DB']->exec_Updatequery(
-                    $this->tblNm('user'),
-                    'login = '.$GLOBALS['TYPO3_DB']->fullQuoteStr($beUserName, $this->tblNm('user')).'',
-                    [
-                        'alias'            => $GLOBALS['BE_USER']->user['realName'] ? $GLOBALS['BE_USER']->user['realName'] : $beUserName,
-                        'email'            => $GLOBALS['BE_USER']->user['email'],
-                        'token_auth'       => $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'],
-                        'superuser_access' => $GLOBALS['BE_USER']->user['admin'],
-                    ]
-                );
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getConnectionForTable($this->getDBandTableName('user'))->createQueryBuilder();
+            $queryBuilder
+                ->update($this->getDBandTableName('user'))
+                ->where($queryBuilder->expr()->eq('login', $queryBuilder->createNamedParameter($beUserName)))
+                ->set('alias', $GLOBALS['BE_USER']->user['realName'] ? $GLOBALS['BE_USER']->user['realName'] : $beUserName)
+                ->set('email', $GLOBALS['BE_USER']->user['email'])
+                ->set('token_auth', $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'])
+                ->set('superuser_access', $GLOBALS['BE_USER']->user['admin'])
+                ->execute();
         }
         /*
          * ensure, that user's right are added to the database
