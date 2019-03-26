@@ -51,7 +51,7 @@ class tx_piwikintegration_flexform
         $this->init();
         //fetch anonymous accessable idsites
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('access'));
-        $erg = $queryBuilder
+        $result = $queryBuilder
             ->select('idsite')
             ->from(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('access'))
             ->where(
