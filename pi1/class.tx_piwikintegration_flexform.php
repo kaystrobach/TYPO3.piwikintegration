@@ -62,13 +62,13 @@ class tx_piwikintegration_flexform
 
         //build array for selecting more information
         $sites = [];
-        foreach ($erg as $site) {
+        foreach ($result as $site) {
             $sites[] = $site['idsite'];
         }
         $accessableSites = implode(',', $sites);
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('site'))->createQueryBuilder();
-        $erg = $queryBuilder
+        $result = $queryBuilder
             ->select('idsite', 'name', 'main_url')
             ->from(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('site'))
             ->where(
@@ -79,7 +79,7 @@ class tx_piwikintegration_flexform
         $PA['items'] = [];
 
         //render items
-        while ($site = $erg->fetch()) {
+        while ($site = $result->fetch()) {
             $PA['items'][] = [
                 $site['idsite'].' : '.($site['name'] ? $site['name'].' : '.$site['main_url'] : $site['main_url']),
                 $site['idsite'],
