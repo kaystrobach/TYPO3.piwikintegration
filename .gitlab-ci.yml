@@ -1,0 +1,149 @@
+stages:
+  - build
+  - test
+  - dast
+
+include:
+  - local: '.gitlab/ci/pages.yaml'
+  - template: Container-Scanning.gitlab-ci.yml
+  - template: DAST.gitlab-ci.yml
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: License-Management.gitlab-ci.yml
+  - template: SAST.gitlab-ci.yml
+
+#--------------------------------------------------------------------------------
+# 0: Build
+#--------------------------------------------------------------------------------
+
+buildComposerDeps:
+  image: docker.kay-strobach.de/docker/php:7.1
+  stage: build
+  variables:
+    COMPOSER_CACHE_DIR: '.composer'
+  before_script:
+  - php -v
+  script:
+  - composer install --prefer-dist --no-progress --optimize-autoloader --no-dev
+  tags:
+  - docker
+  artifacts:
+    when: on_success
+    expire_in: 2 weeks
+    paths:
+    - Configuration/PackageStates.php
+    - Packages
+    - Web
+    - Build
+    - bin
+  cache:
+    paths:
+    - .composer
+#--------------------------------------------------------------------------------
+# 1: Stage test
+#--------------------------------------------------------------------------------
+phplint:
+  image: docker.kay-strobach.de/docker/php:7.1
+  stage: test
+  before_script:
+  - php -v
+  script:
+  - parallel-lint Classes --exclude "vendor"
+  tags:
+  - docker
+
+phpCPD:
+  image: docker.kay-strobach.de/docker/php:7.1
+  stage: test
+  before_script:
+  - php -v
+  script:
+  - phpcpd Classes
+  tags:
+  - docker
+  allow_failure: true
+
+phpCS:
+  image: docker.kay-strobach.de/docker/php:7.1
+  stage: test
+  script:
+  - phpcs --standard=PSR2 --colors $PHP_CS_FILTER --report=junit > junit.phpcs.xml || true
+  artifacts:
+    reports:
+      junit: "junit.phpcs.xml"
+  tags:
+  - docker
+
+phpMd:
+  image: docker.kay-strobach.de/docker/php:7.1
+  stage: test
+  script:
+  - phpmd Classes text codesize,unusedcode,design,cleancode,controversial --ignore-violations-on-exit --suffixes php
+  tags:
+  - docker
+  allow_failure: true
+
+phploc:
+  image: docker.kay-strobach.de/docker/php:7.1
+  stage: test
+  script:
+  - phploc --count-tests .
+  tags:
+  - docker
+
+.phpUnit/php-7.1:
+  image: docker.kay-strobach.de/docker/php:7.1
+  stage: test
+  script:
+  - composer install
+  - bin/phpunit --colors -c Build/PhpUnit/UnitTests.xml --log-junit junit.php71.xml
+  artifacts:
+    reports:
+      junit: "junit.php71.xml"
+  tags:
+  - docker
+  allow_failure: true
+
+.phpUnit/php-7.2:
+  image: docker.kay-strobach.de/docker/php:7.2
+  stage: test
+  script:
+  - composer install
+  - bin/phpunit --colors -c Build/PhpUnit/UnitTests.xml --log-junit junit.php72.xml
+  artifacts:
+    reports:
+      junit: "junit.php72.xml"
+  tags:
+  - docker
+  allow_failure: true
+
+.phpUnit/php-7.2-coverage-complete:
+  image: docker.kay-strobach.de/docker/php:7.1
+  stage: test
+  before_script:
+  - pecl channel-update pecl.php.net
+  - pecl install xdebug
+  - docker-php-ext-enable xdebug
+  script:
+  - composer install
+  - bin/phpunit --coverage-text --colors=never -c Build/PhpUnit/UnitTests.xml
+  tags:
+  - docker
+  allow_failure: true
+
+securityTest:
+  image: docker.kay-strobach.de/docker/php:7.2
+  stage: test
+  script:
+  - composer install
+  - bin/security-checker security:check
+  tags:
+  - docker
+  allow_failure: true
+
+.stylelint:
+  image: docker.kay-strobach.de/docker/stylelint:latest
+  stage: test
+  script:
+  - stylelint "Resources/Public/Stylesheets/*.css"
+  tags:
+  - docker
