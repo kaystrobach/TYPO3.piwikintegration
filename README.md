@@ -4,6 +4,8 @@
 
 ![Build Status](https://travis-ci.org/kaystrobach/TYPO3.piwikintegration.svg)
 [![StyleCI](https://styleci.io/repos/8537360/shield?branch=master)](https://styleci.io/repos/8537360)
+[![pipeline status](https://gitlab.com/kaystrobach/TYPO3.piwikintegration/badges/master/pipeline.svg)](https://gitlab.com/kaystrobach/TYPO3.piwikintegration/commits/master)
+[![coverage report](https://gitlab.com/kaystrobach/TYPO3.piwikintegration/badges/master/coverage.svg)](https://gitlab.com/kaystrobach/TYPO3.piwikintegration/commits/master)
 
 See why the build is currently failing, most of the issues are CGL things, will be fixed soon.
 
