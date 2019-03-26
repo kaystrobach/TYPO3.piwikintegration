@@ -28,6 +28,9 @@ namespace KayStrobach\Piwikintegration\Tracking;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * tools to get tracking code.
  *
@@ -102,12 +105,16 @@ class Tracking
     {
         $this->init($params, $reference);
         if ($this->extConf['piwik_idsite'] != 0) {
-            $erg = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-                '*',
-                \KayStrobach\Piwikintegration\Lib\Div::getTblName('site'),
-                'idsite='.intval($this->extConf['piwik_idsite'])
-            );
-            $numRows = $GLOBALS['TYPO3_DB']->sql_num_rows($erg);
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getConnectionForTable(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('site'))->createQueryBuilder();
+            $numRows = $queryBuilder
+                ->count('idsite')
+                ->from(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('site'))
+                ->where(
+                    $queryBuilder->expr()->eq('idsite', $queryBuilder->createNamedParameter($this->extConf['piwik_idsite'], \PDO::PARAM_INT))
+                )
+                ->execute()
+                ->fetchColumn(0);
             //check wether siteid exists
             if ($numRows === 0) {
                 //if not -> create

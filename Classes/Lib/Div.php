@@ -80,35 +80,6 @@ class Div
     }
 
     /**
-     * @param string $table Matomo tablename without prefix
-     *
-     * @return string Name of the table prefixed with database
-     *
-     * @deprecated Will be removed soon, use getDBandTableName() instead.
-     */
-    public static function getTblName($table = '')
-    {
-        \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->initPiwikFrameWork();
-        $database = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->getDBName();
-        $tablePrefix = \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->getTablePrefix();
-        if ($database != '') {
-            $database = '`'.$database.'`.';
-        }
-
-        return $database.'`'.$tablePrefix.$table.'`';
-    }
-
-    /**
-     * @param  $table string Matomo tablename without prefix
-     *
-     * @return string name of the table prefixed with database
-     */
-    public function tblNm($table)
-    {
-        return self::getTblName($table);
-    }
-
-    /**
      * returns the Matomo config for a given page
      * call it with $this->pageinfo['uid'] as param from a backend module.
      *
