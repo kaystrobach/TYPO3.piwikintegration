@@ -156,8 +156,6 @@ checkDeprecations:
     - curl -L $SCANNER_RELEASE --output typo3scan.phar
     - php ./typo3scan.phar
     - mkdir -p Build/Report/Deprecations
-    - for d in web/typo3conf/ext/*/ ; do (php ./typo3scan.phar scan --target 7 --format markdown $d > Build/Report/Deprecations/v7-$(basename $d).md); done
-    - for d in web/typo3conf/ext/*/ ; do (php ./typo3scan.phar scan --target 8 --format markdown $d > Build/Report/Deprecations/v8-$(basename $d).md); done
     - for d in web/typo3conf/ext/*/ ; do (php ./typo3scan.phar scan --target 9 --format markdown $d > Build/Report/Deprecations/v9-$(basename $d).md); done
     - php ./typo3scan.phar scan --target 8 --format junit web/typo3conf/ext/ > Build/Report/Deprecations/junit.xml
   artifacts:
