@@ -66,17 +66,20 @@ class tx_piwikintegration_flexform
             $sites[] = $site['idsite'];
         }
         $accessableSites = implode(',', $sites);
-        $erg = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-            'idsite,name,main_url',
-            \KayStrobach\Piwikintegration\Lib\Div::getTblName('site'),
-            'idsite IN('.$accessableSites.')',
-            '',
-            'name, main_url, idsite'
-        );
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('site'))->createQueryBuilder();
+        $erg = $queryBuilder
+            ->select('idsite', 'name', 'main_url')
+            ->from(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('site'))
+            ->where(
+                'idsite IN ('.$queryBuilder->createNamedParameter($accessableSites).')'
+            )
+            ->orderBy('name', 'main_url', 'idsite')
+            ->execute();
         $PA['items'] = [];
 
         //render items
-        while (($site = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($erg)) !== false) {
+        while ($site = $erg->fetch()) {
             $PA['items'][] = [
                 $site['idsite'].' : '.($site['name'] ? $site['name'].' : '.$site['main_url'] : $site['main_url']),
                 $site['idsite'],
