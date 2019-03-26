@@ -24,6 +24,10 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * class.ext_update.php.
  *
@@ -187,7 +191,8 @@ class ext_update
     {
         $installer = \KayStrobach\Piwikintegration\Lib\Install::getInstaller();
         $installer->getConfigObject();
-        $GLOBALS['TYPO3_DB']->admin_query('TRUNCATE TABLE '.\KayStrobach\Piwikintegration\Lib\Div::getTblName('access'));
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('access'));
+        $connection->truncate(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('access'));
 
         return $GLOBALS['LANG']->getLL('action.resetUserRights.success');
     }
@@ -198,7 +203,9 @@ class ext_update
         $tablesInstalled = \Piwik\DbHelper::getTablesInstalled();
         $buffer = $GLOBALS['LANG']->getLL('action.deletePiwikTables.success');
         foreach ($tablesInstalled as $table) {
-            $GLOBALS['TYPO3_DB']->admin_query('DROP TABLE `'.$table.'`');
+            $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table);
+            $connection->prepare('DROP TABLE `'.$table.'`')
+                ->execute();
             $buffer .= $table.', ';
         }
 
@@ -246,12 +253,16 @@ class ext_update
     public function renameTables()
     {
         $buffer = 'Renamed all tables prepended with tx_piwikintegration to user_piwikintegration:';
-        $tablesInstalled = $GLOBALS['TYPO3_DB']->admin_get_tables();
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable('be_users')->getSchemaManager();
+        $tablesInstalled = $connection->listTableNames();
         foreach ($tablesInstalled as $table) {
-            if (substr($table['Name'], 0, 20) === 'tx_piwikintegration_') {
-                $newTableName = str_replace('tx_piwikintegration_', 'user_piwikintegration_', $table['Name']);
-                $GLOBALS['TYPO3_DB']->admin_query('RENAME TABLE `'.$table['Name'].'` to `'.$newTableName.'`');
-                $buffer .= $table['Name'].', ';
+            if (substr($table, 0, 20) === 'tx_piwikintegration_') {
+                $newTableName = str_replace('tx_piwikintegration_', 'user_piwikintegration_', $table);
+                $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table);
+                $connection->prepare('RENAME TABLE `'.$table.'` to `'.$newTableName.'`')
+                    ->execute();
+                $buffer .= $table.', ';
             }
         }
         \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject()->setOption('database', 'tables_prefix', 'user_piwikintegration_');
