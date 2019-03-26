@@ -28,6 +28,7 @@ namespace KayStrobach\Piwikintegration\Lib;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -51,7 +52,10 @@ class Extmgm
         /* Pull the current fieldname and value from constants */
         $fieldName = $params['fieldName'];
         $fieldValue = $params['fieldValue'];
-        $dbs = $GLOBALS['TYPO3_DB']->admin_get_dbs();
+
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable('be_users')->getSchemaManager();
+        $dbs = $connection->listDatabases();
         $buffer = '<select name="'.$fieldName.'">';
         $buffer .= '<option value="'.$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'].'">---TYPO3DB---</option>';
         foreach ($dbs as $db) {
@@ -99,12 +103,15 @@ class Extmgm
                 if ($old_database != '') {
                     $suffix = ' FROM `'.$old_database.'`';
                 }
-                $erg = $GLOBALS['TYPO3_DB']->admin_query('SHOW TABLES'.$suffix);
-                while (false !== ($row = $GLOBALS['TYPO3_DB']->sql_fetch_row($erg))) {
-                    if (substr($row[0], 0, 20) == 'tx_piwikintegration_') {
-                        $GLOBALS['TYPO3_DB']->admin_query(
-                                'RENAME TABLE `'.$old_database.'`.`'.$row[0].'`
-								 TO `'.$new_database.'`.`'.$row[0].'`');
+                $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+                    ->getConnectionForTable('be_users')->getSchemaManager();
+                $tablesInstalled = $connection->listTableNames();
+                foreach ($tablesInstalled as $table) {
+                    if (substr($table, 0, 20) === 'tx_piwikintegration_') {
+                        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table);
+                        $connection->prepare('RENAME TABLE `'.$old_database.'`.`'.$table.'` 
+                            TO `'.$new_database.'`.`'.$table.'`')
+                        ->execute();
                     }
                 }
                 //change config
