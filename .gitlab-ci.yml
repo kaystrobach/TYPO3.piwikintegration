@@ -15,7 +15,7 @@ include:
 #--------------------------------------------------------------------------------
 
 buildComposerDeps:
-  image: docker.kay-strobach.de/docker/php:7.1
+  image: docker.kay-strobach.de/docker/php:7.2
   stage: build
   variables:
     COMPOSER_CACHE_DIR: '.composer'
@@ -41,7 +41,7 @@ buildComposerDeps:
 # 1: Stage test
 #--------------------------------------------------------------------------------
 phplint:
-  image: docker.kay-strobach.de/docker/php:7.1
+  image: docker.kay-strobach.de/docker/php:7.2
   stage: test
   before_script:
   - php -v
@@ -51,7 +51,7 @@ phplint:
   - docker
 
 phpCPD:
-  image: docker.kay-strobach.de/docker/php:7.1
+  image: docker.kay-strobach.de/docker/php:7.2
   stage: test
   before_script:
   - php -v
@@ -62,7 +62,7 @@ phpCPD:
   allow_failure: true
 
 phpCS:
-  image: docker.kay-strobach.de/docker/php:7.1
+  image: docker.kay-strobach.de/docker/php:7.2
   stage: test
   script:
   - phpcs --standard=PSR2 --colors $PHP_CS_FILTER --report=junit > junit.phpcs.xml || true
@@ -73,7 +73,7 @@ phpCS:
   - docker
 
 phpMd:
-  image: docker.kay-strobach.de/docker/php:7.1
+  image: docker.kay-strobach.de/docker/php:7.2
   stage: test
   script:
   - phpmd Classes text codesize,unusedcode,design,cleancode,controversial --ignore-violations-on-exit --suffixes php
@@ -82,7 +82,7 @@ phpMd:
   allow_failure: true
 
 phploc:
-  image: docker.kay-strobach.de/docker/php:7.1
+  image: docker.kay-strobach.de/docker/php:7.2
   stage: test
   script:
   - phploc --count-tests .
@@ -90,7 +90,7 @@ phploc:
   - docker
 
 .phpUnit/php-7.1:
-  image: docker.kay-strobach.de/docker/php:7.1
+  image: docker.kay-strobach.de/docker/php:7.2
   stage: test
   script:
   - composer install
@@ -116,7 +116,7 @@ phploc:
   allow_failure: true
 
 .phpUnit/php-7.2-coverage-complete:
-  image: docker.kay-strobach.de/docker/php:7.1
+  image: docker.kay-strobach.de/docker/php:7.2
   stage: test
   before_script:
   - pecl channel-update pecl.php.net
