@@ -116,17 +116,19 @@ class Tracking
                 //FIX timezone for current Matomo version, since 0.6.3
                 // $timezone = Piwik_GetOption('SitesManager_DefaultTimezone') ? Piwik_GetOption('SitesManager_DefaultTimezone') : 'UTC';
 
-                $GLOBALS['TYPO3_DB']->exec_INSERTquery(
-                    \KayStrobach\Piwikintegration\Lib\Div::getTblName('site'),
-                    [
+                $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                    ->getConnectionForTable(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('site'))->createQueryBuilder();
+                $queryBuilder
+                    ->insert(\KayStrobach\Piwikintegration\Lib\Div::getDBandTableName('site'))
+                    ->values([
                         'idsite'   => intval($this->extConf['piwik_idsite']),
                         'name'     => 'ID '.intval($this->extConf['piwik_idsite']),
                         'main_url' => $this->baseUrl,
                         // 'timezone'   => $timezone,
                         // 'currency'   => $currency,
                         'ts_created' => date('Y-m-d H:i:s', time()),
-                    ]
-                );
+                    ])
+                    ->execute();
             } elseif ($numRows > 1) {
                 //more than once -> error
                 die('Matomo idsite table is inconsistent, please contact server administrator');

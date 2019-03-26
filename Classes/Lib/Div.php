@@ -204,17 +204,19 @@ class Div
                 //FIX timezone for current Matomo version, since 0.6.3
                 $timezone = \Piwik\Option::get('SitesManager_DefaultTimezone') ? \Piwik\Option::get('SitesManager_DefaultTimezone') : 'UTC';
 
-                $GLOBALS['TYPO3_DB']->exec_INSERTquery(
-                    self::getTblName('site'),
-                    [
+                $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                    ->getConnectionForTable($this->getDBandTableName('site'))->createQueryBuilder();
+                $queryBuilder
+                    ->insert($this->getDBandTableName('site'))
+                    ->values([
                         'idsite'     => $id,
                         'main_url'   => 'http://'.$_SERVER['SERVER_NAME'],
                         'name'       => 'Customer '.$id,
                         'timezone'   => $timezone,
                         'currency'   => $currency,
                         'ts_created' => date('Y-m-d H:i:s', time()),
-                    ]
-                );
+                    ])
+                    ->execute();
             }
         }
     }
@@ -274,17 +276,19 @@ class Div
         }
 
         if (count($erg) != 1) {
-            $GLOBALS['TYPO3_DB']->exec_INSERTquery(
-                    $this->tblNm('user'),
-                    [
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getConnectionForTable($this->getDBandTableName('user'))->createQueryBuilder();
+            $queryBuilder
+                ->insert($this->getDBandTableName('user'))
+                ->values([
                         'login'            => $beUserName,
                         'alias'            => $GLOBALS['BE_USER']->user['realName'] ? $GLOBALS['BE_USER']->user['realName'] : $beUserName,
                         'email'            => $GLOBALS['BE_USER']->user['email'],
                         'date_registered'  => date('Y-m-d H:i:s', time()),
                         'token_auth'       => $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'],
                         'superuser_access' => $GLOBALS['BE_USER']->user['admin'],
-                    ]
-                );
+                ])
+                ->execute();
         } else {
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
                 ->getConnectionForTable($this->getDBandTableName('user'))->createQueryBuilder();
@@ -317,14 +321,16 @@ class Div
                     ->execute()
                     ->fetchAll();
             if (count($erg) == 0) {
-                $GLOBALS['TYPO3_DB']->exec_INSERTquery(
-                    $this->tblNm('access'),
-                    [
+                $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                    ->getConnectionForTable($this->getDBandTableName('access'))->createQueryBuilder();
+                $queryBuilder
+                    ->insert($this->getDBandTableName('access'))
+                    ->values([
                         'login'  => $beUserName,
                         'idsite' => $uid,
                         'access' => 'view',
-                    ]
-                );
+                    ])
+                    ->execute();
             }
         }
     }
