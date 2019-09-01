@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-09-01T00:12:09Z" product-name="piwikintegration">
+		<header/>
+		<body>
+			<trans-unit id="piwikintegration_pi1" xml:space="preserve">
+				<source>Matomo Widgetize</source>
+			</trans-unit>
+			<trans-unit id="pi1_wizard_title" xml:space="preserve">
+				<source>Matomo Widgetize</source>
+			</trans-unit>
+			<trans-unit id="pi1_wizard_description" xml:space="preserve">
+				<source>Add a widget from Matomo to the frontend</source>
+			</trans-unit>
+			<trans-unit id="flexform_idsite_selection" xml:space="preserve">
+				<source>Select Site (you will see only pages with anonymous access enabled)</source>
+			</trans-unit>
+			<trans-unit id="flexform_widget_selection" xml:space="preserve">
+				<source>Select Widget</source>
+			</trans-unit>
+			<trans-unit id="flexform_sheet_sDef" xml:space="preserve">
+				<source>Matomo Widget Options</source>
+			</trans-unit>
+			<trans-unit id="flexform_div_height" xml:space="preserve">
+				<source>Height of the div in FE</source>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable" xml:space="preserve">
+				<source>initial chart type displayed</source>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_default" xml:space="preserve">
+				<source>Default</source>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_tableAllColumns" xml:space="preserve">
+				<source>Table all Columns</source>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_tableGoals" xml:space="preserve">
+				<source>Table Goals</source>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_table" xml:space="preserve">
+				<source>Table</source>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_cloud" xml:space="preserve">
+				<source>Cloud</source>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_graphPie" xml:space="preserve">
+				<source>Pie Graph</source>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_graphVerticalBar" xml:space="preserve">
+				<source>Vertical Graph</source>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_graphEvolution" xml:space="preserve">
+				<source>Evolutiongraph</source>
+			</trans-unit>
+			<trans-unit id="flexform_period_day" xml:space="preserve">
+				<source>day</source>
+			</trans-unit>
+			<trans-unit id="flexform_period_week" xml:space="preserve">
+				<source>week</source>
+			</trans-unit>
+			<trans-unit id="flexform_period_month" xml:space="preserve">
+				<source>month</source>
+			</trans-unit>
+			<trans-unit id="flexform_period_year" xml:space="preserve">
+				<source>year</source>
+			</trans-unit>
+			<trans-unit id="flexform_period" xml:space="preserve">
+				<source>period</source>
+			</trans-unit>
+			<trans-unit id="flexform_period_yesterday" xml:space="preserve">
+				<source>yesterday</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

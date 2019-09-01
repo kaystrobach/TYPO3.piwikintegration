@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2019-09-01T00:11:40Z" product-name="piwikintegration">
+		<header/>
+		<body>
+			<trans-unit id="piwikArchiveTask.name" xml:space="preserve" approved="yes">
+				<source>Matomo Archive Cronjob</source>
+				<target>Matomo Archivierungs-Cron-Job</target>
+			</trans-unit>
+			<trans-unit id="piwikArchiveTask.description" xml:space="preserve" approved="yes">
+				<source>Run the cronjob shipped with Matomo</source>
+				<target>Den mit Matomo mitgelieferten Cron-Job ausführen</target>
+			</trans-unit>
+			<trans-unit id="methodNotFound" xml:space="preserve" approved="yes">
+				<source>Method not found - perhaps not implemented yet?</source>
+				<target>Methode nicht gefunden - möglicherweise noch einer Implementierung harrend?</target>
+			</trans-unit>
+			<trans-unit id="extmgm.noticeHeader" xml:space="preserve" approved="yes">
+				<source>Update Assistant</source>
+				<target>Aktualisierungsassistent</target>
+			</trans-unit>
+			<trans-unit id="extmgm.noticeText" xml:space="preserve" approved="yes">
+				<source>There are several assistants available in the update wizard to help you keeping your Matomo installation working</source>
+				<target>Es sind mehrere Assistenten verfügba, um Ihnen dabei zu helfen, Ihre Matomo-Installation funktionsfähig zu halten </target>
+			</trans-unit>
+			<trans-unit id="extmgm.assistent" xml:space="preserve" approved="yes">
+				<source>Update Assistant</source>
+				<target>Aktualisierungsassistent</target>
+			</trans-unit>
+			<trans-unit id="extmgm.databaseTablePrefix" xml:space="preserve" approved="yes">
+				<source>Prefix for Database: Please note, saving causes TYPO3 to try to move the tables to the database you provided. If this fails moving is cancelled and Piwik will not work. If the Piwik data is stored in TYPO3 database don't use compare without knowing what you do...</source>
+				<target>Präfix für die Datenbank: Bitte beachten Sie, dass TYPO3 nach dem Speichern versuchen wird, die Tabellen in die angegebene Datenbank zu verschieben. Sollte das Verschieben fehlschlagen, wird Piwik nicht funktionieren. Wenn die Piwik-Daten in der TYPO3-Datenbank gespeichert sind, verwenden Sie nicht die TYPO3-Funktion &quot;Database Compare&quot;, wenn Sie nicht wissen, was Sie tun...</target>
+			</trans-unit>
+			<trans-unit id="extmgm.enableIndependentMode" xml:space="preserve" approved="yes">
+				<source>EXPERIMENTAL Independent mode: Enable independent mode of piwikintegration - the JS is rendered without additional extensions. If not enabled an additional extension is needed to render the FE output for piwik - it's suggested to use EXT:piwik for FE-Rendering</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="extmgm.disablePiwikIdCreation" xml:space="preserve" approved="yes">
+				<source>Disable Matomo ID creation: If this is set the automatic Piwki site ID creation during Frontend requests is disabled.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="extmgm.enableSchedulerTask" xml:space="preserve" approved="yes">
+				<source>EXPERIMENTAL Scheduler task: Enable scheduler task integration</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="extmgm.enableSchedulerLogging" xml:space="preserve" approved="yes">
+				<source>Debugging of scheduler task: Enable heavy logging for the scheduler task - should be off in production environments</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="extmgm.piwikDownloadSource" xml:space="preserve" approved="yes">
+				<source>Alternative Matomo download URL: Provide an alternative location to download Matomo. (Default is https://builds.piwik.org/latest.zip)</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="header.installation" xml:space="preserve" approved="yes">
+				<source>Installation</source>
+				<target>Installation</target>
+			</trans-unit>
+			<trans-unit id="header.configuration" xml:space="preserve" approved="yes">
+				<source>Configuration</source>
+				<target>Konfiguration</target>
+			</trans-unit>
+			<trans-unit id="header.database" xml:space="preserve" approved="yes">
+				<source>Database</source>
+				<target>Datenbank</target>
+			</trans-unit>
+			<trans-unit id="action.installPiwik" xml:space="preserve" approved="yes">
+				<source>Install Matomo</source>
+				<target>Matomo installieren</target>
+			</trans-unit>
+			<trans-unit id="action.updatePiwik" xml:space="preserve" approved="yes">
+				<source>Update Matomo</source>
+				<target>Matomo aktualisieren</target>
+			</trans-unit>
+			<trans-unit id="action.removePiwik" xml:space="preserve" approved="yes">
+				<source>Remove Matomo</source>
+				<target>Matomo entfernen</target>
+			</trans-unit>
+			<trans-unit id="action.patchPiwik" xml:space="preserve" approved="yes">
+				<source>Patch Matomo</source>
+				<target>Matomo patchen</target>
+			</trans-unit>
+			<trans-unit id="action.configurePiwik" xml:space="preserve" approved="yes">
+				<source>Configure Matomo</source>
+				<target>Matomo konfigurieren</target>
+			</trans-unit>
+			<trans-unit id="action.enableSuggestedPlugins" xml:space="preserve" approved="yes">
+				<source>Enable suggested plugins</source>
+				<target>Vorgeschlagene Plug-Ins aktivieren</target>
+			</trans-unit>
+			<trans-unit id="action.respectGermanDataPrivacyAct" xml:space="preserve" approved="yes">
+				<source>Respect german data privacy act</source>
+				<target>Deutsches Datenschutzrecht berücksichtigen</target>
+			</trans-unit>
+			<trans-unit id="action.showPiwikConfig" xml:space="preserve" approved="yes">
+				<source>Show Matomo configuration</source>
+				<target>Matomo-Konfiguration anzeigen</target>
+			</trans-unit>
+			<trans-unit id="action.renameTables" xml:space="preserve" approved="yes">
+				<source>Rename tables</source>
+				<target>Tabellen umbenennen</target>
+			</trans-unit>
+			<trans-unit id="action.resetUserRights" xml:space="preserve" approved="yes">
+				<source>Reset user rights</source>
+				<target>Benutzerrechte zurücksetzen</target>
+			</trans-unit>
+			<trans-unit id="action.deletePiwikTables" xml:space="preserve" approved="yes">
+				<source>Remove Matomo tables</source>
+				<target>Matomo-Tabellen entfernen</target>
+			</trans-unit>
+			<trans-unit id="action.createPiwikTables" xml:space="preserve" approved="yes">
+				<source>(Delete and) Create Matomo tables</source>
+				<target>(Löschen und) Matomo-Tabellen erstellen</target>
+			</trans-unit>
+			<trans-unit id="desc.installPiwik" xml:space="preserve" approved="yes">
+				<source>Download, unzip, patch and configure Matomo</source>
+				<target>Matomo herunterladen, entpacken, patchen und konfigurieren</target>
+			</trans-unit>
+			<trans-unit id="desc.updatePiwik" xml:space="preserve" approved="yes">
+				<source>Download, unzip and patch Matomo</source>
+				<target>Matomo herunterladen, entpacken und patchen</target>
+			</trans-unit>
+			<trans-unit id="desc.removePiwik" xml:space="preserve" approved="yes">
+				<source>Remove Matomo directory</source>
+				<target>Matomo-Verzeichnis löschen</target>
+			</trans-unit>
+			<trans-unit id="desc.patchPiwik" xml:space="preserve" approved="yes">
+				<source>Patch Matomo</source>
+				<target>Matomo patchen</target>
+			</trans-unit>
+			<trans-unit id="desc.configurePiwik" xml:space="preserve" approved="yes">
+				<source>Basic configuration for user, database, settings and plugins.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="desc.enableSuggestedPlugins" xml:space="preserve" approved="yes">
+				<source>Enable shipped plugins, suggested plugins and disable senseless stuff</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="desc.respectGermanDataPrivacyAct" xml:space="preserve" approved="yes">
+				<source>Set settings to respect german data privacy act, the base for these settings is the document of the the ULDSH. https://www.datenschutzzentrum.de/tracking/piwik/20110315-webanalyse-piwik.pdf </source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="desc.showPiwikConfig" xml:space="preserve" approved="yes">
+				<source>Shows the configuration file of Matomo</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="desc.renameTables" xml:space="preserve" approved="yes">
+				<source>Fixes bug by renaming tables from tx_piwikintegration_* to user_piwikintegration_*</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="desc.resetUserRights" xml:space="preserve" approved="yes">
+				<source>Reset user rights by truncating Matomo access table</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="desc.deletePiwikTables" xml:space="preserve" approved="yes">
+				<source>Delete all Matomo tables. WARNING: All Matomo data will be lost!</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="desc.createPiwikTables" xml:space="preserve" approved="yes">
+				<source>Delete all Matomo tables and create them again. WARNING: All Matomo data will be lost!</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="action.installPiwik.success" xml:space="preserve" approved="yes">
+				<source>Matomo sources have been installed.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="action.updatePiwik.error" xml:space="preserve" approved="yes">
+				<source>Please use the wizard in Matomo to update your installation.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="action.removePiwik.success" xml:space="preserve" approved="yes">
+				<source>Matomo sources have been removed.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="action.removePiwik.error" xml:space="preserve" approved="yes">
+				<source>Matomo sources could not be removed.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="action.patchPiwik.success" xml:space="preserve" approved="yes">
+				<source>Matomo has been patched (without modifying config/config.ini.php).</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="action.configurePiwik.success" xml:space="preserve" approved="yes">
+				<source>Matomo has been configured.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="action.resetUserRights.success" xml:space="preserve" approved="yes">
+				<source>Matomo user rights have been reset.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="action.createPiwikTables.success" xml:space="preserve" approved="yes">
+				<source>All Matomo tables have been dropped and recreated.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="action.deletePiwikTables.success" xml:space="preserve" approved="yes">
+				<source>Matomo tables have been dropped:</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="button.DoIt" xml:space="preserve" approved="yes">
+				<source>Do it</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="installedPiwikNeeded" xml:space="preserve" approved="yes">
+				<source>Matomo is not installed yet. Install it to access all other actions.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="desc.selectPage" xml:space="preserve" approved="yes">
+				<source>Please select a page in the pagetree.</source>
+				<target>Bitte w�hlen Sie eine Seite aus dem Seitenbaum aus.</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
