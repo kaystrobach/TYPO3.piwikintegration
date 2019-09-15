@@ -1,6 +1,6 @@
 # Integrates Matomo into the TYPO3 Backend
 
-## This version of piwikintegration is compatible with Matomo 3.8 - 3.9.
+## This version of piwikintegration is compatible with Matomo 3.10 - 3.11.
 
 ![Build Status](https://travis-ci.org/kaystrobach/TYPO3.piwikintegration.svg)
 [![StyleCI](https://styleci.io/repos/8537360/shield?branch=master)](https://styleci.io/repos/8537360)
