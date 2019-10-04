@@ -29,6 +29,7 @@ namespace KayStrobach\Piwikintegration\Tracking;
 ***************************************************************/
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -67,10 +68,11 @@ class Tracking
     {
         $this->init($params, $reference);
         $content = $params['pObj']->content;
-        $beUserLogin = $params['pObj']->beUserLogin;
+        $context = GeneralUtility::makeInstance(Context::class);
+        $beUserLogin = (int) $context->getPropertyFromAspect('backend.user', 'isLoggedIn');
 
         //check wether there is a BE User loggged in, if yes avoid to display the tracking code!
-        if ($beUserLogin == 1) {
+        if ($beUserLogin === 1) {
             return;
         }
 
