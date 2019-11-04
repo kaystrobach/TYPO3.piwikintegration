@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2019-09-01T00:12:09Z" product-name="piwikintegration">
+		<header/>
+		<body>
+			<trans-unit id="piwikintegration_pi1" xml:space="preserve" approved="yes">
+				<source>Matomo Widgetize</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="pi1_wizard_title" xml:space="preserve" approved="yes">
+				<source>Matomo Widgetize</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="pi1_wizard_description" xml:space="preserve" approved="yes">
+				<source>Add a widget from Matomo to the frontend</source>
+				<target>Dem Frontend ein Widget hinzufügen</target>
+			</trans-unit>
+			<trans-unit id="flexform_idsite_selection" xml:space="preserve" approved="yes">
+				<source>Select Site (you will see only pages with anonymous access enabled)</source>
+				<target>Site auswählen (Sie sehen nur Seiten, für die anonymer Zugriff aktiviert ist)</target>
+			</trans-unit>
+			<trans-unit id="flexform_widget_selection" xml:space="preserve" approved="yes">
+				<source>Select Widget</source>
+				<target>Widget auswählen</target>
+			</trans-unit>
+			<trans-unit id="flexform_sheet_sDef" xml:space="preserve" approved="yes">
+				<source>Matomo Widget Options</source>
+				<target>Matomo-Widget-Optionen</target>
+			</trans-unit>
+			<trans-unit id="flexform_div_height" xml:space="preserve" approved="yes">
+				<source>Height of the div in FE</source>
+				<target>Höhe des div-Elements im FE</target>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable" xml:space="preserve" approved="yes">
+				<source>initial chart type displayed</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_default" xml:space="preserve" approved="yes">
+				<source>Default</source>
+				<target>Standardeinstellung</target>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_tableAllColumns" xml:space="preserve" approved="yes">
+				<source>Table all Columns</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_tableGoals" xml:space="preserve" approved="yes">
+				<source>Table Goals</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_table" xml:space="preserve" approved="yes">
+				<source>Table</source>
+				<target>Tabelle</target>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_cloud" xml:space="preserve" approved="yes">
+				<source>Cloud</source>
+				<target>Wolke</target>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_graphPie" xml:space="preserve" approved="yes">
+				<source>Pie Graph</source>
+				<target>Kuchendiagramm</target>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_graphVerticalBar" xml:space="preserve" approved="yes">
+				<source>Vertical Graph</source>
+				<target>Vertikales Diagramm</target>
+			</trans-unit>
+			<trans-unit id="flexform_viewDataTable_graphEvolution" xml:space="preserve" approved="yes">
+				<source>Evolutiongraph</source>
+				<target>Evolutionäres Diagramm</target>
+			</trans-unit>
+			<trans-unit id="flexform_period_day" xml:space="preserve" approved="yes">
+				<source>day</source>
+				<target>Tag</target>
+			</trans-unit>
+			<trans-unit id="flexform_period_week" xml:space="preserve" approved="yes">
+				<source>week</source>
+				<target>Woche</target>
+			</trans-unit>
+			<trans-unit id="flexform_period_month" xml:space="preserve" approved="yes">
+				<source>month</source>
+				<target>Monat</target>
+			</trans-unit>
+			<trans-unit id="flexform_period_year" xml:space="preserve" approved="yes">
+				<source>year</source>
+				<target>Jahr</target>
+			</trans-unit>
+			<trans-unit id="flexform_period" xml:space="preserve" approved="yes">
+				<source>period</source>
+				<target>Zeitraum</target>
+			</trans-unit>
+			<trans-unit id="flexform_period_yesterday" xml:space="preserve" approved="yes">
+				<source>yesterday</source>
+				<target>gestern</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
