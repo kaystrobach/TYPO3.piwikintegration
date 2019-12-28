@@ -76,7 +76,7 @@ class Install
     /**
      * constructor to get a singleton.
      */
-    function __construct()
+    public function __construct()
     {
         try {
             $this->checkInstallation();
