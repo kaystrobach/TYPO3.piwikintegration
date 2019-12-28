@@ -100,6 +100,6 @@ $iconRegistry->registerIcon(
  */
 if (!defined('PIWIK_DOCUMENT_ROOT')) {
     $definition = new \KayStrobach\Piwikintegration\Lib\Install();
-    $path = $definition->getAbsInstallPath() . 'piwik';
+    $path = $definition->getAbsInstallPath().'piwik';
     define('PIWIK_DOCUMENT_ROOT', $path);
 }
