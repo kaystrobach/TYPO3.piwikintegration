@@ -96,17 +96,10 @@ $iconRegistry->registerIcon(
 );
 
 /******************************************************************************
- * load scheduler class if scheduler is installed
+ * Without this, PIWIK_DOCUMENT_ROOT would be undefined in FE calls since Matomo 3.12 and 3.13
  */
-
-/*
-if(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded ('scheduler') && $_EXTCONF['enableSchedulerTask']) {
-    //add task to scheduler list
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['KayStrobach\\Piwikintegration\\SchedulerTask\\Archive'] = array(
-            'extension'        => $_EXTKEY,
-            'title'            => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xml:piwikArchiveTask.name',
-            'description'      => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xml:piwikArchiveTask.description',
-            #'additionalFields' => 'tx_piwikintegration_piwikArchiveTask_AdditionalFieldProvider',
-    );
-    require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('piwikintegration', 'Classes/SchedulerTasks/Archive.php'));
-}*/
+if (!defined('PIWIK_DOCUMENT_ROOT')) {
+	$definition = new \KayStrobach\Piwikintegration\Lib\Install();
+	$path = $definition->getAbsInstallPath() . 'piwik';
+	define('PIWIK_DOCUMENT_ROOT', $path);
+}
