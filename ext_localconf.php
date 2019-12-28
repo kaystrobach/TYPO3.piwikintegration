@@ -99,7 +99,7 @@ $iconRegistry->registerIcon(
  * Without this, PIWIK_DOCUMENT_ROOT would be undefined in FE calls since Matomo 3.12 and 3.13
  */
 if (!defined('PIWIK_DOCUMENT_ROOT')) {
-	$definition = new \KayStrobach\Piwikintegration\Lib\Install();
-	$path = $definition->getAbsInstallPath() . 'piwik';
-	define('PIWIK_DOCUMENT_ROOT', $path);
+    $definition = new \KayStrobach\Piwikintegration\Lib\Install();
+    $path = $definition->getAbsInstallPath() . 'piwik';
+    define('PIWIK_DOCUMENT_ROOT', $path);
 }
