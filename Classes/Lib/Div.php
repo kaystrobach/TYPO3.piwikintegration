@@ -252,12 +252,12 @@ class Div
             $queryBuilder
                 ->insert($this->getDBandTableName('user'))
                 ->values([
-                        'login'            => $beUserName,
-                        'alias'            => $GLOBALS['BE_USER']->user['realName'] ? $GLOBALS['BE_USER']->user['realName'] : $beUserName,
-                        'email'            => $GLOBALS['BE_USER']->user['email'],
-                        'date_registered'  => date('Y-m-d H:i:s', time()),
-                        'token_auth'       => $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'],
-                        'superuser_access' => $GLOBALS['BE_USER']->user['admin'],
+                    'login'            => $beUserName,
+                    'alias'            => $GLOBALS['BE_USER']->user['realName'] ? $GLOBALS['BE_USER']->user['realName'] : $beUserName,
+                    'email'            => $GLOBALS['BE_USER']->user['email'],
+                    'date_registered'  => date('Y-m-d H:i:s', time()),
+                    'token_auth'       => $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'],
+                    'superuser_access' => $GLOBALS['BE_USER']->user['admin'],
                 ])
                 ->execute();
         } else {
