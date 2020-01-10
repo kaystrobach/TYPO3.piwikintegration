@@ -246,7 +246,7 @@ class Install
         $piwikPatchVersion = '0.0.0';
         $EM_CONF = [];
         @include \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('piwikintegration').'ext_emconf.php';
-        @include $this->getAbsInstallPath().'/piwik/piwikintegration.php';
+        @include $this->getAbsInstallPath().'/piwik/bootstrap.php';
         if ($EM_CONF['piwikintegration']['version'] != $piwikPatchVersion) {
             return false;
         }
@@ -300,7 +300,7 @@ class Install
         $EM_CONF = [];
         @include \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('piwikintegration').'ext_emconf.php';
         $data = '<?php $piwikPatchVersion = "'.$EM_CONF['piwikintegration']['version'].'"; '.chr(63).'>';
-        file_put_contents($this->getAbsInstallPath().'piwik/piwikintegration.php', $data);
+        file_put_contents($this->getAbsInstallPath().'piwik/bootstrap.php', $data);
     }
 
     /**
