@@ -43,7 +43,10 @@ class Menu extends \Piwik\Plugin\Menu
     {
         if (\Piwik\Plugin\Manager::getInstance()->isPluginActivated('Login')) {
             if (Piwik::hasUserSuperUserAccess()) {
-                $menu->addDiagnosticItem('Login_BruteForceLog', $this->urlForAction('bruteForceLog'), $orderId = 30);
+                $systemSettings = new SystemSettings();
+                if ($systemSettings->enableBruteForceDetection->getValue()) {
+                    $menu->addDiagnosticItem('Login_BruteForceLog', $this->urlForAction('bruteForceLog'), $orderId = 30);
+                }
             }
         }
     }
