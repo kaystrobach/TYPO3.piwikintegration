@@ -64,7 +64,7 @@ $_EXTCONF = unserialize($_EXTCONF);
  * Add widgets for Frontend
  */
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPItoST43(
-    $_EXTKEY,
+    'piwikintegration',
     'pi1/class.tx_piwikintegration_pi1.php',
     '_pi1',
     'list_type',

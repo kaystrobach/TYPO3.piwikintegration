@@ -17,8 +17,6 @@ $EM_CONF[$_EXTKEY] = [
     'version'          => '5.0.0',
     'module'           => 'mod1',
     'state'            => 'beta',
-    'uploadfolder'     => 0,
-    'createDirs'       => '',
     'clearcacheonload' => 0,
     'author'           => 'Kay Strobach',
     'author_email'     => 'kay.strobach@typo3.org',
@@ -26,7 +24,7 @@ $EM_CONF[$_EXTKEY] = [
     'constraints'      => [
         'depends' => [
             'php'   => '7.2.0-7.4.99',
-            'typo3' => '9.5.0-10.4.99',
+            'typo3' => '10.0.0-10.4.99',
         ],
         'conflicts' => [
             'dbal' => '1.0.0-99.0.0',
