@@ -59,6 +59,6 @@ if (!defined('TYPO3_MODE')) {
     }
 
 if (TYPO3_MODE == 'BE') {
-    $TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_piwikintegration_pi1_wizicon'] =
+    $GLOBALS['TBE_MODULES_EXT']['xMOD_db_new_content_el']['addElClasses']['tx_piwikintegration_pi1_wizicon'] =
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('piwikintegration').'pi1/class.tx_piwikintegration_pi1_wizicon.php';
 }
