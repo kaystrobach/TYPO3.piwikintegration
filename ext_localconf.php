@@ -56,9 +56,11 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['proc
     'KayStrobach\\Piwikintegration\\Hooks\\BeUserProcessing';
 
 /*******************************************************************************
- * unserialize extConf
+ * Get extension configuration
  */
-$_EXTCONF = unserialize($_EXTCONF);
+$_EXTCONF = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+    \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class
+)->get('piwikintegration');
 
 /*******************************************************************************
  * Add widgets for Frontend
