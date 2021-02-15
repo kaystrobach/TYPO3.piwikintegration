@@ -116,32 +116,32 @@ class Auth implements \Piwik\Auth
         if ((array_key_exists('token_auth', $_REQUEST)) && ($_REQUEST['token_auth'] != '')) {
             // fetch UserId, if token is set
             $beUserId = \Piwik\Db::get()->fetchOne(
-                            'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
-                            [$_REQUEST['token_auth']]
-                );
-            //catch typo3 logins
+                'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
+                [$_REQUEST['token_auth']]
+            );
+        //catch typo3 logins
         } elseif (array_key_exists('be_typo_user', $_COOKIE)) {
             // Compare the value of the be_typo_user cookie with the valid sessions inside the database to figure out the correct user
-            $T3Conf = include(__DIR__ . '/../../../../LocalConfiguration.php');
+            $T3Conf = include __DIR__.'/../../../../LocalConfiguration.php';
             $encryption_key = $T3Conf['SYS']['encryptionKey'];
             // See https://github.com/TYPO3/TYPO3.CMS/blob/master/typo3/sysext/core/Classes/Session/Backend/DatabaseSessionBackend.php
             // The next two lines mimic the behaviour of function hash() in that class to generate the hashed value.
-            $key = sha1($encryption_key . 'core-session-backend');
+            $key = sha1($encryption_key.'core-session-backend');
             // @todo: In TYPO3 11, md5 is no longer used here. Instead it is sha256
             $hash = hash_hmac('md5', $_COOKIE['be_typo_user'], $key);
 
             // Retrieve user from database based on the hashed value
             $beUserId = \Piwik\Db::get()->fetchOne(
-                            'SELECT ses_userid FROM '.$this->getTableName('be_sessions').' WHERE ses_id = ?',
-                            [$hash]
-                );
-             
+                'SELECT ses_userid FROM '.$this->getTableName('be_sessions').' WHERE ses_id = ?',
+                [$hash]
+            );
+
         //catch apikey logins
         } elseif ($this->token_auth && $this->token_auth != 'anonymous') {
             $beUserId = \Piwik\Db::get()->fetchOne(
-                        'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
-                        [$this->token_auth]
-                );
+                'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
+                [$this->token_auth]
+            );
         } else {
             $beUserId = false;
         }
@@ -151,14 +151,14 @@ class Auth implements \Piwik\Auth
         if ($beUserId !== false) {
             // getUserName
             $beUserName = \Piwik\Db::get()->fetchOne(
-                            'SELECT username FROM '.$this->getTableName('be_users').' WHERE uid = ?',
-                            [$beUserId]
-                );
+                'SELECT username FROM '.$this->getTableName('be_users').' WHERE uid = ?',
+                [$beUserId]
+            );
             // get isAdmin
             $beUserIsAdmin = \Piwik\Db::get()->fetchOne(
-                            'SELECT admin FROM '.$this->getTableName('be_users').' WHERE uid = ?',
-                            [$beUserId]
-                );
+                'SELECT admin FROM '.$this->getTableName('be_users').' WHERE uid = ?',
+                [$beUserId]
+            );
             // is superuser?
             if ($beUserIsAdmin == 1) {
                 return new \Piwik\AuthResult(\Piwik\AuthResult::SUCCESS_SUPERUSER_AUTH_CODE, $beUserName, null);
@@ -263,9 +263,9 @@ class Auth implements \Piwik\Auth
     public static function getTokenAuth($login, $hashPassword)
     {
         $token = \Piwik\Db::get()->fetchOne(
-                        'SELECT '.self::getTableName('api_code').' FROM `be_users` WHERE username = ?',
-                        [$login]
-            );
+            'SELECT '.self::getTableName('api_code').' FROM `be_users` WHERE username = ?',
+            [$login]
+        );
         // @todo: Using substr() that way works as long as MD5 hashes are being used.
         if (UsersManager::checkPasswordHash(substr($token, 0, 6)) == $hashPassword) {
             return $token;

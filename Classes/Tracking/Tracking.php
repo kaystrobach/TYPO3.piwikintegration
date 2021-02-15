@@ -140,7 +140,7 @@ class Tracking
                     ->execute();
             } elseif ($numRows > 1) {
                 //more than once -> error
-                die('Matomo idsite table is inconsistent, please contact server administrator');
+                exit('Matomo idsite table is inconsistent, please contact server administrator');
             }
         }
     }

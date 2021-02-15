@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3_MODE') or exit();
 
 $tempColumns = [
     'tx_piwikintegration_api_code' => [
