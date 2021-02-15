@@ -42,23 +42,23 @@ if (!defined('TYPO3_MODE')) {
  */
     if (TYPO3_MODE == 'BE') {
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-            'KayStrobach.'.$_EXTKEY,
+            'piwikintegration',
             'web',          // Main area
             'mod2',         // Name of the module
             '',             // Position of the module
             [          // Allowed controller action combinations
-                'Piwik'             => 'index,apiCode,help',
-                'PiwikInstallation' => 'index,download,patch,configure',
+                \KayStrobach\Piwikintegration\Controller\PiwikController::class             => 'index,apiCode,help',
+                \KayStrobach\Piwikintegration\Controller\PiwikInstallationController::class => 'index,download,patch,configure',
             ],
             [          // Additional configuration
                 'access'    => 'user,group',
                 'icon'      => 'EXT:piwikintegration/Resources/Public/Images/module.svg',
-                'labels'    => 'LLL:EXT:'.$_EXTKEY.'/Resources/Private/Language/locallang_mod.xml',
+                'labels'    => 'LLL:EXT:piwikintegration/Resources/Private/Language/locallang_mod.xml',
             ]
         );
     }
 
 if (TYPO3_MODE == 'BE') {
-    $TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_piwikintegration_pi1_wizicon'] =
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY).'pi1/class.tx_piwikintegration_pi1_wizicon.php';
+    $GLOBALS['TBE_MODULES_EXT']['xMOD_db_new_content_el']['addElClasses']['tx_piwikintegration_pi1_wizicon'] =
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('piwikintegration').'pi1/class.tx_piwikintegration_pi1_wizicon.php';
 }

@@ -119,14 +119,23 @@ class Auth implements \Piwik\Auth
                             'SELECT uid FROM '.$this->getTableName('be_users').' WHERE tx_piwikintegration_api_code = ?',
                             [$_REQUEST['token_auth']]
                 );
-        //print_r($beUserId);
             //catch typo3 logins
         } elseif (array_key_exists('be_typo_user', $_COOKIE)) {
-            $beUserCookie = $_COOKIE['be_typo_user'];
+            // Compare the value of the be_typo_user cookie with the valid sessions inside the database to figure out the correct user
+            $T3Conf = include(__DIR__ . '/../../../../LocalConfiguration.php');
+            $encryption_key = $T3Conf['SYS']['encryptionKey'];
+            // See https://github.com/TYPO3/TYPO3.CMS/blob/master/typo3/sysext/core/Classes/Session/Backend/DatabaseSessionBackend.php
+            // The next two lines mimic the behaviour of function hash() in that class to generate the hashed value.
+            $key = sha1($encryption_key . 'core-session-backend');
+            // @todo: In TYPO3 11, md5 is no longer used here. Instead it is sha256
+            $hash = hash_hmac('md5', $_COOKIE['be_typo_user'], $key);
+
+            // Retrieve user from database based on the hashed value
             $beUserId = \Piwik\Db::get()->fetchOne(
                             'SELECT ses_userid FROM '.$this->getTableName('be_sessions').' WHERE ses_id = ?',
-                            [$beUserCookie]
+                            [$hash]
                 );
+             
         //catch apikey logins
         } elseif ($this->token_auth && $this->token_auth != 'anonymous') {
             $beUserId = \Piwik\Db::get()->fetchOne(
