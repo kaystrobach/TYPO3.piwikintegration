@@ -215,7 +215,7 @@ class Div
     public function correctUserRightsForSiteId($uid = 0)
     {
         if ($uid <= 0 || $uid != intval($uid)) {
-            throw new \Exception('Problem with uid in tx_piwikintegration_helper.php::correctUserRightsForPid');
+            throw new \Exception('Problem with uid in KayStrobach\Piwikintegration\Lib\Div::correctUserRightsForPid');
         }
         $beUserName = $GLOBALS['BE_USER']->user['username'];
         /*
@@ -253,12 +253,12 @@ class Div
                 ->insert($this->getDBandTableName('user'))
                 ->values([
                         'login'            => $beUserName,
-                        'alias'            => $GLOBALS['BE_USER']->user['realName'] ? $GLOBALS['BE_USER']->user['realName'] : $beUserName,
                         'email'            => $GLOBALS['BE_USER']->user['email'],
                         'date_registered'  => date('Y-m-d H:i:s', time()),
-                        'token_auth'       => $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'],
                         'superuser_access' => $GLOBALS['BE_USER']->user['admin'],
                 ])
+                // @todo: Is adding a sha of $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'])
+                // as auth_token in table user_token_auth still needed?
                 ->execute();
         } else {
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
@@ -266,11 +266,11 @@ class Div
             $queryBuilder
                 ->update($this->getDBandTableName('user'))
                 ->where($queryBuilder->expr()->eq('login', $queryBuilder->createNamedParameter($beUserName)))
-                ->set('alias', $GLOBALS['BE_USER']->user['realName'] ? $GLOBALS['BE_USER']->user['realName'] : $beUserName)
                 ->set('email', $GLOBALS['BE_USER']->user['email'])
-                ->set('token_auth', $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'])
                 ->set('superuser_access', $GLOBALS['BE_USER']->user['admin'])
                 ->execute();
+                // @todo: Is adding a sha of $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'])
+                // as auth_token in table user_token_auth still needed?
         }
         /*
          * ensure, that user's right are added to the database
