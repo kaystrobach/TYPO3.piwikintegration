@@ -103,7 +103,7 @@ class Config
         //create config object
         try {
             $config = \Piwik\Config::getInstance();
-            $config->getInstance()->init();
+            //$config->getInstance()->reload();
         } catch (\Exception $e) {
         }
     }
