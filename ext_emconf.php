@@ -23,14 +23,14 @@ $EM_CONF[$_EXTKEY] = [
     'author_company'   => '',
     'constraints'      => [
         'depends' => [
-            'php'   => '7.2.0-7.4.99',
+            'php'   => '7.2.0-8.0.99',
             'typo3' => '10.0.0-10.4.99',
         ],
         'conflicts' => [
             'dbal' => '1.0.0-99.0.0',
         ],
         'suggests' => [
-            'piwik' => '2.0.0-3.999.0',
+            'piwik' => '2.0.0-4.999.0',
         ],
     ],
 ];
