@@ -94,11 +94,15 @@ class Auth implements \Piwik\Auth
          */
         $rootLogin = \Piwik\Config::getInstance()->superuser['login'];
         $rootPassword = \Piwik\Config::getInstance()->superuser['password'];
+        $description = 'Password for piwikintegration';
         /*
          * Fix http://forge.typo3.org/issues/37167
          */
         $userManager = \Piwik\Plugins\UsersManager\API::getInstance();
-        $rootToken = $userManager->getTokenAuth($rootLogin, $rootPassword);
+        // Ends up with "UsersManager_CurrentPasswordNotCorrect". Comment out for now. Is only used for emergency access or installer or cronjob.
+        // Normal login is working without the next line.
+        //$rootToken = $userManager->createAppSpecificTokenAuth($rootLogin, $rootPassword, $description);
+        $rootToken = 'none';
 
         if ($this->login == $rootLogin
                 && $this->token_auth == $rootToken) {
