@@ -257,7 +257,7 @@ class Div
                         'date_registered'  => date('Y-m-d H:i:s', time()),
                         'superuser_access' => $GLOBALS['BE_USER']->user['admin'],
                 ])
-                // @todo: Is adding a sha of $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'])
+                // Is adding a sha of $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'])
                 // as auth_token in table user_token_auth still needed?
                 ->execute();
         } else {
@@ -269,7 +269,7 @@ class Div
                 ->set('email', $GLOBALS['BE_USER']->user['email'])
                 ->set('superuser_access', $GLOBALS['BE_USER']->user['admin'])
                 ->execute();
-                // @todo: Is adding a sha of $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'])
+                // Is adding a sha of $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code'])
                 // as auth_token in table user_token_auth still needed?
         }
         /*
