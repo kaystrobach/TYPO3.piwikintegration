@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'Piwik\Auth' => DI\object('Piwik\Plugins\TYPO3Login\Auth'),
+    'Piwik\Auth' => DI\create('Piwik\Plugins\TYPO3Login\Auth'),
 ];

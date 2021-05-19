@@ -79,11 +79,13 @@ class Config
             define('PIWIK_USER_PATH', Environment::getPublicPath().'/typo3conf/piwik/piwik/');
         }
         if (!defined('PIWIK_INCLUDE_SEARCH_PATH')) {
-            define('PIWIK_INCLUDE_SEARCH_PATH',
+            define(
+                'PIWIK_INCLUDE_SEARCH_PATH',
                 PIWIK_INCLUDE_PATH.'/core'.
                 PATH_SEPARATOR.PIWIK_INCLUDE_PATH.'/libs'.
                 PATH_SEPARATOR.PIWIK_INCLUDE_PATH.'/plugins'.
-                PATH_SEPARATOR.get_include_path());
+                PATH_SEPARATOR.get_include_path()
+            );
             @ini_set('include_path', PIWIK_INCLUDE_SEARCH_PATH);
             @set_include_path(PIWIK_INCLUDE_SEARCH_PATH);
         }
@@ -103,7 +105,7 @@ class Config
         //create config object
         try {
             $config = \Piwik\Config::getInstance();
-            $config->getInstance()->init();
+            //$config->getInstance()->reload();
         } catch (\Exception $e) {
         }
     }
