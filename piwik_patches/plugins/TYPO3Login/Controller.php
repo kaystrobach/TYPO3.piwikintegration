@@ -27,6 +27,8 @@
 
 namespace Piwik\Plugins\TYPO3Login;
 
+use Exception;
+
 /**
  * piwik_patches/plugins/TYPO3Login/Controller.php.
  *
@@ -43,7 +45,7 @@ namespace Piwik\Plugins\TYPO3Login;
  *
  * @license http://www.gnu.org/licenses/gpl-3.0.html Gpl v3 or later
  */
-class Controller extends \Piwik\Plugins\Login\ControllerAdmin
+class Controller extends \Piwik\Plugin\ControllerAdmin
 {
     /**
      * redirect to dashboard as we have no view.
@@ -62,6 +64,15 @@ class Controller extends \Piwik\Plugins\Login\ControllerAdmin
     public function login($messageNoAccess = null, $infoMessage = false)
     {
         // Login function
+    }
+
+    public function confirmPassword()
+    {
+        // Needed e.g. for installing a Matomo Plugin. Still to be implemented
+        throw new Exception('
+            function confirmPassword() still needs to be implemented. 
+            If you try installing a plugin, consider using the Matomo console to do so.
+        ');
     }
 
     /**
