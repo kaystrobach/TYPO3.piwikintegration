@@ -78,6 +78,7 @@ $_EXTCONF = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
  */
 if (TYPO3_MODE == 'FE') {
     if ($_EXTCONF['enableIndependentMode']) {
+        # The hook has been removed in TYPO3 11. Use PSR-15 middlewares instead.
         $TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-output'][] =
             'KayStrobach\\Piwikintegration\\Tracking\\Tracking->contentPostProc_output';
     }
