@@ -78,6 +78,7 @@ $_EXTCONF = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
  */
 if (TYPO3_MODE == 'FE') {
     if ($_EXTCONF['enableIndependentMode']) {
+        // The hook has been removed in TYPO3 11. Use PSR-15 middlewares instead.
         $TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-output'][] =
             'KayStrobach\\Piwikintegration\\Tracking\\Tracking->contentPostProc_output';
     }
@@ -96,6 +97,21 @@ $iconRegistry->registerIcon(
     \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
     ['source' => 'EXT:piwikintegration/pi1/ce_wiz.gif']
 );
+
+// Add piwikintegration to new content element wizard
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
+mod.wizards.newContentElement.wizardItems.plugins {
+    elements.piwikintegration_pi1 {
+        iconIdentifier = piwikintegration-icon
+        title          = LLL:EXT:piwikintegration/pi1/locallang.xml:pi1_wizard_title
+        description    = LLL:EXT:piwikintegration/pi1/locallang.xml:pi1_wizard_description
+        tt_content_defValues {
+            CType = list
+            list_type = piwikintegration_pi1
+        }
+    }
+}
+');
 
 /******************************************************************************
  * Without this, PIWIK_DOCUMENT_ROOT would be undefined in FE calls since Matomo 3.12 and 3.13

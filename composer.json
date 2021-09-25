@@ -20,7 +20,7 @@
 	],
 	"license" : "GPL-2.0+",
 	"require" : {
-		"typo3/cms-core" : "^10.4"
+		"typo3/cms-core" : "^10.4 || ^11.5"
 	},
 	"require-dev" : {
 		"namelesscoder/typo3-repository-client" : "^1.2",
@@ -62,7 +62,8 @@
 	"extra" : {
 		"typo3/cms" : {
 			"cms-package-dir" : "{$vendor-dir}/typo3/cms",
-			"web-dir" : ".Build/Web"
+			"web-dir" : ".Build/Web",
+			"extension-key": "piwikintegration"
 		}
 	}
 }
