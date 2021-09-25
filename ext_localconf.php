@@ -98,6 +98,21 @@ $iconRegistry->registerIcon(
     ['source' => 'EXT:piwikintegration/pi1/ce_wiz.gif']
 );
 
+// Add piwikintegration to new content element wizard
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
+mod.wizards.newContentElement.wizardItems.plugins {
+    elements.piwikintegration_pi1 {
+        iconIdentifier = piwikintegration-icon
+        title          = LLL:EXT:piwikintegration/pi1/locallang.xml:pi1_wizard_title
+        description    = LLL:EXT:piwikintegration/pi1/locallang.xml:pi1_wizard_description
+        tt_content_defValues {
+            CType = list
+            list_type = piwikintegration_pi1
+        }
+    }
+}
+');
+
 /******************************************************************************
  * Without this, PIWIK_DOCUMENT_ROOT would be undefined in FE calls since Matomo 3.12 and 3.13
  */
