@@ -18,7 +18,7 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['piwikintegra
 //add pi1 plugin
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
     [
-        'LLL:EXT:piwikintegration/pi1/locallang.xml:piwikintegration_pi1',
+        'LLL:EXT:piwikintegration/pi1/locallang.xlf:piwikintegration_pi1',
         'piwikintegration_pi1',
     ],
     'list_type',
