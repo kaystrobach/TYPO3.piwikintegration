@@ -33,7 +33,7 @@
  *
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
-if (!defined('TYPO3_MODE')) {
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
@@ -76,16 +76,14 @@ $_EXTCONF = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
 /*******************************************************************************
  * load fe hooks
  */
-if (TYPO3_MODE == 'FE') {
-    if ($_EXTCONF['enableIndependentMode']) {
-        // The hook has been removed in TYPO3 11. Use PSR-15 middlewares instead.
-        $TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-output'][] =
-            'KayStrobach\\Piwikintegration\\Tracking\\Tracking->contentPostProc_output';
-    }
-    if (!isset($_EXTCONF['disablePiwikIdCreation']) || (bool) $_EXTCONF['disablePiwikIdCreation'] === false) {
-        $TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-all'][] =
-            'KayStrobach\\Piwikintegration\\Tracking\\Tracking->contentPostProc_all';
-    }
+if ($_EXTCONF['enableIndependentMode']) {
+    // The hook has been removed in TYPO3 11. Use PSR-15 middlewares instead.
+    $TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-output'][] =
+        'KayStrobach\\Piwikintegration\\Tracking\\Tracking->contentPostProc_output';
+}
+if (!isset($_EXTCONF['disablePiwikIdCreation']) || (bool) $_EXTCONF['disablePiwikIdCreation'] === false) {
+    $TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-all'][] =
+        'KayStrobach\\Piwikintegration\\Tracking\\Tracking->contentPostProc_all';
 }
 
 /*******************************************************************************
