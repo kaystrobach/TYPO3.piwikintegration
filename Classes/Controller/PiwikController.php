@@ -26,7 +26,7 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function initializeAction()
     {
-        $GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/Resources/Private/Language/locallang.xml');
+        $GLOBALS['LANG']->includeLLFile('EXT:piwikintegration/Resources/Private/Language/locallang.xlf');
         $this->id = (int) \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
         $this->piwikHelper = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
             'KayStrobach\\Piwikintegration\\Lib\\Div'
