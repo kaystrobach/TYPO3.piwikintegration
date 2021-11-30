@@ -101,8 +101,8 @@ $iconRegistry->registerIcon(
 mod.wizards.newContentElement.wizardItems.plugins {
     elements.piwikintegration_pi1 {
         iconIdentifier = piwikintegration-icon
-        title          = LLL:EXT:piwikintegration/pi1/locallang.xml:pi1_wizard_title
-        description    = LLL:EXT:piwikintegration/pi1/locallang.xml:pi1_wizard_description
+        title          = LLL:EXT:piwikintegration/pi1/locallang.xlf:pi1_wizard_title
+        description    = LLL:EXT:piwikintegration/pi1/locallang.xlf:pi1_wizard_description
         tt_content_defValues {
             CType = list
             list_type = piwikintegration_pi1
