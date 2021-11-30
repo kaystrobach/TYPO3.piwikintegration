@@ -1,20 +1,20 @@
-# cat=basic/settings; type=user[KayStrobach\Piwikintegration\Lib\Extmgm->emMakeHeader]; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xml:extmgm.assistent
+# cat=basic/settings; type=user[KayStrobach\Piwikintegration\Lib\Extmgm->emMakeHeader]; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xlf:extmgm.assistent
 emMakeHeader =
 
-# cat=basic/settings; type=user[KayStrobach\Piwikintegration\Lib\Extmgm->emMakeDBList]; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xml:extmgm.databaseTablePrefix
+# cat=basic/settings; type=user[KayStrobach\Piwikintegration\Lib\Extmgm->emMakeDBList]; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xlf:extmgm.databaseTablePrefix
 databaseTablePrefix =
 
-# cat=basic/enable; type=boolean; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xml:extmgm.enableIndependentMode
+# cat=basic/enable; type=boolean; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xlf:extmgm.enableIndependentMode
 enableIndependentMode = 0
 
-# cat=basic/enable; type=boolean; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xml:extmgm.disablePiwikIdCreation
+# cat=basic/enable; type=boolean; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xlf:extmgm.disablePiwikIdCreation
 disablePiwikIdCreation = 0
 
-# cat=basic/enable; type=boolean; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xml:extmgm.enableSchedulerTask
+# cat=basic/enable; type=boolean; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xlf:extmgm.enableSchedulerTask
 enableSchedulerTask = 0
 
-# cat=basic/enable; type=boolean; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xml:extmgm.enableSchedulerLogging
+# cat=basic/enable; type=boolean; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xlf:extmgm.enableSchedulerLogging
 enableSchedulerLogging = 0
 
-# cat=basic/enable; type=string; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xml:extmgm.piwikDownloadSource
+# cat=basic/enable; type=string; label=LLL:EXT:piwikintegration/Resources/Private/Language/locallang.xlf:extmgm.piwikDownloadSource
 piwikDownloadSource =
