@@ -47,7 +47,7 @@ class ext_update
     public function main()
     {
         global $LANG;
-        $LANG->includeLLFile('EXT:piwikintegration/Resources/Private/Language/locallang.xml');
+        $LANG->includeLLFile('EXT:piwikintegration/Resources/Private/Language/locallang.xlf');
         $func = trim(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('func'));
         $buffer = '';
         if (\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('do_update')) {
