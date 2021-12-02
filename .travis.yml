@@ -4,6 +4,7 @@ php:
   - 7.2
   - 7.3
   - 7.4
+  - 8.0
 
 sudo: false
 
@@ -17,7 +18,8 @@ env:
     - EXTENSIONKEY=piwikintegration
   matrix:
     - TYPO3_VERSION="^10.4.0"
-    #- TYPO3_VERSION="dev-master"
+    - TYPO3_VERSION="^11.5.0"
+    #- TYPO3_VERSION="dev-main"
 
 cache:
   directories:
