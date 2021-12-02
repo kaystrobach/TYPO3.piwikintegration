@@ -95,7 +95,7 @@ $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\
 $iconRegistry->registerIcon(
     'piwikintegration-icon',
     \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-    ['source' => 'EXT:piwikintegration/pi1/ce_wiz.gif']
+    ['source' => 'EXT:piwikintegration/Resources/Public/Icons/ce_wiz.gif']
 );
 
 // Add piwikintegration to new content element wizard
