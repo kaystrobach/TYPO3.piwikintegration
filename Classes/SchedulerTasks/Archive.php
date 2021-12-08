@@ -1,6 +1,6 @@
 <?php
 
-namespace KayStrobach\Piwikintegration\SchedulerTask;
+namespace KayStrobach\Piwikintegration\SchedulerTasks;
 
 /***************************************************************
 *  Copyright notice
