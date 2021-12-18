@@ -88,16 +88,6 @@ if (TYPO3_MODE == 'FE') {
     }
 }
 
-/*******************************************************************************
- * Register icon
- */
-$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-$iconRegistry->registerIcon(
-    'piwikintegration-icon',
-    \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-    ['source' => 'EXT:piwikintegration/Resources/Public/Icons/ce_wiz.gif']
-);
-
 // Add piwikintegration to new content element wizard
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
 mod.wizards.newContentElement.wizardItems.plugins {
