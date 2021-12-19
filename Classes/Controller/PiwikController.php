@@ -2,7 +2,14 @@
 
 namespace KayStrobach\Piwikintegration\Controller;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Request;
 
 /**
  * Class Tx_Piwikintegration_Controller_PiwikController.
@@ -21,6 +28,72 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected $id = 0;
 
+    protected ModuleTemplateFactory $moduleTemplateFactory;
+    protected IconFactory $iconFactory;
+    protected PageRenderer $pageRenderer;
+
+    public function __construct(
+        IconFactory $iconFactory,
+        PageRenderer $pageRenderer,
+        ModuleTemplateFactory $moduleTemplateFactory
+        ) {
+            $this->iconFactory = $iconFactory;
+            $this->pageRenderer = $pageRenderer;
+            $this->moduleTemplateFactory = $moduleTemplateFactory;
+    }
+
+    /**
+     * Generates the action menu
+     */
+    protected function initializeModuleTemplate(ServerRequestInterface $request): ModuleTemplate
+    {
+        $menuItems = [
+            'index' => [
+                'controller' => 'Piwik',
+                'action' => 'index',
+                'label' => 'Dashboard', // @ToDo: Use Language Labels!
+            ],
+            'apiCode' => [
+                'controller' => 'Piwik',
+                'action' => 'apiCode',
+                'label' => 'Trackingcode',
+            ],
+            'help' => [
+                'controller' => 'Piwik',
+                'action' => 'help',
+                'label' => 'Help',
+            ],
+        ];
+
+        $moduleTemplate = $this->moduleTemplateFactory->create($request);
+
+        $menu = $moduleTemplate->getDocHeaderComponent()
+            ->getMenuRegistry()->makeMenu();
+        $menu->setIdentifier('PiwikintegrationModuleMenu');
+
+        $context = '';
+        foreach ($menuItems as $menuItemConfig) {
+            $isActive = $this->request->getControllerActionName() === $menuItemConfig['action'];
+            $menuItem = $menu->makeMenuItem()
+                ->setTitle($menuItemConfig['label'])
+                ->setHref($this->uriBuilder->reset()->uriFor($menuItemConfig['action'], [], $menuItemConfig['controller']))
+                ->setActive($isActive);
+            $menu->addMenuItem($menuItem);
+            if ($isActive) {
+                $context = $menuItemConfig['label'];
+            }
+        }
+        
+        $moduleTemplate->getDocHeaderComponent()
+        ->getMenuRegistry()->addMenu($menu);
+        $moduleTemplate->setTitle(
+            'Matomo',
+            $context
+        );
+
+        return $moduleTemplate;        
+    }
+
     /**
      * @return void
      */
@@ -36,24 +109,29 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * @throws Exception
      *
-     * @return void
+     * @return ResponseInterface
      */
-    public function indexAction()
+    public function indexAction(): ResponseInterface
     {
         if ($this->checkPiwikEnvironment()) {
             $piwikSiteId = $this->piwikHelper->getPiwikSiteIdForPid($this->id);
+            $this->view->assign('mainURL', 'http://'.$_SERVER['SERVER_NAME']);
             $this->view->assign('piwikSiteId', $piwikSiteId);
             $this->piwikHelper->correctUserRightsForSiteId($piwikSiteId);
             $this->piwikHelper->correctTitle($this->id, $piwikSiteId, $this->piwikHelper->getPiwikConfigArray($this->id));
         }
+
+        $moduleTemplate = $this->initializeModuleTemplate($this->request);
+        $moduleTemplate->setContent($this->view->render());
+        return $this->htmlResponse($moduleTemplate->renderContent());
     }
 
     /**
      * shows the api code.
      *
-     * @return void
+     * @return ResponseInterface
      */
-    public function apiCodeAction()
+    public function apiCodeAction(): ResponseInterface
     {
         $this->view->assign('piwikApiCode', $GLOBALS['BE_USER']->user['tx_piwikintegration_api_code']);
 
@@ -63,10 +141,22 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $this->view->assign('piwikBaseUri', $tracker->getPiwikBaseURL());
         $this->view->assign('piwikTrackingCode', $tracker->getPiwikJavaScriptCodeForPid($this->id));
-    }
+ 
+        $moduleTemplate = $this->initializeModuleTemplate($this->request);
+        $moduleTemplate->setContent($this->view->render());
+        return $this->htmlResponse($moduleTemplate->renderContent());
+   }
 
-    public function helpAction()
+    /**
+     * shows some help information.
+     *
+     * @return ResponseInterface
+     */
+    public function helpAction(): ResponseInterface
     {
+        $moduleTemplate = $this->initializeModuleTemplate($this->request);
+        $moduleTemplate->setContent($this->view->render());
+        return $this->htmlResponse($moduleTemplate->renderContent());
     }
 
     /**
