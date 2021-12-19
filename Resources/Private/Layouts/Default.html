@@ -1,32 +1,8 @@
-<f:be.container
-		pageTitle="piwik"
-		>
-	<div class="typo3-fullDoc">
-		<div id="typo3-docheader">
-			<div class="typo3-docheader-functions">
-				<div class="left">
-					<f:be.menus.actionMenu>
-						<f:be.menus.actionMenuItem label="Dashboard"    controller="Piwik" action="index" />
-						<f:be.menus.actionMenuItem label="Trackingcode" controller="Piwik" action="apiCode" />
-						<f:be.menus.actionMenuItem label="Help" controller="Piwik" action="help" />
-						<f:comment><f:be.menus.actionMenuItem label="Installation" controller="PiwikInstallation" action="index" /></f:comment>
-					</f:be.menus.actionMenu>
-				</div>
-				<div class="right">
-					<f:render section="Buttons" optional="1" />
-				</div>
-			</div>
-			<div class="typo3-docheader-buttons">
-				<f:render section="Buttons" optional="1"/>
-			</div>
-		</div>
-	</div>
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
 
-	<div id="typo3-docbody">
-		<div id="typo3-inner-docbody">
-			<f:flashMessages />
-			<f:render section="Content" optional="1"/>
-		</div>
-		<f:render section="ContentOutside" optional="1"/>
-	</div>
-</f:be.container>
+<f:flashMessages />
+
+<f:render section="Content" />
+
+</html>
