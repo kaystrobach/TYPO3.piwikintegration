@@ -128,7 +128,7 @@ class Auth implements \Piwik\Auth
             // Compare the value of the be_typo_user cookie with the valid sessions inside the database to figure out the correct user
             $T3Conf = include __DIR__.'/../../../../LocalConfiguration.php';
             $encryption_key = $T3Conf['SYS']['encryptionKey'];
-            // See https://github.com/TYPO3/TYPO3.CMS/blob/master/typo3/sysext/core/Classes/Session/Backend/DatabaseSessionBackend.php
+            // See https://github.com/TYPO3/typo3/blob/main/typo3/sysext/core/Classes/Session/Backend/DatabaseSessionBackend.php
             // The next two lines mimic the behaviour of function hash() in that class to generate the hashed value.
             $key = sha1($encryption_key.'core-session-backend');
             // @todo: In TYPO3 11, md5 is no longer used here. Instead it is sha256

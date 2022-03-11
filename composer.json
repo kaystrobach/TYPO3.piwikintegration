@@ -20,7 +20,7 @@
 	],
 	"license" : "GPL-2.0+",
 	"require" : {
-		"typo3/cms-core" : "^10.4 || ^11.5"
+		"typo3/cms-core" : "^11.5"
 	},
 	"require-dev" : {
 		"namelesscoder/typo3-repository-client" : "^1.2",
