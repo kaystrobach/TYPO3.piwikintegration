@@ -7,13 +7,12 @@ $EM_CONF[$_EXTKEY] = [
     'version'          => '5.0.0',
     'module'           => 'mod1',
     'state'            => 'beta',
-    'clearcacheonload' => 0,
     'author'           => 'Kay Strobach',
     'author_email'     => 'kay.strobach@typo3.org',
     'author_company'   => '',
     'constraints'      => [
         'depends' => [
-            'php'   => '7.3.0-8.0.99',
+            'php'   => '7.4.0-8.1.99',
             'typo3' => '11.0.0-11.5.99',
         ],
         'conflicts' => [
