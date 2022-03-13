@@ -36,7 +36,6 @@ use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\Request;
 
 /**
  * Class Tx_Piwikintegration_Controller_PiwikController.
@@ -63,22 +62,22 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         IconFactory $iconFactory,
         PageRenderer $pageRenderer,
         ModuleTemplateFactory $moduleTemplateFactory
-        ) {
-            $this->iconFactory = $iconFactory;
-            $this->pageRenderer = $pageRenderer;
-            $this->moduleTemplateFactory = $moduleTemplateFactory;
+    ) {
+        $this->iconFactory = $iconFactory;
+        $this->pageRenderer = $pageRenderer;
+        $this->moduleTemplateFactory = $moduleTemplateFactory;
     }
 
     /**
-     * Generates the action menu
+     * Generates the action menu.
      */
     protected function initializeModuleTemplate(ServerRequestInterface $request): ModuleTemplate
     {
         $menuItems = [
             'index' => [
                 'controller' => 'Piwik',
-                'action' => 'index',
-                'label' => 'Dashboard', // @ToDo: Use Language Labels!
+                'action'     => 'index',
+                'label'      => 'Dashboard', // @ToDo: Use Language Labels!
             ],
             /* Comment out; gives PHP error
                Call to a member function getPluginName() on bool in core/Theme.php line 39
@@ -90,8 +89,8 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             ],*/
             'help' => [
                 'controller' => 'Piwik',
-                'action' => 'help',
-                'label' => 'Help',
+                'action'     => 'help',
+                'label'      => 'Help',
             ],
         ];
 
@@ -113,7 +112,7 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $context = $menuItemConfig['label'];
             }
         }
-        
+
         $moduleTemplate->getDocHeaderComponent()
         ->getMenuRegistry()->addMenu($menu);
         $moduleTemplate->setTitle(
@@ -121,7 +120,7 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $context
         );
 
-        return $moduleTemplate;        
+        return $moduleTemplate;
     }
 
     /**
@@ -153,6 +152,7 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $moduleTemplate = $this->initializeModuleTemplate($this->request);
         $moduleTemplate->setContent($this->view->render());
+
         return $this->htmlResponse($moduleTemplate->renderContent());
     }
 
@@ -171,11 +171,12 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $this->view->assign('piwikBaseUri', $tracker->getPiwikBaseURL());
         $this->view->assign('piwikTrackingCode', $tracker->getPiwikJavaScriptCodeForPid($this->id));
- 
+
         $moduleTemplate = $this->initializeModuleTemplate($this->request);
         $moduleTemplate->setContent($this->view->render());
+
         return $this->htmlResponse($moduleTemplate->renderContent());
-   }
+    }
 
     /**
      * shows some help information.
@@ -186,6 +187,7 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $moduleTemplate = $this->initializeModuleTemplate($this->request);
         $moduleTemplate->setContent($this->view->render());
+
         return $this->htmlResponse($moduleTemplate->renderContent());
     }
 

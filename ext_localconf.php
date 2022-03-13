@@ -34,7 +34,7 @@
  * @author Kay Strobach <typo3@kay-strobach.de>
  */
 if (!defined('TYPO3_MODE')) {
-    die('Access denied.');
+    exit('Access denied.');
 }
 
 /*******************************************************************************
