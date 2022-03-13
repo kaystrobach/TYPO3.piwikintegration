@@ -104,7 +104,7 @@ mod.wizards.newContentElement.wizardItems.plugins {
 ');
 
 /******************************************************************************
- * Without this, PIWIK_DOCUMENT_ROOT would be undefined in FE calls since Matomo 3.12 and 3.13
+ * Make sure PIWIK_DOCUMENT_ROOT is defined, also in FE calls
  */
 if (!defined('PIWIK_DOCUMENT_ROOT')) {
     $definition = new \KayStrobach\Piwikintegration\Lib\Install();

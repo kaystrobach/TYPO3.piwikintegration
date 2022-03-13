@@ -131,8 +131,7 @@ class Auth implements \Piwik\Auth
             // See https://github.com/TYPO3/typo3/blob/main/typo3/sysext/core/Classes/Session/Backend/DatabaseSessionBackend.php
             // The next two lines mimic the behaviour of function hash() in that class to generate the hashed value.
             $key = sha1($encryption_key.'core-session-backend');
-            // @todo: In TYPO3 11, md5 is no longer used here. Instead it is sha256
-            $hash = hash_hmac('md5', $_COOKIE['be_typo_user'], $key);
+            $hash = hash_hmac('sha256', $_COOKIE['be_typo_user'], $key);
 
             // Retrieve user from database based on the hashed value
             $beUserId = \Piwik\Db::get()->fetchOne(
