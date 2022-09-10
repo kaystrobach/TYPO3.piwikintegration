@@ -18,13 +18,13 @@
 			"homepage" : "http://www.kay-strobach.de"
 		}
 	],
-	"license" : "GPL-2.0+",
+	"license" : "GPL-2.0-or-later",
 	"require" : {
 		"typo3/cms-core" : "^11.5"
 	},
 	"require-dev" : {
 		"namelesscoder/typo3-repository-client" : "^1.2",
-		"mikey179/vfsStream" : "^1.4",
+		"mikey179/vfsstream" : "^1.4",
 		"phpunit/phpunit" : "^4.7 || ^5.0"
 	},
 	"autoload" : {
@@ -43,7 +43,6 @@
 		}
 	},
 	"replace" : {
-		"piwikintegration" : "self.version",
 		"typo3-ter/piwikintegration" : "self.version"
 	},
 	"config" : {
