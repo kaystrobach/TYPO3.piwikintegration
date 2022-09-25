@@ -145,7 +145,7 @@ class PiwikController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         if ($this->checkPiwikEnvironment()) {
             $piwikSiteId = $this->piwikHelper->getPiwikSiteIdForPid($this->id);
-            $this->view->assign('mainURL', 'http://'.$_SERVER['SERVER_NAME']);
+            $this->view->assign('mainURL', '//'.$_SERVER['SERVER_NAME']);
             $this->view->assign('piwikSiteId', $piwikSiteId);
             $this->piwikHelper->correctUserRightsForSiteId($piwikSiteId);
             $this->piwikHelper->correctTitle($this->id, $piwikSiteId, $this->piwikHelper->getPiwikConfigArray($this->id));
