@@ -75,7 +75,8 @@ class Archive extends AbstractTask
             'EXT:piwikintegration cronjob'
         );
         //get API key
-        $request = new \Piwik\API\Request('
+        $request = new \Piwik\API\Request(
+            '
 			module=API
 			&method=UsersManager.getTokenAuth
 			&userLogin='.$piwikConfig['superuser']['login'].'
@@ -86,7 +87,8 @@ class Archive extends AbstractTask
         $tokenAuth = $request->process();
 
         //get all Matomo siteid's
-        $request = new \Piwik\API\Request('
+        $request = new \Piwik\API\Request(
+            '
 			module=API
 			&method=SitesManager.getSitesWithAdminAccess
 			&token_auth='.$tokenAuth.'
