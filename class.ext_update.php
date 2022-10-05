@@ -69,7 +69,10 @@ class ext_update
             \KayStrobach\Piwikintegration\Lib\Install::getInstaller()->getConfigObject();
         } catch (Exception $e) {
             $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-                    'TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $LANG->getLL('installedPiwikNeeded'), '', \TYPO3\CMS\Core\Messaging\FlashMessage::INFO
+                'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
+                $LANG->getLL('installedPiwikNeeded'),
+                '',
+                \TYPO3\CMS\Core\Messaging\FlashMessage::INFO
             );
             $buffer .= $flashMessage->render();
         }
